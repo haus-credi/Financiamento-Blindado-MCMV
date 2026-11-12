@@ -39,7 +39,7 @@ Rode na raiz do projeto.
 
 ## Antes de publicar
 
-1. **Checkout.** Todos os botões apontam para `#oferta`. Troque `CHECKOUT_URL` em `src/config/site.ts` pelo link real de compra.
+1. **Checkout.** Todos os botões levam à página de compra na Hotmart. Para trocar o link, altere `CHECKOUT_URL` em `src/config/site.ts`.
 2. **Domínio.** Defina `site: 'https://seudominio.com.br'` em `astro.config.mjs`. Com isso a página passa a ter a tag `canonical`.
 3. **Imagem de compartilhamento.** Passe a prop `image` ao `Layout` (1200 × 630) para o WhatsApp, o Instagram e o LinkedIn mostrarem uma prévia.
 

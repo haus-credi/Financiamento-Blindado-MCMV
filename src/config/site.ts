@@ -1,11 +1,10 @@
 /**
  * Configuração central da página de vendas.
  *
- * CHECKOUT_URL — PENDENTE: ainda não há link de checkout definido.
- * Por enquanto todos os CTAs apontam para a âncora da futura seção de oferta
- * (`<section id="oferta">`). Quando o checkout existir, troque apenas este valor.
+ * CHECKOUT_URL — página de compra na Hotmart. Todos os botões (CTAs) da página usam este valor;
+ * para trocar o link de checkout, altere apenas esta linha.
  */
-export const CHECKOUT_URL = '#oferta';
+export const CHECKOUT_URL = 'https://pay.hotmart.com/P108345128M?off=i5np8244&bid=1794526484497';
 
 export const SITE = {
   name: 'Financiamento Blindado para Corretores',
