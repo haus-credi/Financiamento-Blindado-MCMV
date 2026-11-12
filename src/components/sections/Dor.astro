@@ -94,11 +94,19 @@ const problemas = [
 <style>
 	.dor {
 		padding: clamp(72px, 9vw, 140px) clamp(20px, 4vw, 56px);
-		/* campo do DS (225°) que, nos 260px de baixo, dissolve no campo liso: a faixa clara em volta
-		   da moldura da dobra 3 (que é #d9dad7 lisa) continua daqui sem emenda de cor */
+		/* campo do DS (225°) que dissolve no campo liso nas duas pontas: nos 200px de cima (a faixa
+		   em volta da moldura da Hero é #d9dad7 lisa) e nos 260px de baixo (idem, moldura da dobra 3).
+		   Assim a faixa clara continua daqui sem emenda de cor. */
 		background:
+			linear-gradient(180deg, var(--field) 0%, rgba(217, 218, 215, 0) 200px),
 			linear-gradient(0deg, var(--field) 0%, rgba(217, 218, 215, 0) 260px),
 			linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
+	}
+	/* os raios de luz também nascem aos poucos: sem isso eles começam de repente na borda de cima
+	   da dobra e desenham uma linha sobre a faixa lisa da Hero */
+	.dor :global(.rays) {
+		-webkit-mask-image: linear-gradient(transparent 0, #000 220px, #000 55%, transparent 100%);
+		mask-image: linear-gradient(transparent 0, #000 220px, #000 55%, transparent 100%);
 	}
 
 	.dor__inner {
@@ -270,9 +278,10 @@ const problemas = [
 	@media (min-width: 900px) and (min-height: 620px) and (prefers-reduced-motion: no-preference) {
 		:global(.js) .dor {
 			/* colchão do delta (ver --delta em tokens.css), FORA do palco fixo. Em cima: o delta menos o
-			   que a Hero já deixa abaixo do botão (150,4u) e a distância do palco ao título (11,1u).
-			   Embaixo: --half menos a distância do último texto à base do palco (36u). */
-			padding-block: max(0px, calc(var(--delta) * var(--fu) - 150.4 * var(--fu) - 11.1 * var(--fu)))
+			   que a Hero já deixa abaixo do botão (160,4u, contando a faixa da moldura) e a distância
+			   do palco ao título (11,1u). Embaixo: --half menos a distância do último texto à base do
+			   palco (36u). */
+			padding-block: max(0px, calc(var(--delta) * var(--fu) - 160.4 * var(--fu) - 11.1 * var(--fu)))
 				max(0px, calc(var(--half) - 36.5 * var(--fu)));
 		}
 		:global(.js) .dor__pin {

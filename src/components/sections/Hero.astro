@@ -2,12 +2,13 @@
 /**
  * Dobra 01 — Hero.
  *
- * Desktop: a Hero ocupa a janela inteira (largura toda × altura da janela), sem moldura.
- * Toda a composição escala com a ALTURA da janela (--u = altura ÷ 670px): a fotografia tem a
- * altura da Hero e encosta na borda direita; texto, título e botão crescem na mesma proporção.
- * Resultado: a dobra fica igual em qualquer zoom ou tamanho de janela com a mesma proporção
- * (referência: janela 1520 × 670 → título 70,4px, texto 24px, botão 60px).
- * Retrato/mobile: texto e botão primeiro, fotografia inteira logo abaixo.
+ * A Hero fica numa MOLDURA escura igual à das dobras 3 e 6: faixa clara de --frame-gap em volta,
+ * raio --frame-radius, anel de 8px. Com a faixa, a dobra preenche a janela (altura da janela).
+ * Desktop: toda a composição escala com a ALTURA DA MOLDURA (--u = altura ÷ 670px): a fotografia
+ * tem a altura da moldura e encosta na borda direita dela; texto, título e botão crescem na mesma
+ * proporção. Resultado: a dobra fica igual em qualquer zoom ou tamanho de janela com a mesma
+ * proporção (em janela 1520 × 670 a moldura tem 622px: título ~65px, texto ~22px).
+ * Retrato/mobile: texto e botão primeiro, fotografia inteira logo abaixo, também na moldura.
  * Animação 100% CSS: o conteúdo é visível mesmo sem JS e com prefers-reduced-motion.
  */
 import { Picture } from 'astro:assets';
@@ -77,7 +78,13 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 <style>
 	/* ================================================================ BASE = RETRATO / MOBILE
 	   Texto e botão primeiro (CTA visível logo ao abrir), fotografia inteira logo
-	   abaixo: o topo da foto se dissolve na tinta. Sem moldura arredondada. */
+	   abaixo: o topo da foto se dissolve na tinta. A Hero fica numa MOLDURA escura igual à das
+	   dobras 3 e 6: faixa clara de --frame-gap em volta, raio --frame-radius, anel de 8px. */
+	.hero {
+		/* a faixa clara em volta da moldura é o campo liso do DS (igual à das dobras 3 e 6) */
+		padding: var(--frame-gap);
+		background: var(--field);
+	}
 	.hero__frame {
 		--ink-0: rgba(var(--ink-rgb), 0);
 		position: relative;
@@ -87,6 +94,9 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
+		border-radius: var(--frame-radius);
+		/* anel de 8px do DS, o mesmo das outras molduras escuras */
+		box-shadow: 0 0 0 8px var(--ring);
 		background: var(--v950);
 		color: #fff;
 	}
@@ -271,35 +281,33 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		}
 	}
 
-	/* ================================================================ DESKTOP — TELA CHEIA
-	   A Hero preenche a janela (largura e altura). Tudo é medido em --u, que é a
-	   altura da Hero dividida por 670px: em 1520 × 670, --u = 1 e os valores abaixo
-	   são os de referência; em qualquer outra altura a composição escala junto. */
+	/* ================================================================ DESKTOP — MOLDURA NA JANELA
+	   A Hero é uma moldura escura que, com a faixa de --frame-gap em volta, preenche a janela
+	   (largura e altura). Tudo é medido em --u, que é a altura da MOLDURA dividida por 670px: a
+	   composição inteira escala com ela. */
 	@media (min-width: 861px) and (min-aspect-ratio: 1/1) {
 		.hero {
 			overflow: hidden;
 			/* --header-h reserva espaço para um cabeçalho fixo futuro (0 por enquanto) */
 			--header-h: 0px;
-			/* campo do DS (225°) que termina em --field na base, sem emenda com a página */
-			background:
-				linear-gradient(180deg, transparent 55%, var(--field) 100%),
-				linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
 		}
 
 		.hero__frame {
-			/* altura da Hero = altura da janela (menos o cabeçalho): a primeira dobra
-			   inteira, com o CTA, cabe sem rolagem vertical. Mínimo de 480px. */
-			--H: clamp(480px, calc(100svh - var(--header-h)), 1400px);
-			/* unidade da composição: 1u = 1px na janela de referência (altura 670px) */
+			/* altura da moldura = altura da janela menos o cabeçalho e as duas faixas de --frame-gap:
+			   a moldura inteira, com o CTA, cabe na primeira tela sem rolagem. Mínimo de 480px. */
+			--H: clamp(480px, calc(100svh - var(--header-h) - 2 * var(--frame-gap)), 1400px);
+			/* unidade da composição: 1u = 1px quando a moldura tem 670px de altura */
 			--u: calc(var(--H) / 670);
-			/* início da coluna de texto: 110u da borda esquerda da janela */
+			/* largura da moldura = janela menos as duas faixas laterais */
+			--fw: calc(100vw - 2 * var(--frame-gap));
+			/* início da coluna de texto: 110u da borda esquerda da moldura */
 			--left: calc(110 * var(--u));
-			/* A foto tem a altura da Hero (--H) e encosta na borda direita da janela
+			/* A foto tem a altura da moldura (--H) e encosta na borda direita dela
 			   (sem corte, sem deformação). O rosto/cabelo começa em 62% da foto. A
 			   coluna de texto vai até 120u antes dele: texto e especialista ficam
 			   juntos, e o título cresce quando sobra espaço. */
 			--pw: calc(var(--H) * 1.7747);
-			--hair: calc(100vw - var(--pw) * 0.38);
+			--hair: calc(var(--fw) - var(--pw) * 0.38);
 			--col: clamp(calc(420 * var(--u)), calc(var(--hair) - 120 * var(--u) - var(--left)), calc(860 * var(--u)));
 
 			display: block;
