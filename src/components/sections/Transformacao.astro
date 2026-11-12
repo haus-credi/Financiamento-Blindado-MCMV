@@ -200,6 +200,37 @@ const beneficios = [
 		}
 	}
 
+	/* desktop: a dobra tem a altura da janela (--fold-h); a moldura a preenche e o conteúdo
+	   fica centralizado nela. Medidas em --fu (1px na janela de referência 1340 × 670). */
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.transf {
+			min-height: var(--fold-h);
+			display: flex;
+			flex-direction: column;
+			/* mesma margem em cima, nos lados e embaixo da moldura */
+			padding-top: var(--frame-gap);
+		}
+		.transf__frame {
+			flex: 1;
+			display: grid;
+			align-items: center;
+			padding: calc(36 * var(--fu)) calc(72 * var(--fu));
+		}
+		.transf__inner {
+			width: 100%;
+			max-width: calc(1240 * var(--fu));
+			column-gap: calc(80 * var(--fu));
+			gap: calc(36 * var(--fu)) calc(80 * var(--fu));
+		}
+		.transf__sub {
+			max-width: calc(480 * var(--fu));
+			margin-top: calc(26 * var(--fu));
+		}
+		.transf__item {
+			padding: calc(17 * var(--fu)) 0;
+		}
+	}
+
 	@media (max-width: 560px) {
 		.transf__item {
 			grid-template-columns: 1.9em minmax(0, 1fr);

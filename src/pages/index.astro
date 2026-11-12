@@ -5,11 +5,15 @@ import Dor from '../components/sections/Dor.astro';
 import Transformacao from '../components/sections/Transformacao.astro';
 import Identificacao from '../components/sections/Identificacao.astro';
 import Conteudo from '../components/sections/Conteudo.astro';
+import Autoridade from '../components/sections/Autoridade.astro';
+import Oferta from '../components/sections/Oferta.astro';
+import Faq from '../components/sections/Faq.astro';
+import Rodape from '../components/sections/Rodape.astro';
 
 // Página de vendas — Financiamento Blindado para Corretores.
 // Cada dobra é um componente em src/components/sections/, adicionado aqui em ordem:
-// 1 Hero · 2 Dor · 3 Transformação · 4 Identificação (para quem é / não é) · 5 Conteúdo (a fazer).
-// A oferta deve usar <section id="oferta">, destino atual dos CTAs (src/config/site.ts).
+// 1 Hero · 2 Dor · 3 Transformação · 4 Identificação (para quem é / não é) · 5 Conteúdo · 6 Autoridade · 7 Oferta · 8 FAQ · rodapé.
+// A oferta é <section id="oferta">, destino dos botões das dobras 1 e 5; o botão dela usa CHECKOUT_URL (src/config/site.ts).
 ---
 
 <Layout>
@@ -19,5 +23,9 @@ import Conteudo from '../components/sections/Conteudo.astro';
 		<Transformacao />
 		<Identificacao />
 		<Conteudo />
+		<Autoridade />
+		<Oferta />
+		<Faq />
 	</main>
+	<Rodape />
 </Layout>

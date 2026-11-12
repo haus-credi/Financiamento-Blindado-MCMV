@@ -108,6 +108,24 @@
 }
 
 /* ---------------------------------------------------------------------
+   DESKTOP — toda dobra tem a altura da janela (--fold-h) e a composição escala com ela.
+   --fu ("fold unit") = 1px na janela de referência 1340 × 670. Escala pela altura da janela;
+   em janelas mais "quadradas" que 2:1 a largura limita (mínimo dos dois), e o conteúdo, que
+   foi desenhado para caber em 670u de altura, nunca ultrapassa a dobra.
+   Os tamanhos de título/parágrafo/item/frase são os mesmos de antes na janela de referência.
+   --------------------------------------------------------------------- */
+@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+  :root {
+    --fold-h: clamp(480px, 100svh, 1400px);
+    --fu: min(calc(var(--fold-h) / 670), calc(100vw / 1340));
+    --fs-h2: calc(48.2 * var(--fu));
+    --fs-body: calc(18.1 * var(--fu));
+    --fs-item: calc(18.1 * var(--fu));
+    --fs-close: calc(30.8 * var(--fu));
+  }
+}
+
+/* ---------------------------------------------------------------------
    Variantes oficiais do DS — atributos no <html> (teste A/B por atributo)
    data-title="hanzo|asimov" · data-tex="grad|flat" · data-accent="serif|sans"
    --------------------------------------------------------------------- */

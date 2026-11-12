@@ -1,0 +1,349 @@
+---
+/**
+ * Dobra 07 — A oferta (id="oferta": destino dos botões das dobras 1 e 5).
+ * Copy aprovada, palavra por palavra. Nome do produto: "Financiamento Blindado - Minha Casa Minha Vida".
+ *
+ * Uma só decisão por tela: título, o preço e o botão. Peça do DS ("Preço"): cartão branco
+ * flutuante dentro de uma bandeja de vidro (anel de 8px), a pílula de status com o ponto verde
+ * que pulsa como etiqueta do investimento de lançamento, o preço antigo riscado e o preço atual
+ * em numeral grande e leve (Inter Display 300, o `.num` do DS). Tudo claro e leve (decisão do
+ * cliente): campo claro com raios de luz; o único contraste forte é o botão de tinta.
+ *
+ * Preço só parcelado: "R$ 51" é o protagonista; ",40" em escala menor e elevado (sobrescrito), na
+ * mesma cor do número (nenhum número é pintado de roxo); "12x" é contexto: pequeno, regular, tom
+ * suave, colado ao "R" e centralizado na altura das maiúsculas dele. O valor à vista não é exibido.
+ * Sob o botão, "Compra segura | Garantia de 7 dias" (texto fornecido pelo cliente).
+ *
+ * Desktop: a dobra tem a altura da janela (--fold-h) e o conteúdo fica centralizado nela, com a
+ * mesma margem em cima e embaixo. Medidas em --fu (1px na janela de referência 1340 × 670).
+ * Celular: tudo empilhado e centralizado.
+ *
+ * O botão usa CHECKOUT_URL (src/config/site.ts), ainda pendente: hoje aponta para #oferta.
+ */
+import CtaButton from '../ui/CtaButton.astro';
+import { CHECKOUT_URL } from '../../config/site';
+import iconeSeguro from '@phosphor-icons/core/assets/regular/shield-check.svg?raw';
+import iconeGarantia from '@phosphor-icons/core/assets/regular/seal-check.svg?raw';
+---
+
+<section id="oferta" class="oferta" aria-labelledby="oferta-title">
+	<div class="rays" aria-hidden="true">
+		<div class="rays-in"><i class="r1"></i><i class="r2"></i><i class="r4"></i></div>
+	</div>
+
+	<div class="oferta__inner">
+		<h2 id="oferta-title" class="oferta__title rv">
+			Garanta seu acesso ao <span class="t2">Financiamento Blindado - Minha Casa Minha Vida.</span>
+		</h2>
+
+		<div class="oferta__bandeja rv" style="--i:1">
+			<div class="oferta__card">
+				<p class="oferta__selo">
+					<span class="dot" aria-hidden="true"></span>
+					INVESTIMENTO ESPECIAL DE LANÇAMENTO
+				</p>
+
+				<p class="oferta__de">De <s>R$ 997,00</s> por apenas</p>
+				<p class="oferta__preco">
+					<span class="sr-only">12x R$ 51,40</span>
+					<span class="oferta__parcelas" aria-hidden="true">12x</span>
+					<span class="oferta__valor" aria-hidden="true"
+						><span class="oferta__reais">R$ 5<span class="oferta__um">1</span></span><span class="oferta__cent">,40</span></span
+					>
+				</p>
+
+				<div class="oferta__cta">
+					<CtaButton href={CHECKOUT_URL} fundo="claro">QUERO FECHAR MAIS VENDAS</CtaButton>
+				</div>
+
+				<ul class="oferta__selos">
+					<li>
+						<span class="oferta__ico" aria-hidden="true" set:html={iconeSeguro} />
+						Compra segura
+					</li>
+					<li>
+						<span class="oferta__ico" aria-hidden="true" set:html={iconeGarantia} />
+						Garantia de 7 dias
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.oferta {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		/* campo do DS (225°, branco → cinza); as faixas de cima e de baixo dissolvem no campo liso */
+		background:
+			linear-gradient(180deg, var(--field) 0%, rgba(217, 218, 215, 0) 22%),
+			linear-gradient(0deg, var(--field) 0%, rgba(217, 218, 215, 0) 16%),
+			linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
+		padding: clamp(72px, 14vw, 112px) clamp(22px, 5vw, 56px) clamp(80px, 16vw, 128px);
+	}
+	/* raios de luz do DS (três), só no miolo */
+	.oferta :global(.rays) {
+		-webkit-mask-image: linear-gradient(transparent 0%, #000 30%, #000 70%, transparent 100%);
+		mask-image: linear-gradient(transparent 0%, #000 30%, #000 70%, transparent 100%);
+	}
+	.oferta__inner {
+		position: relative;
+		z-index: 2;
+		max-width: 920px;
+		margin: 0 auto;
+		display: grid;
+		justify-items: center;
+		gap: clamp(36px, 8vw, 52px);
+		text-align: center;
+	}
+
+	/* ------------------------------------------------------------------ título */
+	.oferta__title {
+		margin: 0;
+		font-family: var(--f-title);
+		font-weight: 500;
+		font-size: var(--fs-h2);
+		line-height: 1.06;
+		letter-spacing: var(--title-ls);
+		color: var(--tx);
+		text-wrap: balance;
+	}
+	/* segundo tom com corpo (igual ao das outras dobras): o nome do produto */
+	.oferta__title .t2 {
+		display: inline;
+		color: rgba(var(--ink-rgb), 0.72);
+	}
+	:global(:root[data-tex='grad']) .oferta__title .t2 {
+		background-image: linear-gradient(180deg, rgba(14, 26, 19, 0.92) 0%, rgba(14, 26, 19, 0.66) 100%);
+	}
+
+	/* ------------------------------------------- bandeja de vidro + cartão de preço do DS */
+	.oferta__bandeja {
+		width: 100%;
+		max-width: 560px;
+		padding: 8px;
+		border-radius: 28px;
+		background: var(--glass);
+		box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.4);
+	}
+	.oferta__card {
+		display: grid;
+		justify-items: center;
+		gap: 12px;
+		padding: clamp(28px, 7vw, 40px) clamp(20px, 6vw, 40px) clamp(30px, 7.5vw, 42px);
+		border-radius: 22px;
+		background: var(--surface);
+		box-shadow: var(--sh-soft);
+		font-size: var(--fs-item);
+	}
+
+	/* etiqueta: pílula de status do DS (.tab + .dot que pulsa) */
+	.oferta__selo {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.7em;
+		margin: 0 0 clamp(10px, 2.4vw, 16px);
+		padding: 0.7em 1.3em;
+		border-radius: 999px;
+		background: var(--surface);
+		box-shadow:
+			0 0 0 1px rgba(var(--ink-rgb), 0.08),
+			var(--sh-soft);
+		font: 500 clamp(10px, 2.9vw, 12px) / 1.5 var(--f-mono);
+		letter-spacing: 0.14em;
+		color: var(--tx);
+		text-align: center;
+	}
+	.dot {
+		position: relative;
+		flex: none;
+		width: 0.7em;
+		height: 0.7em;
+		border-radius: 50%;
+		background: var(--v500);
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.dot::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			background: inherit;
+			animation: oferta-dot 2.4s var(--ease-out) infinite;
+		}
+	}
+	@keyframes oferta-dot {
+		0% {
+			transform: scale(1);
+			opacity: 0.6;
+		}
+		100% {
+			transform: scale(2.8);
+			opacity: 0;
+		}
+	}
+
+	.oferta__de {
+		margin: 0;
+		font: 400 1.05em / 1.3 var(--f-display);
+		letter-spacing: -0.02em;
+		color: var(--tx-body);
+	}
+	/* preço antigo riscado: traço e texto no mesmo cinza (sem cor de acento) */
+	.oferta__de s {
+		text-decoration-line: line-through;
+		text-decoration-thickness: 1.5px;
+		color: rgba(var(--ink-rgb), 0.5);
+	}
+
+	/* preço parcelado: o protagonista é "R$ 51" (numeral do DS, Inter Display 300);
+	   ",40" em escala menor e elevado (sobrescrito); "12x" é só contexto: pequeno, regular, tom suave,
+	   colado ao "R" e no meio da altura das maiúsculas dele (altura das maiúsculas = 0,73 do corpo) */
+	.oferta__preco {
+		margin: 0 0 clamp(8px, 2vw, 14px);
+		display: flex;
+		justify-content: center;
+		align-items: baseline;
+		gap: 0;
+		font-size: clamp(4rem, 21vw, 6.75rem);
+		line-height: 1;
+		color: var(--tx);
+		white-space: nowrap;
+	}
+	.oferta__parcelas {
+		position: relative;
+		/* sobe da linha de base até o centro das maiúsculas do "R": (0,73·P − 0,74·0,22·P) / 2 ÷ (0,22·P) */
+		top: -1.29em;
+		font: 400 0.22em / 1 var(--f-display);
+		letter-spacing: -0.02em;
+		color: var(--tx-body);
+	}
+	.oferta__valor {
+		display: inline-flex;
+		align-items: baseline;
+	}
+	/* numerais da Inter Display 300 (o `.num` do DS). O "1" da Inter tem só uma bandeirinha fina e, ao
+	   lado da barra reta do "5", parece mais baixo (os dois têm a mesma altura): correção óptica,
+	   o "1" sobe 0,03em */
+	.oferta__reais {
+		font: 300 1em / 1 var(--f-display);
+		letter-spacing: -0.06em;
+	}
+	.oferta__um {
+		position: relative;
+		top: -0.03em;
+	}
+	.oferta__cent {
+		align-self: flex-start;
+		margin: 0.12em 0 0 0.04em;
+		font: 300 0.4em / 1 var(--f-display);
+		letter-spacing: -0.03em;
+	}
+	/* só para leitores de tela: o preço lido de uma vez, "12x R$ 51,40" */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.oferta__cta {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+
+	/* confiança: uma linha discreta sob o botão, separada por um filete */
+	.oferta__selos {
+		margin: clamp(6px, 1.6vw, 10px) 0 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 4px 0;
+		font: 400 0.82em / 1.3 var(--f-display);
+		letter-spacing: -0.005em;
+		color: var(--tx-body);
+	}
+	.oferta__selos li {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0 1.1em;
+	}
+	.oferta__selos li + li {
+		border-left: 1px solid rgba(var(--ink-rgb), 0.22);
+	}
+	/* ícones do DS (Phosphor, peso regular), pequenos e na cor de apoio do verde */
+	.oferta__ico {
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 1.45em;
+		height: 1.45em;
+		color: var(--v600);
+	}
+	.oferta__ico :global(svg) {
+		width: 100%;
+		height: 100%;
+		fill: currentColor;
+	}
+
+	/* desktop: a dobra tem a altura da janela (--fold-h); o conteúdo fica centralizado nela, com a
+	   mesma margem em cima e embaixo. Medidas em --fu (1px na janela de referência 1340 × 670). */
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.oferta {
+			min-height: var(--fold-h);
+			display: grid;
+			align-content: center;
+			padding: calc(48 * var(--fu)) calc(56 * var(--fu));
+		}
+		.oferta__inner {
+			width: 100%;
+			max-width: calc(980 * var(--fu));
+			gap: calc(44 * var(--fu));
+		}
+		.oferta__title {
+			line-height: 1.04;
+			letter-spacing: -0.055em;
+		}
+		.oferta__bandeja {
+			max-width: calc(600 * var(--fu));
+			padding: calc(8 * var(--fu));
+			border-radius: calc(28 * var(--fu));
+			box-shadow: 0 0 0 calc(8 * var(--fu)) rgba(255, 255, 255, 0.4);
+		}
+		.oferta__card {
+			gap: calc(10 * var(--fu));
+			padding: calc(34 * var(--fu)) calc(40 * var(--fu)) calc(38 * var(--fu));
+			border-radius: calc(22 * var(--fu));
+		}
+		.oferta__selo {
+			margin-bottom: calc(14 * var(--fu));
+			font-size: calc(12 * var(--fu));
+		}
+		.oferta__preco {
+			font-size: calc(var(--fs-h2) * 2.5);
+			margin-bottom: calc(16 * var(--fu));
+		}
+		.oferta__selos {
+			margin-top: calc(8 * var(--fu));
+		}
+		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
+		.oferta__cta :global(a.cta) {
+			--h: calc(60 * var(--fu));
+			--disc: calc(44 * var(--fu));
+			gap: calc(22 * var(--fu));
+			padding-left: calc(30 * var(--fu));
+			font-size: calc(14.5 * var(--fu));
+		}
+	}
+</style>

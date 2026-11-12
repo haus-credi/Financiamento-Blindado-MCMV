@@ -1,84 +1,72 @@
 ---
 /**
- * Dobra 05 — O que você vai aprender (conteúdo do curso, copy v2 orientada a resultado).
- * Copy aprovada, palavra por palavra. Função: responder "o que exatamente vou aprender?";
- * sem repetir promessas das dobras 2–4 (nada de "vender mais", credibilidade etc.).
+ * Dobra 05 — O que você vai aprender (conteúdo do curso). Versão CLEAN.
+ * Copy aprovada, palavra por palavra. Função: responder "o que exatamente vou aprender?" em
+ * poucas palavras — três resultados práticos, sem listas longas.
  *
- * Fundo claro (o campo do DS, um pouco mais luminoso que o da dobra 4, com a emenda dissolvida).
- * Composição "estrutura do aprendizado", diferente da lista editorial escura da dobra 3:
- *   · cabeçalho: headline em duas linhas à esquerda e subheadline à direita (sem etiqueta de identificação);
- *   · três pilares lado a lado como TRÊS PARTES do treinamento — régua fina no topo com um
- *     segmento verde marcando o início de cada parte, ícone do DS em disco claro, numeral
- *     discreto em serifa itálica, título e descrição — separados por filetes verticais, sem cartões;
- *   · materiais complementares numa faixa discreta de superfície branca translúcida;
- *   · características numa linha horizontal com ícones pequenos e filetes, mais leves que os pilares;
- *   · botão no fim.
- * Tipografia pelos tokens de tokens.css. Sem alturas fixas.
+ * Linguagem do DS ("Dobra clara"): campo claro com raios de luz, título centralizado com UMA
+ * palavra em acento itálico e segundo tom, subheadline cujas palavras acendem com a rolagem
+ * (`.words`) e três etapas separadas por filetes, sem cartões. Cada etapa tem um ícone do DS
+ * (Phosphor, em disco claro) ao lado do título — sem numerais, para gastar menos altura.
+ *
+ * Rodapé numa só linha, só com peças do DS: as três características em pílulas de status (`.tab` +
+ * `.dot` verde que pulsa) à esquerda e o botão à direita, alinhados com as bordas das etapas.
+ * O botão desta dobra usa o tom beringela do DS (`tom="beringela"`); nas demais dobras ele é verde.
+ * (A faixa de "Materiais de consulta" foi retirada desta dobra a pedido do cliente.)
+ *
+ * Desktop: a dobra tem a altura da janela (--fold-h) e o conteúdo fica centralizado nela, com a
+ * mesma margem em cima e embaixo. Medidas em --fu (1px na janela de referência 1340 × 670).
+ * Celular: tudo empilhado e centralizado; etapas em coluna.
  */
 import CtaButton from '../ui/CtaButton.astro';
 import { CHECKOUT_URL } from '../../config/site';
-import iconeIdentificar from '@phosphor-icons/core/assets/regular/identification-card.svg?raw';
-import iconeNumeros from '@phosphor-icons/core/assets/regular/calculator.svg?raw';
-import iconeCreditoTrava from '@phosphor-icons/core/assets/regular/lifebuoy.svg?raw';
-import iconeMateriais from '@phosphor-icons/core/assets/regular/clipboard-text.svg?raw';
-import iconeAulas from '@phosphor-icons/core/assets/regular/play-circle.svg?raw';
-import iconeLinguagem from '@phosphor-icons/core/assets/regular/chat-circle-text.svg?raw';
-import iconeExemplos from '@phosphor-icons/core/assets/regular/lightbulb.svg?raw';
+import iconePerfil from '@phosphor-icons/core/assets/regular/identification-card.svg?raw';
+import iconeValores from '@phosphor-icons/core/assets/regular/calculator.svg?raw';
+import iconeCredito from '@phosphor-icons/core/assets/regular/lifebuoy.svg?raw';
 
 const pilares = [
 	{
-		icone: iconeIdentificar,
-		titulo: 'Identifique oportunidades de venda que antes passavam despercebidas',
-		texto:
-			'Aprenda a reconhecer o perfil financeiro de cada comprador, entender a comprovação de renda e identificar possibilidades de financiamento, inclusive para clientes autônomos, antes de descartar uma negociação.',
+		icone: iconePerfil,
+		titulo: 'Identifique quem tem perfil para financiar',
+		texto: 'Entenda o enquadramento e a comprovação de renda, inclusive de clientes autônomos.',
 	},
 	{
-		icone: iconeNumeros,
-		titulo: 'Conquiste a confiança do cliente na hora de falar de dinheiro',
-		texto:
-			'Domine entrada, subsídio, FGTS, parcelas e evolução de obra para explicar as condições da compra com clareza, transmitir segurança e evitar expectativas que possam comprometer a venda.',
+		icone: iconeValores,
+		titulo: 'Explique os valores sem improvisar',
+		texto: 'Domine entrada, subsídio, FGTS, parcelas e evolução de obra para transmitir segurança ao comprador.',
 	},
 	{
-		icone: iconeCreditoTrava,
-		titulo: 'Saiba como agir quando o financiamento não avança',
-		texto:
-			'Entenda os possíveis motivos de uma reprovação, reconheça situações que merecem ser reavaliadas e saiba orientar os próximos passos para não deixar o cliente sem respostas.',
+		icone: iconeCredito,
+		titulo: 'Saiba agir quando o crédito não avança',
+		texto: 'Identifique possíveis obstáculos, situações que podem ser reavaliadas e os próximos passos junto ao banco.',
 	},
 ];
 
-const caracteristicas = [
-	{ icone: iconeAulas, texto: 'Aulas gravadas' },
-	{ icone: iconeLinguagem, texto: 'Linguagem simples' },
-	{ icone: iconeExemplos, texto: 'Exemplos práticos do dia a dia do corretor' },
-];
+const caracteristicas = ['Aulas gravadas', 'Linguagem simples', 'Exemplos práticos'];
 ---
 
 <section id="o-que-voce-aprende" class="aprende" aria-labelledby="aprende-title">
+	<div class="rays" aria-hidden="true">
+		<div class="rays-in"><i class="r1"></i><i class="r2"></i><i class="r4"></i></div>
+	</div>
+
 	<div class="aprende__inner">
 		<header class="aprende__head">
-			<div class="aprende__titulos">
-				<h2 id="aprende-title" class="aprende__title rv">
-					<span class="aprende__l1">O que você vai <em class="acc">aprender</em> no</span>{' '}<span class="t2"
-						>Financiamento Blindado.</span
-					>
-				</h2>
-				<p class="aprende__sub rv" style="--i:1">
-					Aprenda a usar as regras do Minha Casa, Minha Vida para atender com mais segurança, conquistar a confiança dos
-					compradores e aproveitar melhor suas oportunidades de venda.
-				</p>
-			</div>
+			<h2 id="aprende-title" class="aprende__title rv">
+				<span class="aprende__l1">O que você vai <em class="acc">aprender</em> no</span>{' '}<span class="t2"
+					>Financiamento Blindado.</span
+				>
+			</h2>
+			<p class="aprende__sub rv" style="--i:1" data-words>
+				O Minha Casa, Minha Vida aplicado à venda de imóveis na planta.
+			</p>
 		</header>
 
 		<ol class="aprende__pilares">
 			{
 				pilares.map((p, i) => (
 					<li class="pilar rv" style={`--i:${i + 1}`}>
-						<div class="pilar__topo">
-							<span class="pilar__ico" aria-hidden="true" set:html={p.icone} />
-							<span class="pilar__num" aria-hidden="true">
-								{String(i + 1).padStart(2, '0')}
-							</span>
-						</div>
+						<span class="pilar__ico" aria-hidden="true" set:html={p.icone} />
 						<h3 class="pilar__titulo">{p.titulo}</h3>
 						<p class="pilar__texto">{p.texto}</p>
 					</li>
@@ -86,30 +74,21 @@ const caracteristicas = [
 			}
 		</ol>
 
-		<div class="aprende__apoio rv">
-			<span class="apoio__ico" aria-hidden="true" set:html={iconeMateriais} />
-			<div class="apoio__corpo">
-				<p class="apoio__lead">E para colocar tudo isso em prática nos seus atendimentos:</p>
-				<p class="apoio__texto">
-					Você ainda conta com materiais de consulta, incluindo checklists de documentação, tabelas de enquadramento de
-					renda e taxas de juros.
-				</p>
+		<div class="aprende__rodape">
+			<ul class="aprende__carac rv" style="--i:1">
+				{
+					caracteristicas.map((c, i) => (
+						<li class="tab" style={`--d:${i * 0.8}s`}>
+							<span class="dot" aria-hidden="true" />
+							{c}
+						</li>
+					))
+				}
+			</ul>
+
+			<div class="aprende__cta rv" style="--i:2">
+				<CtaButton href={CHECKOUT_URL} fundo="claro" tom="beringela">QUERO APRENDER NA PRÁTICA</CtaButton>
 			</div>
-		</div>
-
-		<ul class="aprende__carac rv">
-			{
-				caracteristicas.map((c) => (
-					<li class="carac">
-						<span class="carac__ico" aria-hidden="true" set:html={c.icone} />
-						<span class="carac__texto">{c.texto}</span>
-					</li>
-				))
-			}
-		</ul>
-
-		<div class="aprende__cta rv">
-			<CtaButton href={CHECKOUT_URL} fundo="claro">QUERO APRENDER NA PRÁTICA</CtaButton>
 		</div>
 	</div>
 </section>
@@ -118,30 +97,35 @@ const caracteristicas = [
 	.aprende {
 		position: relative;
 		isolation: isolate;
+		overflow: hidden;
 		/* campo do DS (225°, branco → cinza), mais luminoso que o da dobra 4; as faixas de cima e de
 		   baixo dissolvem no campo liso: sem emenda com a dobra 4 nem com a próxima */
 		background:
 			linear-gradient(180deg, var(--field) 0%, rgba(217, 218, 215, 0) 26%),
 			linear-gradient(0deg, var(--field) 0%, rgba(217, 218, 215, 0) 18%),
 			linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
-		padding: clamp(64px, 7vw, 112px) clamp(20px, 4vw, 56px) clamp(72px, 8vw, 120px);
+		padding: clamp(64px, 12vw, 104px) clamp(22px, 5vw, 56px) clamp(64px, 12vw, 104px);
+	}
+	/* raios de luz do DS (três), só no miolo: sem emenda com as dobras vizinhas */
+	.aprende :global(.rays) {
+		-webkit-mask-image: linear-gradient(transparent 0%, #000 30%, #000 70%, transparent 100%);
+		mask-image: linear-gradient(transparent 0%, #000 30%, #000 70%, transparent 100%);
 	}
 	.aprende__inner {
-		max-width: 1320px;
+		position: relative;
+		z-index: 2;
+		max-width: 1120px;
 		margin: 0 auto;
 		display: grid;
-		gap: clamp(28px, 3vw, 40px);
+		gap: clamp(36px, 8vw, 56px);
 	}
 
 	/* ------------------------------------------------------------------ cabeçalho */
 	.aprende__head {
-		margin-bottom: clamp(12px, 2vw, 28px);
-	}
-	.aprende__titulos {
-		display: grid;
-		gap: clamp(18px, 2.4vw, 28px);
+		text-align: center;
 	}
 	.aprende__title {
+		margin: 0;
 		font-family: var(--f-title);
 		font-weight: 500;
 		font-size: var(--fs-h2);
@@ -165,14 +149,15 @@ const caracteristicas = [
 		background-image: linear-gradient(180deg, rgba(14, 26, 19, 0.92) 0%, rgba(14, 26, 19, 0.66) 100%);
 	}
 	.aprende__sub {
+		margin: clamp(14px, 3vw, 20px) auto 0;
 		max-width: 34rem;
-		font: 400 var(--fs-body) / 1.55 var(--f-display);
+		font: 400 var(--fs-body) / 1.5 var(--f-display);
 		letter-spacing: -0.01em;
 		color: var(--tx-body);
-		text-wrap: pretty;
+		text-wrap: balance;
 	}
 
-	/* ------------------------------------------------- os três pilares (três partes) */
+	/* --------------------------------------- as três etapas: ícone + título, depois a descrição */
 	.aprende__pilares {
 		margin: 0;
 		padding: 0;
@@ -183,10 +168,20 @@ const caracteristicas = [
 	}
 	.pilar {
 		position: relative;
-		padding: clamp(26px, 2.8vw, 38px) 0 clamp(26px, 2.8vw, 38px);
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-areas:
+			'ico titulo'
+			'texto texto';
+		align-items: center;
+		/* as linhas ficam coladas no topo: ícone e título alinhados entre as três etapas */
+		align-content: start;
+		column-gap: 0.8em;
+		row-gap: 0.7em;
+		padding: clamp(26px, 6vw, 34px) 0;
 		font-size: var(--fs-item);
 	}
-	/* segmento verde na régua: marca o início de cada parte */
+	/* segmento verde na régua: marca o início de cada etapa */
 	.pilar::before {
 		content: '';
 		position: absolute;
@@ -196,73 +191,17 @@ const caracteristicas = [
 		height: 3px;
 		border-radius: 2px;
 		background: var(--v500);
+		transition: width 0.7s var(--ease-out);
 	}
-	/* no celular as partes empilham, separadas por filete */
 	.pilar + .pilar {
 		border-top: 1px solid rgba(var(--ink-rgb), 0.14);
 	}
 	.pilar + .pilar::before {
 		top: -2px;
 	}
-	.pilar__topo {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: clamp(16px, 1.8vw, 24px);
-	}
+	/* ícone do DS (Phosphor) em disco claro */
 	.pilar__ico {
-		display: grid;
-		place-items: center;
-		width: 2.7em;
-		height: 2.7em;
-		border-radius: 50%;
-		background: var(--v200);
-		color: var(--v700);
-	}
-	.pilar__ico :global(svg) {
-		width: 1.4em;
-		height: 1.4em;
-		fill: currentColor;
-	}
-	/* numeral discreto, em serifa itálica */
-	.pilar__num {
-		font-family: var(--f-acc);
-		font-style: var(--acc-style);
-		font-weight: var(--acc-weight);
-		font-size: 1.1em;
-		line-height: 1;
-		color: var(--accent);
-	}
-	.pilar__titulo {
-		margin: 0 0 0.5em;
-		font: 500 1.5em / 1.15 var(--f-display);
-		letter-spacing: -0.035em;
-		color: var(--tx);
-		text-wrap: balance;
-	}
-	.pilar__texto {
-		margin: 0;
-		max-width: 30rem;
-		font: 400 0.92em / 1.55 var(--f-display);
-		letter-spacing: -0.005em;
-		color: var(--tx-body);
-		text-wrap: pretty;
-	}
-
-	/* --------------------------------------------- materiais: faixa discreta de apoio */
-	.aprende__apoio {
-		display: flex;
-		align-items: center;
-		gap: clamp(14px, 1.6vw, 22px);
-		padding: clamp(16px, 1.8vw, 24px) clamp(18px, 2.2vw, 30px);
-		border-radius: 20px;
-		background: rgba(255, 255, 255, 0.62);
-		box-shadow:
-			0 0 0 1px rgba(var(--ink-rgb), 0.08),
-			0 12px 28px -22px rgba(14, 26, 19, 0.25);
-	}
-	.apoio__ico {
-		flex: none;
+		grid-area: ico;
 		display: grid;
 		place-items: center;
 		width: 2.6em;
@@ -270,33 +209,51 @@ const caracteristicas = [
 		border-radius: 50%;
 		background: var(--v200);
 		color: var(--v700);
-		font-size: var(--fs-item);
+		transition:
+			background-color 0.5s var(--ease-hz),
+			color 0.5s var(--ease-hz);
 	}
-	.apoio__ico :global(svg) {
-		width: 1.35em;
-		height: 1.35em;
+	.pilar__ico :global(svg) {
+		width: 1.4em;
+		height: 1.4em;
 		fill: currentColor;
 	}
-	.apoio__corpo {
-		display: grid;
-		gap: 0.3em;
-	}
-	.apoio__lead {
+	.pilar__titulo {
+		grid-area: titulo;
 		margin: 0;
-		font: 500 var(--fs-body) / 1.35 var(--f-display);
-		letter-spacing: -0.02em;
+		font: 500 1.4em / 1.18 var(--f-display);
+		letter-spacing: -0.035em;
 		color: var(--tx);
 		text-wrap: balance;
 	}
-	.apoio__texto {
+	.pilar__texto {
+		grid-area: texto;
 		margin: 0;
-		font: 400 calc(var(--fs-body) * 0.92) / 1.5 var(--f-display);
-		letter-spacing: -0.01em;
+		max-width: 30rem;
+		font: 400 0.92em / 1.55 var(--f-display);
+		letter-spacing: -0.005em;
 		color: var(--tx-body);
 		text-wrap: pretty;
 	}
+	/* ao passar o mouse: o segmento da régua se estende e o ícone se enche de verde */
+	@media (hover: hover) {
+		.pilar:hover::before {
+			width: 112px;
+		}
+		.pilar:hover .pilar__ico {
+			background: var(--v500);
+			color: #fff;
+		}
+	}
 
-	/* ----------------------------------------- características: linha leve, sem destaque */
+	/* ------------------------------------------------ rodapé: tudo sobre o eixo central */
+	.aprende__rodape {
+		display: grid;
+		justify-items: center;
+		gap: clamp(20px, 5vw, 24px);
+		text-align: center;
+	}
+	/* características: pílulas de status do DS (.tab) com o ponto verde que pulsa (.dot) */
 	.aprende__carac {
 		margin: 0;
 		padding: 0;
@@ -304,101 +261,72 @@ const caracteristicas = [
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		gap: 14px 0;
-		font-size: calc(var(--fs-item) * 0.9);
+		gap: 10px;
+		font-size: var(--fs-item);
 	}
-	.carac {
-		display: flex;
+	.tab {
+		display: inline-flex;
 		align-items: center;
-		gap: 0.65em;
-		padding: 0 clamp(16px, 2.2vw, 30px);
-		color: var(--tx-body);
+		gap: 0.6em;
+		height: 2.5em;
+		padding: 0 1.2em;
+		border-radius: 999px;
+		background: var(--surface);
+		box-shadow: var(--sh-soft);
+		font: 400 0.88em / 1 var(--f-display);
+		letter-spacing: -0.02em;
+		color: var(--tx);
+		white-space: nowrap;
 	}
-	/* filete vertical discreto entre as características */
-	.carac + .carac {
-		border-left: 1px solid rgba(var(--ink-rgb), 0.2);
-	}
-	.carac__ico {
+	.dot {
+		position: relative;
 		flex: none;
-		display: grid;
-		place-items: center;
-		width: 1.5em;
-		height: 1.5em;
-		color: var(--v600);
+		width: 0.55em;
+		height: 0.55em;
+		border-radius: 50%;
+		background: var(--v500);
 	}
-	.carac__ico :global(svg) {
-		width: 100%;
-		height: 100%;
-		fill: currentColor;
+	@media (prefers-reduced-motion: no-preference) {
+		.dot::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			background: inherit;
+			animation: aprende-dot 2.4s var(--ease-out) var(--d, 0s) infinite;
+		}
 	}
-	.carac__texto {
-		font: 500 1em / 1.3 var(--f-display);
-		letter-spacing: -0.01em;
-	}
-
-	/* ----------------------------------------------------------------------- botão */
-	.aprende__cta {
-		display: flex;
-		justify-content: center;
-		padding-top: clamp(16px, 2.4vw, 32px);
-	}
-
-	/* celular pequeno: o ícone dos materiais vai para cima do texto */
-	@media (max-width: 560px) {
-		.aprende__apoio {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 12px;
+	@keyframes aprende-dot {
+		0% {
+			transform: scale(1);
+			opacity: 0.6;
+		}
+		100% {
+			transform: scale(2.8);
+			opacity: 0;
 		}
 	}
 
-	/* celular: características empilham, sem filetes verticais */
-	@media (max-width: 719px) {
+	/* celular: pílulas menores para as três caberem juntas; sem pílula solta */
+	@media (max-width: 599px) {
 		.aprende__carac {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 14px;
+			gap: 8px;
+			font-size: clamp(13px, 3.6vw, 15px);
 		}
-		.carac {
-			padding: 0;
-		}
-		.carac + .carac {
-			border-left: 0;
-		}
-		.aprende__apoio {
-			align-items: flex-start;
+		.tab {
+			padding: 0 0.95em;
 		}
 	}
 
-	/* tablet: a frase mais longa da terceira característica cabe na mesma linha das outras */
-	@media (min-width: 720px) and (max-width: 899px) {
-		.aprende__carac {
-			font-size: calc(var(--fs-item) * 0.85);
-		}
-		.carac {
-			padding: 0 clamp(10px, 1.6vw, 14px);
-			gap: 0.5em;
+	/* tablet: etapas ainda em coluna única, um pouco mais de largura de leitura */
+	@media (min-width: 600px) and (max-width: 899px) {
+		.pilar__texto {
+			max-width: 36rem;
 		}
 	}
 
-	/* desktop: cabeçalho em duas colunas e os três pilares lado a lado */
+	/* desktop: as três etapas lado a lado, separadas por filetes verticais */
 	@media (min-width: 900px) {
-		.aprende__titulos {
-			/* a coluna do título comporta "O que você vai aprender no" inteira, numa linha */
-			grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-			column-gap: clamp(40px, 6vw, 96px);
-			align-items: end;
-		}
-		.aprende__l1 {
-			white-space: nowrap;
-		}
-		.aprende__title {
-			letter-spacing: -0.055em;
-			line-height: 1.04;
-		}
-		.aprende__sub {
-			padding-bottom: 0.5em;
-		}
 		.aprende__pilares {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
@@ -415,6 +343,72 @@ const caracteristicas = [
 		}
 		.pilar + .pilar {
 			padding-left: clamp(20px, 2.4vw, 36px);
+		}
+		.aprende__title {
+			letter-spacing: -0.055em;
+			line-height: 1.04;
+		}
+	}
+
+	/* desktop: a dobra tem a altura da janela (--fold-h); o conteúdo fica centralizado nela, com a
+	   mesma margem em cima e embaixo. Medidas em --fu (1px na janela de referência 1340 × 670).
+	   Ritmo vertical único: o mesmo intervalo (--gap) entre cabeçalho, etapas e rodapé. */
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.aprende {
+			--gap: calc(48 * var(--fu));
+			min-height: var(--fold-h);
+			display: grid;
+			align-content: center;
+			padding: calc(40 * var(--fu)) calc(56 * var(--fu));
+		}
+		.aprende__inner {
+			width: 100%;
+			max-width: calc(1100 * var(--fu));
+			gap: var(--gap);
+		}
+		.aprende__sub {
+			max-width: none;
+			margin-top: calc(16 * var(--fu));
+		}
+		.pilar {
+			padding-block: calc(36 * var(--fu)) calc(32 * var(--fu));
+			padding-right: calc(34 * var(--fu));
+			row-gap: calc(16 * var(--fu));
+		}
+		.pilar + .pilar {
+			padding-left: calc(34 * var(--fu));
+		}
+		.pilar__ico {
+			width: 2.9em;
+			height: 2.9em;
+		}
+		.pilar__titulo {
+			font-size: calc(var(--fs-item) * 1.5);
+		}
+		.pilar__texto {
+			max-width: none;
+			font-size: 0.98em;
+		}
+
+		/* rodapé: pílulas à esquerda e botão à direita, nas mesmas bordas das etapas */
+		.aprende__rodape {
+			grid-template-columns: minmax(0, 1fr) auto;
+			justify-items: stretch;
+			align-items: center;
+			gap: calc(40 * var(--fu));
+			text-align: left;
+		}
+		.aprende__carac {
+			justify-content: flex-start;
+			gap: calc(12 * var(--fu));
+		}
+		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
+		.aprende__cta :global(a.cta) {
+			--h: calc(56 * var(--fu));
+			--disc: calc(40 * var(--fu));
+			gap: calc(20 * var(--fu));
+			padding-left: calc(28 * var(--fu));
+			font-size: calc(14.5 * var(--fu));
 		}
 	}
 </style>

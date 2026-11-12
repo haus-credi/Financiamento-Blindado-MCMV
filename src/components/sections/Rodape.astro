@@ -1,0 +1,73 @@
+---
+/**
+ * Rodapé (depois do FAQ): curto, de uma linha e CLARO, como o resto da página (referência do cliente:
+ * uma barra fina, com o texto da empresa de um lado e a assinatura do outro).
+ *
+ * Texto (escrito por nós, só com o que a página já diz):
+ *   · esquerda: "Financiamento Blindado - Minha Casa Minha Vida"
+ *   · direita:  "© 2026 Haus Credi. CNPJ: 28.103.229/0001-70." (CNPJ fornecido pelo cliente; dígitos
+ *     verificadores conferidos)
+ * Sem "todos os direitos reservados", contato, termos ou privacidade: não foram fornecidos.
+ *
+ * Não é uma dobra (não segue a altura da janela). Medidas em --fu no desktop.
+ */
+---
+
+<footer class="rodape">
+	<div class="rodape__inner">
+		<p class="rodape__texto"><strong>Financiamento Blindado - Minha Casa Minha Vida</strong></p>
+		<p class="rodape__copy">© 2026 Haus Credi. CNPJ: 28.103.229/0001-70.</p>
+	</div>
+</footer>
+
+<style>
+	.rodape {
+		position: relative;
+		z-index: 2;
+		/* claro, como a página: um tom acima do branco do FAQ, com um filete fino no topo */
+		background: #f4f4f2;
+		border-top: 1px solid rgba(var(--ink-rgb), 0.12);
+		padding: 22px clamp(22px, 5vw, 56px);
+	}
+	.rodape__inner {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 6px 32px;
+	}
+	.rodape__texto,
+	.rodape__copy {
+		margin: 0;
+		font: 400 13.5px / 1.5 var(--f-display);
+		letter-spacing: -0.005em;
+		color: var(--tx-body);
+	}
+	.rodape__texto :global(strong) {
+		font-weight: 500;
+		color: var(--tx);
+	}
+
+	/* celular: duas linhas, centralizadas */
+	@media (max-width: 599px) {
+		.rodape__inner {
+			flex-direction: column;
+			text-align: center;
+		}
+	}
+
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.rodape {
+			padding: calc(24 * var(--fu)) calc(56 * var(--fu));
+		}
+		.rodape__inner {
+			max-width: calc(1100 * var(--fu));
+		}
+		.rodape__texto,
+		.rodape__copy {
+			font-size: calc(13.5 * var(--fu));
+		}
+	}
+</style>

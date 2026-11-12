@@ -1,0 +1,326 @@
+---
+/**
+ * Dobra 08 — Perguntas frequentes (encerramento da página).
+ * Copy aprovada, palavra por palavra (7 perguntas). Sem informações novas sobre garantia,
+ * certificado, suporte ou prazo.
+ *
+ * Título positivo, em vez de "Ainda tem alguma dúvida?": "O Treinamento Definitivo do Minha Casa
+ * Minha Vida", com uma palavra no acento itálico do DS. Sem eyebrow. Sete perguntas (a do
+ * correspondente bancário saiu para preservar o respiro da dobra).
+ *
+ * Direção: fundo BRANCO liso (sem degradê, sem raios), layout editorial. Desktop: título à esquerda,
+ * perguntas à direita e o botão centralizado sob a lista, logo abaixo da última pergunta; mobile: título, perguntas e botão. Acordeão
+ * com divisórias horizontais finas, sem cartões, sombras, ícones decorativos nem caixas coloridas.
+ * Só o sinal de mais/menos de cada pergunta (duas hastes de 1,5px) indica expandir e recolher.
+ *
+ * Acordeão em <details>/<summary>: teclado, leitor de tela e "aberto/fechado" nativos. Os itens
+ * compartilham o atributo name="faq" (só um aberto por vez; um pequeno script garante o mesmo nos
+ * navegadores sem esse suporte). A primeira resposta já vem aberta. A resposta desliza ao abrir
+ * (::details-content) onde houver suporte; nos demais, abre direto. Respeita prefers-reduced-motion.
+ *
+ * Desktop: a dobra tem a altura da janela (--fold-h); o bloco fica alinhado pelo topo para não
+ * "pular" quando uma resposta abre ou fecha. Medidas em --fu (1px na janela 1340 × 670).
+ */
+import CtaButton from '../ui/CtaButton.astro';
+import { CHECKOUT_URL } from '../../config/site';
+
+const perguntas = [
+	{
+		q: 'Tenho dificuldade com assuntos financeiros. Vou conseguir entender?',
+		a: 'Sim. O treinamento começa pelos fundamentos, com linguagem simples e exemplos de situações reais. Você não precisa ter conhecimento prévio sobre financiamento.',
+	},
+	{
+		q: 'As aulas são gravadas? Vou conseguir conciliar com meus atendimentos?',
+		a: 'Sim. Todas as aulas são gravadas para você assistir no seu ritmo, de acordo com sua disponibilidade.',
+	},
+	{
+		q: 'Vou conseguir aplicar o que aprendi logo nos primeiros atendimentos?',
+		a: 'Sim. Desde as primeiras aulas, você terá orientações que poderá utilizar para avaliar melhor o perfil dos compradores e esclarecer dúvidas durante as negociações.',
+	},
+	{
+		q: 'Já trabalho como corretor há anos. Esse treinamento também é para mim?',
+		a: 'Sim. Além dos fundamentos, o curso aborda situações de financiamento que exigem mais atenção, ajudando profissionais experientes a revisar procedimentos e aprofundar seus conhecimentos.',
+	},
+	{
+		q: 'O curso ensina a lidar com clientes autônomos ou com renda informal?',
+		a: 'Sim. Você vai entender como funciona a comprovação de renda nesses casos, quais documentos podem ser considerados e quais cuidados tomar antes de avançar com a negociação.',
+	},
+	{
+		q: 'Vou aprender a diferença entre simulação, pré-análise e aprovação de crédito?',
+		a: 'Sim. Você vai entender o que acontece em cada etapa, quais informações são avaliadas e o que ainda depende da decisão do banco. Assim, consegue orientar o cliente sem criar expectativas equivocadas.',
+	},
+	{
+		q: 'E quando as regras do Minha Casa, Minha Vida mudarem?',
+		a: 'O treinamento terá atualizações para acompanhar as mudanças nas regras do programa, permitindo que você continue consultando informações relevantes para seus atendimentos.',
+	},
+];
+---
+
+<section id="faq" class="faq" aria-labelledby="faq-title">
+	<div class="faq__inner">
+		<header class="faq__head">
+			<h2 id="faq-title" class="faq__title rv" style="--i:1">
+				O Treinamento <em class="acc">Definitivo</em> do Minha Casa Minha Vida
+			</h2>
+		</header>
+
+		<div class="faq__lista rv" style="--i:2">
+			{
+				perguntas.map((p, i) => (
+					<details class="faq__item" name="faq" open={i === 0}>
+						<summary class="faq__pergunta">
+							<span class="faq__num" aria-hidden="true">
+								{String(i + 1).padStart(2, '0')}
+							</span>
+							<span class="faq__q">{p.q}</span>
+							<span class="faq__ic" aria-hidden="true" />
+						</summary>
+						<p class="faq__resposta">{p.a}</p>
+					</details>
+				))
+			}
+		</div>
+
+		<div class="faq__cta rv" style="--i:3">
+			<CtaButton href={CHECKOUT_URL} fundo="claro">QUERO ME TORNAR REFERÊNCIA</CtaButton>
+		</div>
+	</div>
+</section>
+
+<script>
+	// Só uma resposta aberta por vez, também onde <details name> ainda não é suportado.
+	const itens = document.querySelectorAll<HTMLDetailsElement>('.faq__item');
+	itens.forEach((d) => {
+		d.addEventListener('toggle', () => {
+			if (!d.open) return;
+			itens.forEach((o) => {
+				if (o !== d) o.removeAttribute('open');
+			});
+		});
+	});
+</script>
+
+<style>
+	.faq {
+		/* fundo branco liso, sem degradê */
+		background: #fff;
+		padding: clamp(64px, 14vw, 104px) clamp(22px, 5vw, 56px) clamp(72px, 16vw, 120px);
+		/* resposta que desliza onde houver suporte (::details-content) */
+		interpolate-size: allow-keywords;
+	}
+	.faq__inner {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas:
+			'head'
+			'lista'
+			'cta';
+		gap: clamp(28px, 7vw, 44px);
+	}
+	.faq__head {
+		grid-area: head;
+	}
+	.faq__lista {
+		grid-area: lista;
+	}
+	.faq__cta {
+		grid-area: cta;
+		display: flex;
+		justify-content: center;
+		padding-top: clamp(4px, 2vw, 12px);
+	}
+
+	/* ------------------------------------------------------------------ título */
+	.faq__title {
+		margin: 0;
+		font-family: var(--f-title);
+		font-weight: 500;
+		font-size: var(--fs-h2);
+		line-height: 1.06;
+		letter-spacing: var(--title-ls);
+		color: var(--tx);
+		text-wrap: balance;
+	}
+	.faq__title .acc {
+		font-size: calc(1em * var(--acc-scale));
+		letter-spacing: -0.01em;
+		padding-right: 0.04em;
+	}
+
+	/* ---------------------------------------------------------------- acordeão */
+	.faq__lista {
+		border-top: 1px solid rgba(var(--ink-rgb), 0.18);
+	}
+	.faq__item {
+		border-bottom: 1px solid rgba(var(--ink-rgb), 0.18);
+	}
+	.faq__pergunta {
+		display: grid;
+		grid-template-columns: 2.4em minmax(0, 1fr) auto;
+		align-items: baseline;
+		column-gap: 0.6em;
+		padding: 1.05em 0;
+		cursor: pointer;
+		list-style: none;
+		font-size: var(--fs-item);
+		-webkit-tap-highlight-color: transparent;
+	}
+	.faq__pergunta::-webkit-details-marker {
+		display: none;
+	}
+	.faq__num {
+		font: 500 0.62em / 1 var(--f-mono);
+		letter-spacing: 0.1em;
+		color: var(--tx-2);
+	}
+	.faq__q {
+		font: 500 1.04em / 1.3 var(--f-display);
+		letter-spacing: -0.03em;
+		color: var(--tx);
+		text-wrap: balance;
+		transition: color 0.3s var(--ease-hz);
+	}
+	/* sinal de mais/menos: duas hastes finas; a vertical some quando aberto */
+	.faq__ic {
+		position: relative;
+		align-self: center;
+		width: 1.1em;
+		height: 1.1em;
+		color: rgba(var(--ink-rgb), 0.55);
+		transition: color 0.3s var(--ease-hz);
+	}
+	.faq__ic::before,
+	.faq__ic::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		background: currentColor;
+		border-radius: 1px;
+		transition: transform 0.5s var(--ease-out);
+	}
+	.faq__ic::before {
+		width: 100%;
+		height: 1.5px;
+		transform: translate(-50%, -50%);
+	}
+	.faq__ic::after {
+		width: 1.5px;
+		height: 100%;
+		transform: translate(-50%, -50%);
+	}
+	.faq__item[open] .faq__ic::after {
+		transform: translate(-50%, -50%) scaleY(0);
+	}
+	@media (hover: hover) {
+		.faq__pergunta:hover .faq__q,
+		.faq__pergunta:hover .faq__ic {
+			color: var(--accent);
+		}
+	}
+	/* foco do teclado: anel verde do DS, afastado */
+	.faq__pergunta:focus-visible {
+		outline: 3px solid var(--v400);
+		outline-offset: 4px;
+		border-radius: 6px;
+	}
+
+	.faq__resposta {
+		margin: 0;
+		padding: 0 2.4em 1.4em calc(2.4em + 0.6em);
+		max-width: 44rem;
+		font: 400 var(--fs-body) / 1.6 var(--f-display);
+		letter-spacing: -0.01em;
+		color: var(--tx-body);
+		text-wrap: pretty;
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.faq__item::details-content {
+			block-size: 0;
+			overflow: clip;
+			transition:
+				block-size 0.5s var(--ease-out),
+				content-visibility 0.5s allow-discrete;
+		}
+		.faq__item[open]::details-content {
+			block-size: auto;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.faq__ic::before,
+		.faq__ic::after {
+			transition: none;
+		}
+	}
+
+	/* celular: resposta alinhada com a pergunta, sem recuo da numeração */
+	@media (max-width: 599px) {
+		.faq__pergunta {
+			grid-template-columns: 2em minmax(0, 1fr) auto;
+		}
+		.faq__resposta {
+			padding: 0 0.4em 1.4em calc(2em + 0.6em);
+			font-size: clamp(16px, 4.3vw, 17.5px);
+		}
+		.faq__cta :global(a.cta) {
+			width: 100%;
+		}
+	}
+
+	/* desktop: título e botão à esquerda, perguntas à direita */
+	@media (min-width: 900px) {
+		.faq__inner {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+			grid-template-areas:
+				'head lista'
+				'head cta';
+			grid-template-rows: auto 1fr;
+			column-gap: clamp(48px, 7vw, 110px);
+			align-items: start;
+		}
+		.faq__title {
+			line-height: 1.04;
+			letter-spacing: -0.055em;
+			/* a tinta do título começa na altura da primeira divisória da lista */
+			margin-top: -0.06em;
+		}
+		.faq__cta {
+			padding-top: calc(10 * var(--fu));
+		}
+	}
+
+	/* desktop: a dobra tem a altura da janela (--fold-h); o bloco fica alinhado pelo topo (sem
+	   pular quando uma resposta abre) e o título alinhado com a primeira divisória.
+	   Medidas em --fu (1px na janela de referência 1340 × 670). */
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.faq {
+			min-height: var(--fold-h);
+			padding: calc(32 * var(--fu)) calc(48 * var(--fu)) calc(26 * var(--fu));
+		}
+		.faq__inner {
+			max-width: calc(1160 * var(--fu));
+			column-gap: calc(64 * var(--fu));
+			row-gap: calc(28 * var(--fu));
+		}
+		.faq__pergunta {
+			padding-block: calc(12 * var(--fu));
+		}
+		.faq__q {
+			font-size: calc(var(--fs-item) * 1.08);
+		}
+		.faq__resposta {
+			font-size: calc(var(--fs-body) * 0.92);
+			padding-bottom: calc(16 * var(--fu));
+		}
+		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
+		.faq__cta :global(a.cta) {
+			--h: calc(56 * var(--fu));
+			--disc: calc(40 * var(--fu));
+			gap: calc(20 * var(--fu));
+			padding-left: calc(28 * var(--fu));
+			font-size: calc(14.5 * var(--fu));
+		}
+	}
+</style>

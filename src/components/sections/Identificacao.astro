@@ -312,4 +312,42 @@ const colunas = [
 			gap: clamp(24px, 2.6vw, 36px);
 		}
 	}
+
+	/* desktop: a dobra tem a altura da janela (--fold-h) e o conteúdo fica centralizado nela.
+	   Medidas em --fu (1px na janela de referência 1340 × 670). */
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.ident {
+			min-height: var(--fold-h);
+			display: grid;
+			align-items: center;
+			padding: calc(28 * var(--fu)) calc(56 * var(--fu)) calc(36 * var(--fu));
+		}
+		.ident__inner {
+			width: 100%;
+			max-width: calc(1230 * var(--fu));
+			gap: calc(24 * var(--fu));
+		}
+		.ident__sub {
+			margin-top: calc(10 * var(--fu));
+			max-width: calc(720 * var(--fu));
+		}
+		.ident__cols {
+			gap: calc(28 * var(--fu));
+		}
+		.col {
+			padding: calc(20 * var(--fu)) calc(30 * var(--fu)) calc(32 * var(--fu));
+			border-radius: calc(24 * var(--fu));
+		}
+		.col__intro {
+			margin-bottom: calc(10 * var(--fu));
+			font-size: calc(var(--fs-h2) * 0.52);
+		}
+		.col__item {
+			padding: calc(9 * var(--fu)) 0;
+			column-gap: calc(14 * var(--fu));
+		}
+		.col__selo {
+			right: calc(28 * var(--fu));
+		}
+	}
 </style>

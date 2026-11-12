@@ -1,0 +1,386 @@
+---
+/**
+ * Dobra 06 — A especialista (autoridade).
+ * Pergunta que responde: "quem vai me ensinar e por que devo confiar nela?".
+ * Copy aprovada, palavra por palavra. Sem botão de compra, sem cartões, sem números em grade.
+ *
+ * Estrutura de marca: Audelice Queros (especialista) · Haus Credi (empresa dela) ·
+ * Financiamento Blindado para Corretores (produto educacional da Haus Credi).
+ * Trajetória (copy do cliente): 2001 na Caixa, 16 anos em habitação até gerente-geral; 2017 deixa o
+ * banco e funda o próprio escritório de correspondente bancário, a Haus Credi; hoje empresária, palestrante, professora e mentora. Os 16
+ * anos fazem parte dos 25 de mercado (não se somam); a copy não diz que ela trabalha hoje na
+ * Caixa nem sugere vínculo do treinamento com o banco.
+ *
+ * Moldura verde-escura do DS (radial + anel de 8px), como a dobra 3: fecha a sequência de
+ * dobras claras com um momento de peso. Hierarquia: nome → "25 anos" (numeral em serifa
+ * itálica, a maior presença) → trajetória na Caixa (1º parágrafo) → Haus Credi (2º) → experiência
+ * dos dois lados (3º) → convite ao Financiamento Blindado (4º). Texto num peso só; negrito apenas em
+ * alguns termos (16 anos, Haus Credi, Financiamento Blindado).
+ *
+ * Desktop: texto à esquerda; fotografia horizontal (escritório) à direita, com a altura da
+ * moldura e a borda esquerda dissolvida na tinta (mesma receita da Hero). Altura da dobra =
+ * altura da janela; medidas em --fu (tokens.css).
+ * Celular/retrato: coluna única — identificação, nome, "25 anos", fotografia vertical (rosto
+ * inteiro, dissolvida na base) e os parágrafos.
+ */
+import { Picture } from 'astro:assets';
+import escritorio from '../../assets/sections/audelice-escritorio.png';
+import retrato from '../../assets/sections/audelice-retrato.png';
+---
+
+<section id="especialista" class="auth" aria-labelledby="auth-title">
+	<div class="auth__frame on-ink">
+		<div class="rays" aria-hidden="true">
+			<div class="rays-in"><i class="r1"></i><i class="r3"></i><i class="r4"></i></div>
+		</div>
+
+		<div class="auth__inner">
+			<header class="auth__head">
+				<p class="auth__eyebrow rv">
+					<span class="auth__eyebrow-rule" aria-hidden="true"></span>
+					<span>QUEM VAI TE ENSINAR</span>
+				</p>
+				<h2 id="auth-title" class="auth__nome rv" style="--i:1">
+					<span class="auth__pre">Quem é</span>{' '}<span class="auth__quem">Audelice Queros</span>
+				</h2>
+			</header>
+
+			<p class="auth__destaque rv" style="--i:2">
+				<span class="auth__num">25</span>
+				<span class="auth__num-txt">anos de experiência no mercado imobiliário.</span>
+			</p>
+
+			<figure class="auth__foto rv" style="--i:2">
+				<Picture
+					src={escritorio}
+					alt="Audelice Queros sorrindo, em pé num escritório moderno, segurando uma xícara"
+					formats={['webp']}
+					fallbackFormat="jpg"
+					widths={[960, 1280, 1672]}
+					sizes="(min-width: 900px) and (min-aspect-ratio: 1/1) 1200px, 1px"
+					quality={92}
+					loading="lazy"
+					class="auth__img auth__img--h"
+					pictureAttributes={{ class: 'auth__pic auth__pic--h' }}
+				/>
+				<Picture
+					src={retrato}
+					alt="Audelice Queros sorrindo, em retrato, segurando uma xícara"
+					formats={['webp']}
+					fallbackFormat="jpg"
+					widths={[640, 900, 1024]}
+					sizes="(min-width: 900px) and (min-aspect-ratio: 1/1) 1px, 100vw"
+					quality={92}
+					loading="lazy"
+					class="auth__img auth__img--v"
+					pictureAttributes={{ class: 'auth__pic auth__pic--v' }}
+				/>
+				<div class="auth__scrim" aria-hidden="true"></div>
+			</figure>
+
+			<div class="auth__texto">
+				<p class="rv" style="--i:3">
+					Audelice iniciou sua trajetória no mercado imobiliário em 2001, na Caixa Econômica Federal, onde atuou por <strong
+						>16 anos</strong
+					> na área de habitação e chegou ao cargo de gerente-geral.
+				</p>
+				<p class="rv" style="--i:4">
+					Em 2017, decidiu trocar a estabilidade da carreira bancária pelo desafio de empreender, fundando seu próprio
+					escritório de correspondente bancário, a <strong>Haus Credi</strong>.
+				</p>
+				<p class="rv" style="--i:5">
+					Hoje, empresária, palestrante, professora e mentora de profissionais do mercado imobiliário, Audelice reúne a
+					experiência de quem conhece as exigências do banco e os desafios de quem precisa fechar negócios.
+				</p>
+				<p class="rv" style="--i:6">
+					É com essa experiência que ela convida você a conhecer o <strong
+						>Financiamento Blindado - Minha Casa Minha Vida</strong
+					>, um treinamento criado para ajudar profissionais a dominar o financiamento, conquistar a confiança dos
+					clientes e aumentar suas chances de transformar atendimentos em vendas concluídas.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* a faixa clara em volta da moldura continua o campo da dobra anterior */
+	.auth {
+		position: relative;
+		z-index: 2;
+		padding: 0 var(--frame-gap) var(--frame-gap);
+		background: var(--field);
+	}
+	.auth__frame {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		border-radius: var(--frame-radius);
+		/* moldura escura do DS: radial a partir do canto, anel de 8px */
+		background: radial-gradient(100% 100% at 0% 0%, var(--v800) 0%, var(--v950) 100%);
+		box-shadow: 0 0 0 8px var(--ring);
+		color: #fff;
+	}
+	.auth__frame :global(.rays i) {
+		opacity: 0.05;
+	}
+
+	/* ================================================================ BASE = CELULAR / RETRATO */
+	.auth__inner {
+		position: relative;
+		z-index: 2;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		padding: clamp(48px, 12vw, 80px) clamp(22px, 6vw, 48px) clamp(40px, 9vw, 64px);
+	}
+
+	/* identificação: mesma linguagem da Hero (JetBrains Mono, caixa-alta, fio vertical) */
+	.auth__eyebrow {
+		display: flex;
+		align-items: stretch;
+		gap: 14px;
+		margin: 0 0 clamp(14px, 3vw, 22px);
+		font: 500 11.5px / 1.6 var(--f-mono);
+		letter-spacing: 0.14em;
+		color: rgba(255, 255, 255, 0.72);
+	}
+	.auth__eyebrow-rule {
+		flex: none;
+		width: 1px;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.15));
+	}
+
+	/* 1º: o nome — título da dobra */
+	.auth__nome {
+		margin: 0;
+		font-family: var(--f-title);
+		font-weight: 500;
+		font-size: clamp(2.5rem, 12.4vw, 4rem);
+		line-height: 1.02;
+		letter-spacing: -0.055em;
+		color: #fff;
+		text-wrap: balance;
+	}
+
+	/* "Quem é" no segundo tom (50% do branco), o nome em destaque; no celular, em duas linhas */
+	.auth__pre {
+		display: block;
+		color: rgba(255, 255, 255, 0.58);
+	}
+	.auth__quem {
+		display: block;
+	}
+
+	/* 2º: 25 anos — numeral em serifa itálica, a maior presença visual da dobra */
+	.auth__destaque {
+		display: flex;
+		align-items: center;
+		gap: clamp(12px, 3.4vw, 20px);
+		margin: clamp(20px, 5vw, 30px) 0 0;
+	}
+	.auth__num {
+		flex: none;
+		font-family: var(--f-acc);
+		font-style: var(--acc-style);
+		font-weight: var(--acc-weight);
+		font-size: clamp(5.5rem, 29vw, 8.5rem);
+		line-height: 0.8;
+		letter-spacing: -0.03em;
+		color: var(--accent-on-ink);
+		/* a serifa itálica "sobra" à direita: puxa o texto para junto do numeral */
+		margin-right: -0.04em;
+	}
+	.auth__num-txt {
+		max-width: 11.5em;
+		font: 500 clamp(1.2rem, 5.6vw, 1.7rem) / 1.14 var(--f-display);
+		letter-spacing: -0.04em;
+		color: #fff;
+		text-wrap: balance;
+	}
+
+	/* fotografia: no celular, a vertical, entre o destaque e os parágrafos */
+	.auth__foto {
+		position: relative;
+		margin: clamp(26px, 7vw, 40px) calc(-1 * clamp(22px, 6vw, 48px)) 0;
+		aspect-ratio: 4 / 5;
+		overflow: hidden;
+		/* o rosto e a xícara ficam inteiros; a base se dissolve na tinta */
+		-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 78%, transparent 100%);
+		mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 78%, transparent 100%);
+	}
+	.auth__foto :global(.auth__pic),
+	.auth__foto :global(.auth__img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.auth__foto :global(.auth__img) {
+		max-width: none;
+		object-fit: cover;
+		object-position: 50% 0%;
+	}
+	.auth__foto :global(.auth__pic--h) {
+		display: none;
+	}
+	.auth__scrim {
+		display: none;
+	}
+
+	/* parágrafos: uma coluna legível */
+	.auth__texto {
+		display: grid;
+		gap: 1em;
+		margin-top: clamp(4px, 2vw, 14px);
+		max-width: 38rem;
+		font: 400 clamp(16.5px, 4.3vw, 18.5px) / 1.6 var(--f-display);
+		letter-spacing: -0.01em;
+		color: rgba(255, 255, 255, 0.76);
+		text-wrap: pretty;
+	}
+	.auth__texto p {
+		margin: 0;
+	}
+	.auth__texto :global(strong) {
+		font-weight: 500;
+		color: #fff;
+	}
+
+	/* ================================================================ DESKTOP
+	   Altura da dobra = altura da janela (--fold-h); conteúdo centralizado na moldura. Fotografia
+	   horizontal com a altura da moldura, à direita, borda esquerda dissolvida na tinta (receita
+	   da Hero); a coluna de texto termina antes do cabelo da especialista. Medidas em --fu. */
+	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+		.auth {
+			min-height: var(--fold-h);
+			display: flex;
+			flex-direction: column;
+			/* mesma margem em cima, nos lados e embaixo da moldura */
+			padding-top: var(--frame-gap);
+			/* largura e altura da fotografia dentro da moldura (a proporção 1672 × 941 manda) */
+			--ph: calc(var(--fold-h) - 2 * var(--frame-gap));
+			--pw: calc(var(--ph) * 1.7769);
+			--padl: calc(84 * var(--fu));
+			/* a coluna de texto vai até 44u antes dos ombros (que começam em ~50% da foto) */
+			--col: clamp(
+				calc(380 * var(--fu)),
+				calc(100vw - 2 * var(--frame-gap) - var(--pw) * 0.5 - 44 * var(--fu) - var(--padl)),
+				calc(680 * var(--fu))
+			);
+		}
+		.auth__frame {
+			flex: 1;
+			display: grid;
+			align-items: center;
+		}
+		.auth__inner {
+			/* sem posicionamento: a fotografia (absoluta) ancora na moldura, não na coluna */
+			position: static;
+			width: var(--col);
+			margin-left: var(--padl);
+			padding: calc(26 * var(--fu)) 0;
+		}
+
+		/* fotografia: altura da moldura, encostada à direita, dissolvida à esquerda */
+		.auth__foto {
+			position: absolute;
+			z-index: -2;
+			inset: 0 0 0 auto;
+			height: 100%;
+			width: var(--pw);
+			margin: 0;
+			aspect-ratio: auto;
+			-webkit-mask-image: linear-gradient(
+				90deg,
+				transparent 0,
+				rgba(0, 0, 0, 0.06) 6%,
+				rgba(0, 0, 0, 0.22) 13%,
+				rgba(0, 0, 0, 0.5) 20%,
+				rgba(0, 0, 0, 0.8) 27%,
+				#000 36%
+			);
+			mask-image: linear-gradient(
+				90deg,
+				transparent 0,
+				rgba(0, 0, 0, 0.06) 6%,
+				rgba(0, 0, 0, 0.22) 13%,
+				rgba(0, 0, 0, 0.5) 20%,
+				rgba(0, 0, 0, 0.8) 27%,
+				#000 36%
+			);
+		}
+		.auth__foto :global(.auth__pic--h) {
+			display: block;
+		}
+		.auth__foto :global(.auth__pic--v) {
+			display: none;
+		}
+		.auth__foto :global(.auth__img) {
+			object-fit: fill;
+			object-position: 0 0;
+		}
+		/* névoa de leitura: forte sob o texto, termina antes do rosto */
+		.auth__scrim {
+			display: block;
+			position: absolute;
+			inset: 0;
+			background:
+				linear-gradient(
+					90deg,
+					rgba(var(--ink-rgb), 0.96) 0%,
+					rgba(var(--ink-rgb), 0.9) 22%,
+					rgba(var(--ink-rgb), 0.74) 38%,
+					rgba(var(--ink-rgb), 0.4) 50%,
+					rgba(var(--ink-rgb), 0.12) 58%,
+					rgba(var(--ink-rgb), 0) 66%
+				),
+				linear-gradient(0deg, rgba(var(--ink-rgb), 0.4) 0%, rgba(var(--ink-rgb), 0) 26%);
+		}
+
+		.auth__eyebrow {
+			margin-bottom: calc(18 * var(--fu));
+			gap: calc(14 * var(--fu));
+			font-size: calc(13 * var(--fu));
+		}
+		.auth__nome {
+			font-size: calc(var(--fs-h2) * 1.22);
+			line-height: 1.02;
+			white-space: nowrap;
+		}
+		.auth__pre,
+		.auth__quem {
+			display: inline;
+		}
+		.auth__destaque {
+			gap: calc(20 * var(--fu));
+			margin-top: calc(16 * var(--fu));
+		}
+		.auth__num {
+			font-size: calc(var(--fs-h2) * 2.5);
+		}
+		.auth__num-txt {
+			font-size: calc(var(--fs-close) * 0.9);
+			max-width: 12em;
+		}
+		.auth__texto {
+			margin-top: calc(14 * var(--fu));
+			max-width: none;
+			gap: calc(11 * var(--fu));
+			font-size: calc(var(--fs-body) * 0.92);
+			line-height: 1.55;
+		}
+	}
+
+	/* tablet e celular largo: texto à esquerda numa coluna e foto vertical não cabe ao lado */
+	@media (min-width: 600px) and (max-width: 899px) {
+		.auth__inner {
+			padding-inline: clamp(32px, 7vw, 64px);
+		}
+		.auth__foto {
+			margin-inline: calc(-1 * clamp(32px, 7vw, 64px));
+			aspect-ratio: 5 / 4;
+		}
+		.auth__foto :global(.auth__img) {
+			object-position: 50% 0%;
+		}
+	}
+</style>
