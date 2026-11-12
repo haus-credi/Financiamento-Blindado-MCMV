@@ -2,11 +2,11 @@
 /**
  * Dobra 01 — Hero.
  *
- * Desktop: palco FIXO de 1600 × 900 (16:9, raio 44px, margem superior 24px),
- * centralizado no viewport. Em janelas menores que 1600px o excedente lateral
- * é cortado (1366px → 117px de cada lado); em janelas maiores a moldura aparece
- * inteira com margem externa (1920px → 160px). A fotografia preenche o palco em
- * escala 1:1 com o Modelo 1 (rosto em ~1160px, pessoa ~600px de largura).
+ * Desktop: a Hero ocupa a janela inteira (largura toda × altura da janela), sem moldura.
+ * Toda a composição escala com a ALTURA da janela (--u = altura ÷ 670px): a fotografia tem a
+ * altura da Hero e encosta na borda direita; texto, título e botão crescem na mesma proporção.
+ * Resultado: a dobra fica igual em qualquer zoom ou tamanho de janela com a mesma proporção
+ * (referência: janela 1520 × 670 → título 70,4px, texto 24px, botão 60px).
  * Retrato/mobile: texto e botão primeiro, fotografia inteira logo abaixo.
  * Animação 100% CSS: o conteúdo é visível mesmo sem JS e com prefers-reduced-motion.
  */
@@ -271,22 +271,15 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		}
 	}
 
-	/* ================================================================ DESKTOP — PALCO FIXO 1600 × 900
-	   O palco nunca é reduzido para caber: ele é centralizado e o viewport
-	   mostra a faixa central dele. Excedente lateral cortado por overflow
-	   (sem barra de rolagem). Moldura preservada mesmo quando as laterais
-	   ficam fora da área visível. */
+	/* ================================================================ DESKTOP — TELA CHEIA
+	   A Hero preenche a janela (largura e altura). Tudo é medido em --u, que é a
+	   altura da Hero dividida por 670px: em 1520 × 670, --u = 1 e os valores abaixo
+	   são os de referência; em qualquer outra altura a composição escala junto. */
 	@media (min-width: 861px) and (min-aspect-ratio: 1/1) {
 		.hero {
 			overflow: hidden;
-			/* margem de 24px em cima e embaixo; --header-h reserva espaço para um
-			   cabeçalho fixo futuro (0 por enquanto) */
+			/* --header-h reserva espaço para um cabeçalho fixo futuro (0 por enquanto) */
 			--header-h: 0px;
-			/* margem vertical: 24px só quando a moldura aparece inteira (janela > 1600px);
-			   com as laterais cortadas ela vai a 0 e a Hero ocupa a altura toda, sem
-			   faixas em cima e embaixo */
-			--g: clamp(0px, calc((100vw - 1600px) * 0.5), 24px);
-			padding: var(--g) 0;
 			/* campo do DS (225°) que termina em --field na base, sem emenda com a página */
 			background:
 				linear-gradient(180deg, transparent 55%, var(--field) 100%),
@@ -294,33 +287,25 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		}
 
 		.hero__frame {
-			/* metade do excedente lateral que o viewport corta (0 em ≥ 1600px) */
-			--hide: max(0px, calc((1600px - 100vw) / 2));
-			/* início da coluna de texto no palco: 150px; empurrada para dentro
-			   quando o corte lateral cresce (sempre ≥ 28px de margem visível) */
-			--left: max(150px, calc(var(--hide) + 28px));
-			/* largura da coluna: até 690px, sem chegar nos ombros da especialista */
-			/* A foto tem a altura da Hero (--H) e encosta na borda VISÍVEL do palco
-			   (a asa da xícara nunca é cortada). O rosto/cabelo começa em 62% da foto.
-			   A coluna de texto vai até 120px antes dele: texto e especialista ficam
+			/* altura da Hero = altura da janela (menos o cabeçalho): a primeira dobra
+			   inteira, com o CTA, cabe sem rolagem vertical. Mínimo de 480px. */
+			--H: clamp(480px, calc(100svh - var(--header-h)), 1400px);
+			/* unidade da composição: 1u = 1px na janela de referência (altura 670px) */
+			--u: calc(var(--H) / 670);
+			/* início da coluna de texto: 110u da borda esquerda da janela */
+			--left: calc(110 * var(--u));
+			/* A foto tem a altura da Hero (--H) e encosta na borda direita da janela
+			   (sem corte, sem deformação). O rosto/cabelo começa em 62% da foto. A
+			   coluna de texto vai até 120u antes dele: texto e especialista ficam
 			   juntos, e o título cresce quando sobra espaço. */
 			--pw: calc(var(--H) * 1.7747);
-			--hair: calc(1600px - var(--hide) - var(--pw) * 0.38);
-			--col: clamp(420px, calc(var(--hair) - 120px - var(--left)), 860px);
+			--hair: calc(100vw - var(--pw) * 0.38);
+			--col: clamp(calc(420 * var(--u)), calc(var(--hair) - 120 * var(--u) - var(--left)), calc(860 * var(--u)));
 
 			display: block;
 			position: relative;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 1600px;
-			/* altura: até 835px, mas nunca maior que o que cabe na janela (menos as
-			   margens e o cabeçalho): a primeira dobra inteira, com o CTA, cabe sem
-			   rolagem vertical. Mínimo de 480px para o texto não ser espremido. */
-			--H: clamp(480px, calc(100svh - 2 * var(--g) - var(--header-h)), 835px);
+			width: 100%;
 			height: var(--H);
-			border-radius: 44px;
-			box-shadow: 0 0 0 8px var(--ring);
-			/* tinta verde: aparece só nos 1–2px de arredondamento da foto */
 			background: var(--v950);
 		}
 
@@ -331,7 +316,7 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		.hero__media {
 			position: absolute;
 			top: 0;
-			right: var(--hide);
+			right: 0;
 			height: var(--H);
 			width: calc(var(--H) * 1.7747); /* 1670 × 941 */
 			margin: 0;
@@ -410,7 +395,7 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 			mask-image: linear-gradient(90deg, transparent 0%, #000 18%, rgba(0, 0, 0, 0.55) 27%, #000 35%, transparent 48%, rgba(0, 0, 0, 0.13) 69%, #000 79%, transparent 97%);
 		}
 
-		/* ---- texto: coluna a 150px do palco, identificação em Y≈108 ---- */
+		/* ---- texto: coluna a 110u da borda esquerda, identificação em 12% da altura ---- */
 		.hero__inner {
 			position: absolute;
 			left: var(--left);
@@ -424,7 +409,8 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 
 		.hero__kicker {
 			margin-bottom: calc(var(--H) * 0.055);
-			font-size: 13px;
+			gap: calc(14 * var(--u));
+			font-size: calc(13 * var(--u));
 		}
 
 		/* título: cada linha entra em sequência; tamanho acompanha a coluna */
@@ -444,11 +430,19 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		.hero__lead {
 			max-width: calc(var(--col) * 0.88);
 			margin-top: calc(var(--H) * 0.04);
-			font-size: clamp(17px, calc(var(--col) * 0.03), 24px);
+			font-size: clamp(calc(14 * var(--u)), calc(var(--col) * 0.03), calc(24 * var(--u)));
 		}
 
 		.hero__cta {
 			margin-top: calc(var(--H) * 0.093);
+		}
+		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
+		.hero__cta :global(a.cta.hero__button) {
+			--h: calc(60 * var(--u));
+			--disc: calc(44 * var(--u));
+			gap: calc(22 * var(--u));
+			padding-left: calc(30 * var(--u));
+			font-size: calc(14.5 * var(--u));
 		}
 	}
 

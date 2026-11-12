@@ -1,6 +1,6 @@
 ---
 /**
- * Dobra 05 — O que você vai aprender (conteúdo do curso).
+ * Dobra 05 — O que você vai aprender (conteúdo do curso, copy v2 orientada a resultado).
  * Copy aprovada, palavra por palavra. Função: responder "o que exatamente vou aprender?";
  * sem repetir promessas das dobras 2–4 (nada de "vender mais", credibilidade etc.).
  *
@@ -28,28 +28,28 @@ import iconeExemplos from '@phosphor-icons/core/assets/regular/lightbulb.svg?raw
 const pilares = [
 	{
 		icone: iconeIdentificar,
-		titulo: 'Identifique quem pode financiar',
+		titulo: 'Identifique oportunidades de venda que antes passavam despercebidas',
 		texto:
-			'Entenda quem se enquadra no Minha Casa, Minha Vida, como comprovar renda e como o Imposto de Renda pode ajudar na análise de clientes autônomos.',
+			'Aprenda a reconhecer o perfil financeiro de cada comprador, entender a comprovação de renda e identificar possibilidades de financiamento, inclusive para clientes autônomos, antes de descartar uma negociação.',
 	},
 	{
 		icone: iconeNumeros,
-		titulo: 'Domine os números da negociação',
+		titulo: 'Conquiste a confiança do cliente na hora de falar de dinheiro',
 		texto:
-			'Aprenda sobre uso do FGTS, tabela Price e evolução de obra para explicar parcelas e condições financeiras com muito mais clareza.',
+			'Domine entrada, subsídio, FGTS, parcelas e evolução de obra para explicar as condições da compra com clareza, transmitir segurança e evitar expectativas que possam comprometer a venda.',
 	},
 	{
 		icone: iconeCreditoTrava,
-		titulo: 'Saiba o que fazer quando o crédito trava',
+		titulo: 'Saiba como agir quando o financiamento não avança',
 		texto:
-			'Reconheça situações em que uma reprovação pode ser reavaliada e saiba orientar o cliente sobre os próximos passos da análise bancária.',
+			'Entenda os possíveis motivos de uma reprovação, reconheça situações que merecem ser reavaliadas e saiba orientar os próximos passos para não deixar o cliente sem respostas.',
 	},
 ];
 
 const caracteristicas = [
 	{ icone: iconeAulas, texto: 'Aulas gravadas' },
 	{ icone: iconeLinguagem, texto: 'Linguagem simples' },
-	{ icone: iconeExemplos, texto: 'Exemplos práticos de situações que corretores enfrentam todos os dias' },
+	{ icone: iconeExemplos, texto: 'Exemplos práticos do dia a dia do corretor' },
 ];
 ---
 
@@ -63,8 +63,8 @@ const caracteristicas = [
 					>
 				</h2>
 				<p class="aprende__sub rv" style="--i:1">
-					Um treinamento que transforma as regras do crédito imobiliário em conhecimento simples e prático para aplicar
-					nos seus atendimentos.
+					Aprenda a usar as regras do Minha Casa, Minha Vida para atender com mais segurança, conquistar a confiança dos
+					compradores e aproveitar melhor suas oportunidades de venda.
 				</p>
 			</div>
 		</header>
@@ -88,10 +88,13 @@ const caracteristicas = [
 
 		<div class="aprende__apoio rv">
 			<span class="apoio__ico" aria-hidden="true" set:html={iconeMateriais} />
-			<p class="apoio__texto">
-				E você ainda conta com materiais para consultar no dia a dia: checklists de documentação, tabelas de
-				enquadramento de renda e taxas de juros.
-			</p>
+			<div class="apoio__corpo">
+				<p class="apoio__lead">E para colocar tudo isso em prática nos seus atendimentos:</p>
+				<p class="apoio__texto">
+					Você ainda conta com materiais de consulta, incluindo checklists de documentação, tabelas de enquadramento de
+					renda e taxas de juros.
+				</p>
+			</div>
 		</div>
 
 		<ul class="aprende__carac rv">
@@ -274,11 +277,22 @@ const caracteristicas = [
 		height: 1.35em;
 		fill: currentColor;
 	}
+	.apoio__corpo {
+		display: grid;
+		gap: 0.3em;
+	}
+	.apoio__lead {
+		margin: 0;
+		font: 500 var(--fs-body) / 1.35 var(--f-display);
+		letter-spacing: -0.02em;
+		color: var(--tx);
+		text-wrap: balance;
+	}
 	.apoio__texto {
 		margin: 0;
-		font: 400 var(--fs-body) / 1.5 var(--f-display);
+		font: 400 calc(var(--fs-body) * 0.92) / 1.5 var(--f-display);
 		letter-spacing: -0.01em;
-		color: var(--tx);
+		color: var(--tx-body);
 		text-wrap: pretty;
 	}
 
@@ -353,6 +367,17 @@ const caracteristicas = [
 		}
 		.aprende__apoio {
 			align-items: flex-start;
+		}
+	}
+
+	/* tablet: a frase mais longa da terceira característica cabe na mesma linha das outras */
+	@media (min-width: 720px) and (max-width: 899px) {
+		.aprende__carac {
+			font-size: calc(var(--fs-item) * 0.85);
+		}
+		.carac {
+			padding: 0 clamp(10px, 1.6vw, 14px);
+			gap: 0.5em;
 		}
 	}
 
