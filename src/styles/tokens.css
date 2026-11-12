@@ -37,6 +37,18 @@
   --accent: var(--b500);
   --accent-on-ink: var(--b300);
 
+  /* terracota do DS (tom de "erro"): uso EXCLUSIVO como sinal de reprovação dos
+     comportamentos da dobra 4 — nunca como cor de destaque da marca */
+  --err: #8a4f3c;
+  --err-bg: #f0dcd5;
+  /* vermelho vivo: exceção consciente (decisão do cliente), usada SÓ no selo "NÃO É PARA VOCÊ"
+     da dobra 4. Branco sobre ele = ~5,2:1 (AA). Não é cor de marca nem de destaque. */
+  --stop: #c8372d;
+  /* vermelho dos × da lista negativa: um degrau abaixo do selo (selo = --stop). Glifo sobre
+     disco rosado ~6,3:1. Também restrito à dobra 4. */
+  --stop-mark: #b93a30;
+  --stop-mark-bg: #f7d9d4;
+
   /* texto */
   --tx: var(--ink);
   --tx-2: rgba(var(--ink-rgb), 0.5);
@@ -67,6 +79,13 @@
   --title-ls: -0.06em;
   --title2-ls: -0.05em;
 
+  /* escala tipográfica ÚNICA das dobras (2, 3, 4…): mesmos tamanhos em todas.
+     base = celular/tablet; no desktop (≥900 × ≥620) os valores seguem a altura da janela */
+  --fs-h2: clamp(2.25rem, min(4.2vw, 7.2svh), 4.5rem); /* título da dobra */
+  --fs-body: clamp(1.0625rem, 0.95rem + 0.45vw, 1.3125rem); /* parágrafo */
+  --fs-item: clamp(1rem, 0.92rem + 0.4vw, 1.3rem); /* texto de item / lista */
+  --fs-close: clamp(1.5rem, 2.5vw, 2.5rem); /* frase de destaque */
+
   /* segundo tom dos títulos (degradê vertical) */
   --tex-light: linear-gradient(180deg, #0e1a13 0%, rgba(14, 26, 19, 0.62) 50%, rgba(14, 26, 19, 0.32) 100%);
   --tex-dark: linear-gradient(180deg, #ffffff 0%, #e3e7e4 50%, #76807a 100%);
@@ -78,6 +97,14 @@
   /* movimento */
   --ease-hz: cubic-bezier(0.44, 0, 0.56, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 900px) and (min-height: 620px) {
+  :root {
+    --fs-body: clamp(0.9375rem, min(1.35vw, 2.7svh), 1.375rem);
+    --fs-item: clamp(0.95rem, min(1.3vw, 2.7svh), 1.35rem);
+    --fs-close: clamp(1.45rem, min(2.9vw, 4.6svh), 2.9rem);
+  }
 }
 
 /* ---------------------------------------------------------------------

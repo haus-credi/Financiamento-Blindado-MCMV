@@ -12,12 +12,15 @@
 interface Props {
 	href: string;
 	class?: string;
+	/** 'escuro' (padrão): pílula branca para fundos escuros. 'claro': pílula de tinta (botão
+	 *  primário do DS) para fundos claros, com disco branco. */
+	fundo?: 'escuro' | 'claro';
 }
 
-const { href, class: className } = Astro.props;
+const { href, class: className, fundo = 'escuro' } = Astro.props;
 ---
 
-<a class:list={['cta', className]} href={href}>
+<a class:list={['cta', fundo === 'claro' && 'cta--claro', className]} href={href}>
 	<span class="cta__halo" aria-hidden="true"></span>
 	<span class="cta__shine" aria-hidden="true"></span>
 	<span class="cta__label"><slot /></span>
@@ -243,5 +246,45 @@ const { href, class: className } = Astro.props;
 	.cta:focus-visible {
 		outline: 3px solid var(--v300);
 		outline-offset: 5px;
+	}
+
+	/* ------------------------------------------------ variante para fundo CLARO
+	   Pílula de tinta (o `.btn` primário do DS), disco branco com seta de tinta, anel de 8px
+	   branco translúcido na "bandeja" do campo. O ciclo de convite é o mesmo. */
+	.cta--claro {
+		background: var(--ink);
+		color: #fff;
+		box-shadow:
+			0 0 0 8px rgba(255, 255, 255, 0.55),
+			0 22px 40px -18px rgba(14, 26, 19, 0.5),
+			var(--sh-btn),
+			inset 0 -4px 10px rgba(0, 0, 0, 0.25);
+	}
+	.cta--claro .cta__disc {
+		background: #fff;
+		color: var(--ink);
+		box-shadow: inset 0 -4px 8px rgba(14, 26, 19, 0.08);
+	}
+	.cta--claro .cta__halo {
+		border-color: rgba(var(--ink-rgb), 0.45);
+	}
+	.cta--claro .cta__shine::before {
+		background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.22) 50%, transparent 100%);
+	}
+	@media (hover: hover) {
+		.cta--claro:hover {
+			background: var(--v900);
+			box-shadow:
+				0 0 0 8px rgba(255, 255, 255, 0.7),
+				0 28px 50px -18px rgba(14, 26, 19, 0.55),
+				var(--sh-btn),
+				inset 0 -4px 10px rgba(0, 0, 0, 0.25);
+		}
+		.cta--claro:hover .cta__disc {
+			background: var(--v200);
+		}
+	}
+	.cta--claro:focus-visible {
+		outline-color: var(--v500);
 	}
 </style>

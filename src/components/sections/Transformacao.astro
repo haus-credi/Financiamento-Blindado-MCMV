@@ -1,0 +1,211 @@
+---
+/**
+ * Dobra 03 — A transformação.
+ * Função: depois de reconhecer a dor (dobra 2), o corretor visualiza o que pode mudar na
+ * rotina e na carreira. Vende a transformação, não lista matéria de curso — e não promete
+ * aprovação de crédito, taxa melhor nem aumento garantido de vendas.
+ *
+ * Moldura verde-escura do DS (radial + anel de 8px), duas colunas: headline e
+ * subheadline à esquerda; à direita, três afirmações fortes (numeral em serifa itálica,
+ * título grande, descrição em tom secundário) separadas pela divisória do DS que se
+ * dissolve. Sem cartões, sem ilustração, sem altura fixa.
+ * Tipografia pelos tokens de tokens.css (--fs-h2, --fs-body, --fs-item).
+ */
+const beneficios = [
+	{
+		titulo: 'Aproveite melhor suas oportunidades de venda.',
+		texto: 'Evite que dúvidas financeiras mal esclarecidas façam uma negociação esfriar.',
+	},
+	{
+		titulo: 'Conquiste mais credibilidade com seus clientes.',
+		texto: 'Seja reconhecido por explicar com clareza uma das etapas mais importantes da compra.',
+	},
+	{
+		titulo: 'Identifique possibilidades de financiamento que antes passavam despercebidas.',
+		texto: 'Entenda melhor o enquadramento, a composição de renda e a utilização do FGTS.',
+	},
+];
+---
+
+<section id="transformacao" class="transf" aria-labelledby="transf-title">
+	<div class="transf__frame on-ink">
+		<div class="rays" aria-hidden="true">
+			<div class="rays-in"><i class="r1"></i><i class="r3"></i><i class="r4"></i></div>
+		</div>
+
+		<div class="transf__inner">
+			<div class="transf__texto">
+				<h2 id="transf-title" class="transf__title rv">
+					Entender o financiamento pode <em class="acc">mudar</em>{' '}<span class="t2"
+						><span class="nb">o resultado</span> das suas negociações.</span
+					>
+				</h2>
+				<p class="transf__sub rv" style="--i:1">
+					Aprenda a identificar possíveis obstáculos antes que a venda avance e a orientar seus clientes sobre as
+					condições reais de compra.
+				</p>
+			</div>
+
+			<ol class="transf__lista">
+				{
+					beneficios.map((b, i) => (
+						<li class="transf__item rv" style={`--i:${i + 1}`}>
+							<span class="transf__num" aria-hidden="true">
+								{String(i + 1).padStart(2, '0')}
+							</span>
+							<strong class="transf__item-titulo">{b.titulo}</strong>
+							<p class="transf__item-texto">{b.texto}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* a faixa clara em volta da moldura continua o campo da dobra 2 */
+	.transf {
+		position: relative;
+		z-index: 2;
+		padding: 0 var(--frame-gap) var(--frame-gap);
+		background: var(--field);
+	}
+	.transf__frame {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		padding: clamp(56px, 6.6vw, 104px) clamp(24px, 5vw, 88px);
+		border-radius: var(--frame-radius);
+		/* moldura escura do DS: radial a partir do canto, anel de 8px */
+		background: radial-gradient(100% 100% at 0% 0%, var(--v800) 0%, var(--v950) 100%);
+		box-shadow: 0 0 0 8px var(--ring);
+		color: #fff;
+	}
+	/* raios de luz do DS sobre tinta: 5% */
+	.transf__frame :global(.rays i) {
+		opacity: 0.05;
+	}
+
+	.transf__inner {
+		position: relative;
+		z-index: 2;
+		max-width: 1320px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(36px, 5vw, 56px);
+	}
+
+	/* ------------------------------------------------- headline + subheadline */
+	.transf__title {
+		font-family: var(--f-title);
+		font-weight: 500;
+		font-size: var(--fs-h2);
+		line-height: 1.08;
+		letter-spacing: var(--title-ls);
+		color: #fff;
+		text-wrap: balance;
+	}
+	.transf__title .acc {
+		font-size: calc(1em * var(--acc-scale));
+		letter-spacing: -0.01em;
+		padding-right: 0.04em;
+	}
+	.transf__title .nb {
+		white-space: nowrap; /* "o resultado" não se separa entre linhas */
+	}
+	.transf__sub {
+		max-width: 31rem;
+		margin-top: clamp(24px, 3vw, 40px);
+		font: 400 var(--fs-body) / 1.6 var(--f-display);
+		letter-spacing: -0.01em;
+		color: rgba(255, 255, 255, 0.74);
+		text-wrap: pretty;
+	}
+
+	/* ------------------------------------------- três afirmações, sem cartões */
+	.transf__lista {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.transf__item {
+		position: relative;
+		display: grid;
+		grid-template-columns: 2.4em minmax(0, 1fr);
+		grid-template-areas:
+			'num titulo'
+			'.   texto';
+		column-gap: clamp(12px, 1.6vw, 22px);
+		row-gap: 0.55em;
+		padding: clamp(22px, 2.4vw, 32px) 0;
+		font-size: var(--fs-item);
+	}
+	/* divisória do DS: linha que se dissolve para a direita (sobre tinta) */
+	.transf__item::after,
+	.transf__item:first-child::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent);
+	}
+	.transf__item::after {
+		bottom: 0;
+	}
+	.transf__item:first-child::before {
+		top: 0;
+	}
+	.transf__num {
+		grid-area: num;
+		font-family: var(--f-acc);
+		font-style: var(--acc-style);
+		font-weight: var(--acc-weight);
+		font-size: 1.1em;
+		line-height: 1.7;
+		color: var(--accent-on-ink);
+	}
+	.transf__item-titulo {
+		grid-area: titulo;
+		display: block;
+		font: 500 1.55em / 1.18 var(--f-display);
+		letter-spacing: -0.035em;
+		color: #fff;
+		text-wrap: balance;
+	}
+	.transf__item-texto {
+		grid-area: texto;
+		margin: 0;
+		max-width: 34rem;
+		font: 400 0.92em / 1.5 var(--f-display);
+		letter-spacing: -0.005em;
+		color: rgba(255, 255, 255, 0.66);
+		text-wrap: pretty;
+	}
+
+	@media (min-width: 900px) {
+		.transf__inner {
+			grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+			column-gap: clamp(48px, 7vw, 112px);
+			align-items: center;
+		}
+		.transf__title {
+			line-height: 1.04;
+			letter-spacing: -0.055em;
+		}
+		.transf__sub {
+			line-height: 1.55;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.transf__item {
+			grid-template-columns: 1.9em minmax(0, 1fr);
+		}
+		.transf__item-titulo {
+			font-size: 1.3em;
+		}
+	}
+</style>

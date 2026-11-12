@@ -148,7 +148,7 @@ const problemas = [
 	.dor__title {
 		font-family: var(--f-title);
 		font-weight: 500;
-		font-size: clamp(2.25rem, 3.9vw, 3.75rem);
+		font-size: var(--fs-h2);
 		line-height: 1.08;
 		letter-spacing: var(--title-ls);
 		color: var(--tx);
@@ -174,7 +174,7 @@ const problemas = [
 		flex-direction: column;
 		gap: 0.9em;
 		max-width: 34rem;
-		font: 400 clamp(1.0625rem, 0.95rem + 0.45vw, 1.3125rem) / 1.6 var(--f-display);
+		font: 400 var(--fs-body) / 1.6 var(--f-display);
 		letter-spacing: -0.01em;
 		color: var(--tx-body);
 	}
@@ -211,7 +211,7 @@ const problemas = [
 		display: flex;
 		align-items: center;
 		gap: 14px;
-		font: 400 clamp(1rem, 0.92rem + 0.4vw, 1.3rem) / 1.25 var(--f-display);
+		font: 400 var(--fs-item) / 1.25 var(--f-display);
 		letter-spacing: -0.03em;
 	}
 	/* disco do ícone: ocre de atenção do DS (badge .warn), nunca laranja */
@@ -245,7 +245,7 @@ const problemas = [
 		box-shadow:
 			0 0 0 6px var(--ring),
 			14px 20px 30px -14px rgba(14, 26, 19, 0.45);
-		font: 500 clamp(1.5rem, 2.5vw, 2.5rem) / 1.16 var(--f-title);
+		font: 500 var(--fs-close) / 1.16 var(--f-title);
 		letter-spacing: -0.045em;
 		text-wrap: balance;
 		color: #fff;
@@ -325,7 +325,7 @@ const problemas = [
 
 		/* 1º: o título — o maior e o mais pesado */
 		:global(.js) .dor__title {
-			font-size: clamp(2.1rem, min(4.2vw, 7.2svh), 4.5rem);
+			font-size: var(--fs-h2);
 			line-height: 1.04;
 			letter-spacing: -0.055em;
 			/* o ponto mais alto da tinta do título (haste do itálico) encosta no topo da foto */
@@ -335,7 +335,7 @@ const problemas = [
 			line-height: 0.9;
 		}
 		:global(.js) .dor__body {
-			font-size: clamp(0.9375rem, min(1.35vw, 2.7svh), 1.375rem);
+			font-size: var(--fs-body);
 			line-height: 1.55;
 			gap: 0.8em;
 		}
@@ -360,7 +360,7 @@ const problemas = [
 		}
 		:global(.js) .dor__in {
 			gap: 12px;
-			font-size: clamp(0.95rem, min(1.3vw, 2.7svh), 1.35rem);
+			font-size: var(--fs-item);
 			opacity: 0;
 			transform: translateX(-36px);
 			filter: blur(6px);
@@ -388,7 +388,7 @@ const problemas = [
 		:global(.js) .dor__pin .dor__close {
 			margin-top: auto;
 			padding: 2.6svh clamp(20px, 2.4vw, 34px);
-			font-size: clamp(1.45rem, min(2.9vw, 4.6svh), 2.9rem);
+			font-size: var(--fs-close);
 			opacity: 0;
 			transform: translateY(24px) scale(0.985);
 			filter: blur(8px);
@@ -414,6 +414,8 @@ const problemas = [
 			top: auto;
 			width: min(100%, 520px);
 			margin-inline: auto;
+			/* no celular a foto é a ÚLTIMA coisa da dobra: texto primeiro, foto depois */
+			order: 2;
 		}
 		.dor__text {
 			padding-top: 8px;

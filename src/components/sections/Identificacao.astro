@@ -1,0 +1,315 @@
+---
+/**
+ * Dobra 04 — Identificação: para quem NÃO é / para quem É (uma única dobra).
+ * Copy aprovada, palavra por palavra; sem descrições.
+ *
+ * Topo: headline centralizada ("Vender bem começa por orientar bem.", com "orientar bem."
+ * em roxo itálico) e subheadline. Abaixo, dois quadros lado a lado, mesmo fundo claro e mesma
+ * altura:
+ *   esquerda — área só com contorno fino e véu de tinta; × em terracota suave (--err-bg);
+ *   direita  — superfície branca levemente destacada; checks verdes sólidos.
+ * Cada quadro termina num SELO no canto inferior direito, sobreposto à borda de baixo: lê-se a
+ * lista e, no fim, o veredito ("Se você é um corretor que: … → NÃO É PARA VOCÊ"). Mesmo formato,
+ * tamanho e posição; só muda a cor (vermelho vivo --stop × verde do DS) e o símbolo (× × ✓),
+ * texto branco. O selo "carimba" ao entrar (escala + fade, uma vez; sem movimento reduzido já
+ * aparece pronto). Sem frase de encerramento. Tipografia pelos tokens; sem alturas fixas.
+ */
+import iconeNao from '@phosphor-icons/core/assets/bold/x-bold.svg?raw';
+import iconeSim from '@phosphor-icons/core/assets/bold/check-bold.svg?raw';
+
+const colunas = [
+	{
+		id: 'nao',
+		selo: 'NÃO É PARA VOCÊ',
+		intro: 'Se você é um corretor que:',
+		icone: iconeNao,
+		itens: [
+			'Inventa respostas sobre financiamento para não perder uma venda.',
+			'Mente sobre entrada, parcelas ou subsídio para convencer o cliente a comprar.',
+			'Tenta burlar as regras de crédito ou enganar o banco para conseguir uma aprovação.',
+			'Pressiona o comprador a fechar negócio sem explicar os custos e riscos.',
+			'Coloca a própria comissão acima dos interesses da família que está comprando.',
+		],
+	},
+	{
+		id: 'sim',
+		selo: 'É PARA VOCÊ',
+		intro: 'Mas se você é um corretor que:',
+		icone: iconeSim,
+		itens: [
+			'Está começando e quer aprender financiamento para atender seus primeiros clientes.',
+			'Já vende imóveis, mas ainda trava quando o cliente pergunta sobre financiamento.',
+			'Tem experiência e quer se atualizar para continuar sendo referência no mercado.',
+			'Trabalha por conta própria e quer depender menos de outras pessoas para esclarecer dúvidas.',
+			'Gerencia uma equipe e quer corretores mais preparados para orientar os compradores.',
+		],
+	},
+];
+---
+
+<section id="identificacao" class="ident" aria-labelledby="ident-title">
+	<div class="rays" aria-hidden="true">
+		<div class="rays-in"><i class="r1"></i><i class="r4"></i></div>
+	</div>
+
+	<div class="ident__inner">
+		<header class="ident__head">
+			<h2 id="ident-title" class="ident__title rv">
+				Vender bem começa por <em class="acc">orientar bem.</em>
+			</h2>
+			<p class="ident__sub rv" style="--i:1">Descubra se o Financiamento Blindado foi feito para você.</p>
+		</header>
+
+		<div class="ident__cols">
+			{
+				colunas.map((c, k) => (
+					<div class={`col col--${c.id} rv`} style={`--i:${k + 1}`}>
+						<p class="col__intro">{c.intro}</p>
+						<ul class="col__lista">
+							{c.itens.map((t) => (
+								<li class="col__item">
+									<span class="col__marca" aria-hidden="true" set:html={c.icone} />
+									<span class="col__texto">{t}</span>
+								</li>
+							))}
+						</ul>
+						<h3 class="col__selo">
+							<span class="col__selo-ic" aria-hidden="true" set:html={c.icone} />
+							{c.selo}
+						</h3>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.ident {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		background: var(--field);
+		padding: clamp(48px, 4.6vw, 72px) clamp(20px, 4vw, 56px) clamp(56px, 5.6vw, 88px);
+	}
+	/* só dois raios do DS, bem discretos, e só no miolo (sem emenda com a dobra 3) */
+	.ident :global(.rays) {
+		-webkit-mask-image: linear-gradient(transparent 0%, #000 35%, #000 55%, transparent 100%);
+		mask-image: linear-gradient(transparent 0%, #000 35%, #000 55%, transparent 100%);
+	}
+	.ident :global(.rays i) {
+		opacity: 0.7;
+	}
+
+	.ident__inner {
+		position: relative;
+		z-index: 2;
+		max-width: 1440px;
+		margin: 0 auto;
+		display: grid;
+		gap: clamp(30px, 3vw, 44px);
+	}
+
+	/* -------------------------------------------------------- headline centralizada */
+	.ident__head {
+		text-align: center;
+	}
+	.ident__title {
+		font-family: var(--f-title);
+		font-weight: 500;
+		font-size: var(--fs-h2);
+		line-height: 1.06;
+		letter-spacing: var(--title-ls);
+		color: var(--tx);
+		text-wrap: balance;
+	}
+	.ident__title .acc {
+		font-size: calc(1em * var(--acc-scale));
+		letter-spacing: -0.01em;
+		padding-right: 0.04em;
+		white-space: nowrap;
+	}
+	.ident__sub {
+		margin: clamp(12px, 1.4vw, 20px) auto 0;
+		max-width: 36rem;
+		font: 400 var(--fs-body) / 1.5 var(--f-display);
+		letter-spacing: -0.01em;
+		color: var(--tx-body);
+		text-wrap: balance;
+	}
+
+	/* ------------------------------------------------------------ as duas colunas */
+	.ident__cols {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		/* no celular, a metade do selo do 1º quadro que desce não pode encostar no 2º */
+		gap: 56px;
+		align-items: stretch;
+	}
+	.col {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		/* a base reserva a metade do selo que entra no quadro + um respiro */
+		padding: clamp(24px, 2.6vw, 40px) clamp(22px, 2.8vw, 42px) clamp(40px, 3.4vw, 52px);
+		border-radius: 24px;
+	}
+	/* negativa: só contorno fino e um véu de tinta — restritiva, vazada */
+	.col--nao {
+		border: 1px solid rgba(var(--ink-rgb), 0.3);
+		background: rgba(var(--ink-rgb), 0.03);
+	}
+	/* positiva: superfície branca levemente destacada — acolhedora, preenchida */
+	.col--sim {
+		background: var(--surface);
+		box-shadow:
+			0 0 0 4px rgba(255, 255, 255, 0.55),
+			0 16px 32px -24px rgba(14, 26, 19, 0.25);
+	}
+
+	/* selo: sobreposto à borda inferior direita; MESMO formato, tamanho e posição nos dois */
+	.col__selo {
+		position: absolute;
+		z-index: 2;
+		bottom: 0;
+		right: clamp(20px, 2.4vw, 34px);
+		transform: translateY(50%);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.65em;
+		height: 2.9em;
+		/* mesma largura nos dois selos (o texto negativo é o mais longo) */
+		min-width: 15.4em;
+		margin: 0;
+		padding: 0 1.3em 0 1.1em;
+		border-radius: 10px;
+		font: 600 calc(var(--fs-item) * 0.82) / 1 var(--f-display);
+		letter-spacing: 0.14em;
+		color: #fff;
+		/* o anel na cor do campo "recorta" a borda do quadro atrás do selo */
+		box-shadow: 0 0 0 5px var(--field);
+	}
+	/* filete interno fino: dá o ar de selo, sem textura nem efeito */
+	.col__selo::before {
+		content: '';
+		position: absolute;
+		inset: 3px;
+		border: 1px solid rgba(255, 255, 255, 0.32);
+		border-radius: 7px;
+		pointer-events: none;
+	}
+	.col__selo-ic {
+		display: grid;
+		place-items: center;
+		width: 1.15em;
+		height: 1.15em;
+	}
+	.col__selo-ic :global(svg) {
+		width: 100%;
+		height: 100%;
+		fill: currentColor;
+	}
+	.col--nao .col__selo {
+		background: var(--stop);
+	}
+	/* verde um tom acima do anterior: equilibra o peso com o vermelho vivo (branco = ~4,9:1) */
+	.col--sim .col__selo {
+		background: var(--v500);
+	}
+	/* "carimbo": entra com leve escala + fade depois da lista, uma vez (só transform/opacity).
+	   Sem JS ou com movimento reduzido o selo já aparece pronto. */
+	:global(.js) .col__selo {
+		opacity: 0;
+		transform: translateY(50%) scale(1.14);
+		transition:
+			opacity 0.4s var(--ease-out) 0.6s,
+			transform 0.55s var(--ease-out) 0.6s;
+	}
+	:global(.js) .col.is-in .col__selo {
+		opacity: 1;
+		transform: translateY(50%) scale(1);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		:global(.js) .col__selo {
+			opacity: 1;
+			transform: translateY(50%);
+			transition: none;
+		}
+	}
+
+	/* "Se você é um corretor que:" — introduz a identificação, com corpo de título */
+	.col__intro {
+		margin: 0 0 clamp(14px, 1.6vw, 22px);
+		font: 500 calc(var(--fs-h2) * 0.6) / 1.12 var(--f-title);
+		letter-spacing: -0.045em;
+		color: var(--tx);
+		text-wrap: balance;
+	}
+
+	/* ------------------------------------------------------------------ afirmações */
+	.col__lista {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid rgba(var(--ink-rgb), 0.18);
+	}
+	.col__item {
+		display: grid;
+		grid-template-columns: 2.1em minmax(0, 1fr);
+		column-gap: clamp(12px, 1.2vw, 16px);
+		align-items: center;
+		padding: clamp(12px, 1.2vw, 16px) 0;
+		border-bottom: 1px solid rgba(var(--ink-rgb), 0.12);
+		font-size: var(--fs-item);
+	}
+	.col__item:last-child {
+		border-bottom: 0;
+	}
+	.col__texto {
+		font: 500 1.12em / 1.25 var(--f-display);
+		letter-spacing: -0.03em;
+		color: var(--tx);
+		text-wrap: pretty;
+	}
+
+	/* marcadores: reprovação em terracota suave × confirmação em verde sólido */
+	.col__marca {
+		display: grid;
+		place-items: center;
+		width: 2.1em;
+		height: 2.1em;
+		border-radius: 50%;
+	}
+	.col__marca :global(svg) {
+		width: 0.85em;
+		height: 0.85em;
+		fill: currentColor;
+	}
+	.col--nao .col__marca {
+		background: var(--stop-mark-bg);
+		color: var(--stop-mark);
+	}
+	/* × maior e mais cheio: deixa de ficar lavado ao lado do selo */
+	.col--nao .col__marca :global(svg) {
+		width: 1em;
+		height: 1em;
+	}
+	.col--sim .col__marca {
+		background: var(--v500);
+		color: #fff;
+		box-shadow: 0 0 0 0.28em rgba(64, 125, 92, 0.16);
+	}
+	.col--sim .col__marca :global(svg) {
+		width: 0.95em;
+		height: 0.95em;
+	}
+
+	/* desktop: os dois quadros lado a lado (negativa à esquerda, positiva à direita) */
+	@media (min-width: 900px) {
+		.ident__cols {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: clamp(24px, 2.6vw, 36px);
+		}
+	}
+</style>
