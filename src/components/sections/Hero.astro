@@ -11,18 +11,18 @@
  * Animação 100% CSS: o conteúdo é visível mesmo sem JS e com prefers-reduced-motion.
  */
 import { Picture } from 'astro:assets';
-import defaultPhoto from '../../assets/hero/dobra01.png';
+import defaultPhoto from '../../assets/hero/dobra-parede-lisa.png';
 import CtaButton from '../ui/CtaButton.astro';
 import { CHECKOUT_URL } from '../../config/site';
 
 interface Props {
-	/** Fotografia de fundo (1670 × 941). Padrão: dobra01.png */
+	/** Fotografia de fundo (1670 × 941). Padrão: dobra-parede-lisa.png (versão B, a principal) */
 	photo?: ImageMetadata;
 	/** 'clean' = parede lisa à esquerda: névoa de leitura mais leve */
 	variant?: 'default' | 'clean';
 }
 
-const { photo = defaultPhoto, variant = 'default' } = Astro.props;
+const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 ---
 
 <section class:list={['hero', { 'hero--clean': variant === 'clean' }]} aria-labelledby="hero-title">
@@ -57,17 +57,17 @@ const { photo = defaultPhoto, variant = 'default' } = Astro.props;
 				</p>
 
 				<h1 id="hero-title" class="hero__title">
-					<span class="hero__line" style="--l:0">Venda mais imóveis <em class="acc">na planta</em></span>{' '}
+					<span class="hero__line" style="--l:0">Venda mais <em class="acc">imóveis na planta</em></span>{' '}
 					<span class="hero__line t2" style="--l:1">sem travar no financiamento</span>
 				</h1>
 
 				<p class="hero__lead">
-					Responda na hora às perguntas sobre <strong>subsídio, FGTS, renda e simulação</strong> do Minha Casa,
-					Minha Vida, sem parar o atendimento para chamar o correspondente.
+					Domine as regras do Minha Casa, Minha Vida, esclareça as dúvidas dos seus clientes e conduza cada venda com
+					mais segurança.
 				</p>
 
 				<div class="hero__cta">
-					<CtaButton href={CHECKOUT_URL} class="hero__button">QUERO GARANTIR MEU ACESSO</CtaButton>
+					<CtaButton href={CHECKOUT_URL} class="hero__button">QUERO ME TORNAR REFERÊNCIA</CtaButton>
 				</div>
 			</div>
 		</div>

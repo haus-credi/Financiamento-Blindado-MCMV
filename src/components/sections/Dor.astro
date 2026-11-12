@@ -1,0 +1,422 @@
+---
+/**
+ * Dobra 02 — A dor.
+ * Copy: "Copy do Site MVP.md", Página 2 — sem o parágrafo "Você fez todo o atendimento
+ * e começou a contar com aquela comissão." (retirado a pedido do cliente).
+ *
+ * Composição: campo cinza do DS com raios de luz; à esquerda a fotografia num
+ * cartão com anel de 8px e sombra longa; à direita o título, dois parágrafos, UM
+ * retângulo dividido em quatro quadrantes (cada problema entra na sua caixa e
+ * fica na tela) e a frase final como o único bloco escuro da coluna (moldura
+ * verde do DS): o contraste claro × escuro é o destaque.
+ *
+ * Desktop com JS e movimento normal: foto e texto ficam num palco parado e a
+ * rolagem faz os quadrantes entrarem um a um (--step px por quadrante) e, depois
+ * do último, a frase. Celular, sem JS ou movimento reduzido: tudo visível.
+ */
+
+import { Picture } from 'astro:assets';
+import contrato from '../../assets/sections/dor-contrato.png';
+// Ícones do Design System (Phosphor, peso regular), embutidos como SVG no build
+import iconeRenda from '@phosphor-icons/core/assets/regular/identification-card.svg?raw';
+import iconeSubsidio from '@phosphor-icons/core/assets/regular/hand-coins.svg?raw';
+import iconeEntrada from '@phosphor-icons/core/assets/regular/coins.svg?raw';
+import iconeSimulacao from '@phosphor-icons/core/assets/regular/calculator.svg?raw';
+
+const problemas = [
+	{ texto: 'Uma renda que não foi bem avaliada.', icone: iconeRenda },
+	{ texto: 'Um subsídio que o cliente achava garantido.', icone: iconeSubsidio },
+	{ texto: 'Uma entrada diferente da esperada.', icone: iconeEntrada },
+	{ texto: 'Uma simulação que não bateu com a realidade.', icone: iconeSimulacao },
+];
+---
+
+<section id="dor" class="dor field" aria-labelledby="dor-title">
+	<div class="rays" aria-hidden="true">
+		<div class="rays-in"><i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="r4"></i><i class="r5"></i></div>
+	</div>
+
+	<div class="dor__pin" data-scrolly>
+		<div class="dor__stage" data-step-slot>
+			<div class="dor__inner">
+				<figure class="dor__photo rv">
+					<Picture
+						src={contrato}
+						alt="Corretor de camisa azul, em choque, olhando para um contrato de venda que se desfaz em pó"
+						formats={['webp']}
+						fallbackFormat="jpg"
+						widths={[640, 960, 1122]}
+						sizes="(min-width: 900px) 640px, 92vw"
+						quality={95}
+						class="dor__img"
+					/>
+				</figure>
+
+				<!-- Com JS, em telas largas e com movimento normal: foto e texto ficam num
+				     palco parado (a altura da janela); a rolagem só troca o card e, depois
+				     do último, revela a conclusão. No resto, tudo aparece empilhado. -->
+				<div class="dor__text">
+					<h2 id="dor-title" class="dor__title rv">
+						A venda parecia <em class="acc">fechada.</em>
+						<span class="t2">Até o financiamento entrar na conversa.</span>
+					</h2>
+
+					<div class="dor__mid">
+						<div class="dor__body rv" data-words>
+							<p>O cliente gostou do apartamento, escolheu a unidade e já estava fazendo planos para a mudança.</p>
+							<p>Mas, quando chegou a hora de avançar com o financiamento, apareceu o problema.</p>
+						</div>
+
+						<ul class="dor__quad rv">
+							{
+								problemas.map((p) => (
+									<li class="dor__cell" data-step-item>
+										<div class="dor__in">
+											<span class="dor__ico" aria-hidden="true" set:html={p.icone} />
+											<span class="dor__cell-text">{p.texto}</span>
+										</div>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<p class="dor__close rv" data-words>
+						E aquela venda que parecia tão certa começa a <em class="acc">se desfazer</em> diante dos seus olhos.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="dor__run" aria-hidden="true"></div>
+	</div>
+</section>
+
+<style>
+	.dor {
+		padding: clamp(72px, 9vw, 140px) clamp(20px, 4vw, 56px);
+	}
+
+	.dor__inner {
+		position: relative;
+		z-index: 2;
+		max-width: 1240px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+		gap: clamp(40px, 6vw, 96px);
+		align-items: start;
+	}
+
+	/* ---------------------------------------------------------------- foto */
+	.dor__photo {
+		margin: 0;
+		/* fica à vista enquanto o texto rola */
+		position: sticky;
+		top: 24px;
+		border-radius: 28px;
+		overflow: hidden;
+		background: var(--v900);
+		box-shadow:
+			0 0 0 8px var(--ring),
+			var(--sh-soft);
+		aspect-ratio: 1122 / 1402;
+	}
+	.dor__photo :global(picture),
+	.dor__photo :global(.dor__img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.dor__photo :global(.dor__img) {
+		object-fit: cover;
+	}
+
+	/* --------------------------------------------------------------- texto */
+	.dor__text {
+		display: flex;
+		flex-direction: column;
+		gap: clamp(24px, 3vw, 36px);
+		padding-top: clamp(0px, 2vw, 24px);
+	}
+
+	.dor__mid {
+		display: flex;
+		flex-direction: column;
+		gap: clamp(24px, 3vw, 36px);
+	}
+
+	.dor__title {
+		font-family: var(--f-title);
+		font-weight: 500;
+		font-size: clamp(2.25rem, 3.9vw, 3.75rem);
+		line-height: 1.08;
+		letter-spacing: var(--title-ls);
+		color: var(--tx);
+	}
+	.dor__title .acc {
+		font-size: calc(1em * var(--acc-scale));
+		letter-spacing: -0.01em;
+		padding-right: 0.04em;
+	}
+	.dor__title .t2 {
+		display: block;
+		margin-top: 0.08em;
+		text-wrap: balance;
+		/* segundo tom com corpo: bem mais escuro que o padrão do DS (que apagava o título) */
+		color: rgba(var(--ink-rgb), 0.72);
+	}
+	:global(:root[data-tex='grad']) .dor__title .t2 {
+		background-image: linear-gradient(180deg, rgba(14, 26, 19, 0.92) 0%, rgba(14, 26, 19, 0.66) 100%);
+	}
+
+	.dor__body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.9em;
+		max-width: 34rem;
+		font: 400 clamp(1.0625rem, 0.95rem + 0.45vw, 1.3125rem) / 1.6 var(--f-display);
+		letter-spacing: -0.01em;
+		color: var(--tx-body);
+	}
+
+	/* ------------------------------------------------ os quatro problemas
+	   UM retângulo branco dividido em quatro quadrantes por fios de 1px.
+	   Base (celular, sem JS, movimento reduzido): tudo visível. */
+	.dor__run {
+		display: none;
+	}
+	.dor__quad {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		overflow: hidden;
+		border-radius: 20px;
+		background: var(--hair);
+		box-shadow:
+			0 0 0 6px var(--ring),
+			var(--sh-soft);
+	}
+	.dor__cell {
+		display: flex;
+		align-items: center;
+		min-height: 88px;
+		padding: 16px 20px;
+		background: var(--surface);
+		color: var(--tx);
+	}
+	.dor__in {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		font: 400 clamp(1rem, 0.92rem + 0.4vw, 1.3rem) / 1.25 var(--f-display);
+		letter-spacing: -0.03em;
+	}
+	/* disco do ícone: ocre de atenção do DS (badge .warn), nunca laranja */
+	.dor__ico {
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		background: #efe5cc;
+		color: var(--warn-tx);
+	}
+	.dor__ico :global(svg) {
+		width: 22px;
+		height: 22px;
+		fill: currentColor;
+	}
+	@media (max-width: 559px) {
+		.dor__quad {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	/* a frase final: o único bloco escuro da coluna (moldura verde do DS) */
+	.dor__close {
+		margin: 0;
+		padding: clamp(22px, 2.8vw, 36px) clamp(24px, 3vw, 40px);
+		border-radius: 20px;
+		background: radial-gradient(100% 100% at 0% 0%, var(--v800) 0%, var(--v950) 100%);
+		box-shadow:
+			0 0 0 6px var(--ring),
+			14px 20px 30px -14px rgba(14, 26, 19, 0.45);
+		font: 500 clamp(1.5rem, 2.5vw, 2.5rem) / 1.16 var(--f-title);
+		letter-spacing: -0.045em;
+		text-wrap: balance;
+		color: #fff;
+	}
+	.dor__close :global(.acc) {
+		font-size: calc(1em * var(--acc-scale));
+		letter-spacing: -0.01em;
+		padding-right: 0.04em;
+		color: var(--accent-on-ink);
+	}
+
+	/* ======= DESKTOP + JS + MOVIMENTO NORMAL — palco parado (altura da janela)
+	   Foto e texto ficam fixos juntos; a rolagem faz os quadrantes entrarem. A foto tem a
+	   altura da janela menos as margens e o texto ocupa essa mesma altura:
+	   título alinhado ao topo da foto, parágrafos + quadrantes logo abaixo dele,
+	   frase logo abaixo (o espaço dela fica reservado). Tamanhos pela altura da janela. */
+	@media (min-width: 900px) and (min-height: 620px) and (prefers-reduced-motion: no-preference) {
+		:global(.js) .dor {
+			/* respiro entre a dobra 1 e a 2 (e antes da próxima) */
+			padding-block: clamp(80px, 15svh, 170px) clamp(48px, 9svh, 110px);
+		}
+		:global(.js) .dor__pin {
+			position: relative;
+			z-index: 2;
+			/* padrão de rolagem: 100px por quadrante; o 1º entra 100px antes do palco
+			   travar; a frase sobe 80px depois do 4º; depois dela o palco segue
+			   parado por 120px */
+			--step: 100px;
+			--lead: 100px;
+			--gap: 80px;
+			--hold: 120px;
+		}
+		:global(.js) .dor__stage {
+			position: sticky;
+			top: 0;
+			height: 100svh;
+			display: grid;
+			align-items: center;
+			padding-inline: clamp(20px, 4vw, 56px);
+		}
+		:global(.js) .dor__inner {
+			width: 100%;
+			max-width: 1440px;
+			grid-template-columns: auto minmax(0, 1fr);
+			gap: clamp(40px, 5.5vw, 96px);
+			align-items: stretch;
+		}
+		/* pista = 3 trocas de --step, menos o adianto, mais o intervalo até a frase e a retenção final */
+		:global(.js) .dor__run {
+			display: block;
+			height: calc(3 * var(--step) - var(--lead) + var(--gap) + var(--hold));
+		}
+		:global(.js) .dor__photo {
+			position: relative;
+			top: auto;
+			margin: 0;
+			/* altura = a da janela menos 24px em cima e embaixo (a proporção da foto manda) */
+			width: min(calc((100svh - 48px) * 0.8003), 44vw);
+		}
+
+		/* coluna de texto: mesma altura da foto; topo, meio e base */
+		:global(.js) .dor__text {
+			height: 100%;
+			padding-top: 0;
+			gap: 0;
+			/* título alinhado ao topo da foto, frase alinhada à base (margin-top:auto):
+			   o texto ocupa exatamente a mesma altura da foto. Título e parágrafos ficam
+			   próximos; a sobra de altura vira respiro antes da frase */
+			justify-content: flex-start;
+		}
+		/* parágrafos + card colados ao título, com um respiro curto */
+		:global(.js) .dor__mid {
+			margin-top: 3.5svh;
+			margin-bottom: 2svh;
+			gap: 3.2svh;
+		}
+
+		/* 1º: o título — o maior e o mais pesado */
+		:global(.js) .dor__title {
+			font-size: clamp(2.1rem, min(4.2vw, 7.2svh), 4.5rem);
+			line-height: 1.04;
+			letter-spacing: -0.055em;
+			/* o ponto mais alto da tinta do título (haste do itálico) encosta no topo da foto */
+			margin-top: -0.04em;
+		}
+		:global(.js) .dor__title .acc {
+			line-height: 0.9;
+		}
+		:global(.js) .dor__body {
+			font-size: clamp(0.9375rem, min(1.35vw, 2.7svh), 1.375rem);
+			line-height: 1.55;
+			gap: 0.8em;
+		}
+
+		/* o retângulo em quatro quadrantes: cada quadrante só recebe o conteúdo
+		   quando chega a vez dele (entra pela esquerda) e então fica na tela */
+		:global(.js) .dor__quad {
+			box-shadow:
+				0 0 0 5px var(--ring),
+				8px 12px 16px rgba(0, 0, 0, 0.08);
+		}
+		:global(.js) .dor__cell {
+			min-height: clamp(58px, 10.2svh, 92px);
+			padding: 1.5svh clamp(14px, 1.6vw, 24px);
+			/* quadrante vazio: vidro; quando recebe o conteúdo, enche de branco */
+			background: rgba(255, 255, 255, 0.55);
+			transition: background-color 0.5s var(--ease-hz);
+		}
+		:global(.js) .dor__cell.is-active,
+		:global(.js) .dor__cell.is-past {
+			background: var(--surface);
+		}
+		:global(.js) .dor__in {
+			gap: 12px;
+			font-size: clamp(0.95rem, min(1.3vw, 2.7svh), 1.35rem);
+			opacity: 0;
+			transform: translateX(-36px);
+			filter: blur(6px);
+			transition:
+				opacity 0.4s var(--ease-out),
+				transform 0.6s var(--ease-out),
+				filter 0.4s var(--ease-out);
+		}
+		:global(.js) .dor__cell.is-active .dor__in,
+		:global(.js) .dor__cell.is-past .dor__in {
+			opacity: 1;
+			transform: none;
+			filter: none;
+		}
+		:global(.js) .dor__ico {
+			width: clamp(30px, 5.4svh, 42px);
+			height: clamp(30px, 5.4svh, 42px);
+		}
+		:global(.js) .dor__ico :global(svg) {
+			width: 54%;
+			height: 54%;
+		}
+
+		/* a frase final: logo abaixo do retângulo; aparece depois do último quadrante */
+		:global(.js) .dor__pin .dor__close {
+			margin-top: auto;
+			padding: 2.6svh clamp(20px, 2.4vw, 34px);
+			font-size: clamp(1.45rem, min(2.9vw, 4.6svh), 2.9rem);
+			opacity: 0;
+			transform: translateY(24px) scale(0.985);
+			filter: blur(8px);
+			transition:
+				opacity 0.7s var(--ease-out),
+				transform 0.9s var(--ease-out),
+				filter 0.7s var(--ease-out);
+		}
+		:global(.js) .dor__pin[data-done='true'] .dor__close {
+			opacity: 1;
+			transform: none;
+			filter: none;
+		}
+	}
+
+	/* ------------------------------------------------------ estreito / celular */
+	@media (max-width: 899px) {
+		.dor__inner {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		.dor__photo {
+			position: relative;
+			top: auto;
+			width: min(100%, 520px);
+			margin-inline: auto;
+		}
+		.dor__text {
+			padding-top: 8px;
+		}
+	}
+</style>

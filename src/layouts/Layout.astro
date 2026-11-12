@@ -29,6 +29,8 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+		<!-- habilita os efeitos de movimento; sem JS o conteúdo aparece normalmente -->
+		<script is:inline>document.documentElement.classList.add('js');</script>
 
 		<!-- Fontes do título (H1) — críticas para a primeira dobra -->
 		<link rel="preload" href="/fonts/inter-display-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -37,5 +39,8 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
 	</head>
 	<body>
 		<slot />
+		<script>
+			import '../scripts/motion.ts';
+		</script>
 	</body>
 </html>

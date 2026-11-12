@@ -14,5 +14,8 @@
   "dependencies": {
     "@fontsource/jetbrains-mono": "5.2.8",
     "astro": "^7.4.11"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "2.1.1"
   }
 }
