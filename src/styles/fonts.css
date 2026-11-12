@@ -1,5 +1,5 @@
 /* Fontes do Design System — os mesmos arquivos do Hanzo original, extraídos de
-   design-system-final/assets/fonts.css (que os embute em data: URI) para woff2
+   templates/design-system-final/assets/fonts.css (que os embute em data: URI) para woff2
    servidos e cacheados separadamente. Subconjunto latino: cobre todo o português.
    Só são baixadas as faces que a página realmente usa. */
 @font-face {

@@ -1,46 +1,50 @@
-# Astro Starter Kit: Basics
+# Financiamento Blindado para Corretores — página de vendas
 
-```sh
-npm create astro@latest -- --template basics
-```
+Página de vendas estática feita em [Astro](https://astro.build): 8 dobras + rodapé, sem framework de interface no navegador, só HTML, CSS e um script pequeno de movimento.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Comandos
 
-## 🚀 Project Structure
+Rode na raiz do projeto.
 
-Inside of your Astro project, you'll see the following folders and files:
+| Comando           | O que faz                                                  |
+| :---------------- | :--------------------------------------------------------- |
+| `npm install`     | Instala as dependências                                    |
+| `npm run dev`     | Servidor local em `http://localhost:4321`                  |
+| `npm run build`   | Gera o site final na pasta `dist/` (é o que vai ao ar)     |
+| `npm run preview` | Abre o `dist/` localmente, para conferir antes de publicar |
+
+## Estrutura
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── public/                 arquivos servidos como estão (favicon, fontes, textura, robots.txt)
+├── src/
+│   ├── assets/             imagens que o Astro otimiza no build (WebP/JPG responsivos)
+│   │   ├── hero/
+│   │   └── sections/
+│   ├── components/
+│   │   ├── sections/       uma dobra por arquivo (Hero, Dor, Transformacao, ...)
+│   │   └── ui/             peças reutilizáveis (Botao, CtaButton, ícones)
+│   ├── config/site.ts      textos de SEO e o link de checkout (CHECKOUT_URL)
+│   ├── layouts/Layout.astro   <head>, fontes e o script de movimento
+│   ├── pages/index.astro   monta a página: dobras na ordem
+│   ├── scripts/motion.ts   efeitos de entrada e rolagem
+│   └── styles/             tokens do Design System, fontes, botões, estilos globais
+├── templates/              material de referência, NÃO vai para o site
+│   ├── design-system-final/   Design System (identidade visual completa)
+│   └── hero-alternativa/      foto da Hero versão A (não usada)
+├── astro.config.mjs
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Antes de publicar
 
-## 🧞 Commands
+1. **Checkout.** Todos os botões apontam para `#oferta`. Troque `CHECKOUT_URL` em `src/config/site.ts` pelo link real de compra.
+2. **Domínio.** Defina `site: 'https://seudominio.com.br'` em `astro.config.mjs`. Com isso a página passa a ter a tag `canonical`.
+3. **Imagem de compartilhamento.** Passe a prop `image` ao `Layout` (1200 × 630) para o WhatsApp, o Instagram e o LinkedIn mostrarem uma prévia.
 
-All commands are run from the root of the project, from a terminal:
+## Publicação (Vercel / Netlify / Cloudflare Pages)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Comando de build: `npm run build`
+- Pasta de saída: `dist`
+- Node: 22 ou mais novo
