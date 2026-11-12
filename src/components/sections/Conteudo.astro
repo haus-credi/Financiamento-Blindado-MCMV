@@ -350,16 +350,15 @@ const caracteristicas = ['Aulas gravadas', 'Linguagem simples', 'Exemplos práti
 		}
 	}
 
-	/* desktop: a dobra tem a altura da janela (--fold-h); o conteúdo fica centralizado nela, com a
-	   mesma margem em cima e embaixo. Medidas em --fu (1px na janela de referência 1340 × 670).
+	/* desktop: a dobra = caixa de texto + colchão (--half) em cima e embaixo (ver --delta em
+	   tokens.css). Medidas em --fu (1px na janela de referência 1340 × 670).
 	   Ritmo vertical único: o mesmo intervalo (--gap) entre cabeçalho, etapas e rodapé. */
 	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
 		.aprende {
 			--gap: calc(48 * var(--fu));
-			min-height: var(--fold-h);
 			display: grid;
 			align-content: center;
-			padding: calc(40 * var(--fu)) calc(56 * var(--fu));
+			padding: calc(var(--half) + 7 * var(--fu)) calc(56 * var(--fu)) calc(var(--half) - 19 * var(--fu));
 		}
 		.aprende__inner {
 			width: 100%;

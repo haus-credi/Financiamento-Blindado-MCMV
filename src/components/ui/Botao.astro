@@ -1,0 +1,118 @@
+---
+/**
+ * Botão da família "Auragen" no padrão visual do projeto (ver src/styles/botoes.css).
+ * Renderiza <a> quando recebe `href` e <button> quando não. O CtaButton (setas em disco, anel
+ * de 8px) continua sendo o botão de compra das dobras aprovadas; este aqui cobre todo o resto
+ * do repertório: o Shiny CTA, pílulas, botões pequenos e botões de app.
+ *
+ * Variantes
+ *   brilho      Shiny CTA: pílula de tinta com fio de luz verde girando no contorno
+ *   ghost       pílula só com contorno fino e desfoque
+ *   glass       pílula de vidro (white/5 → tinta/5 no campo claro)
+ *   primario    pílula cheia: branca na moldura escura, tinta no campo claro
+ *   contorno    pílula com contorno mais forte
+ *   suave       pílula com preenchimento leve e contorno (aceita ícone)
+ *   chip        pílula pequena verde-clara (ex.: "Coletar")
+ *   retangulo   raio 10px, preenchido (ex.: "Assinar")
+ *   quadrado    36×36, só ícone (social)
+ *   menu        só ícone, 24px, sem contorno
+ *   app         raio 6px preenchido em verde 600
+ *   barra       raio 6px, fantasma, para barras de ferramentas
+ *   icone       só ícone, raio 6px
+ *   borda       raio 6px, contorno, texto 12px
+ *   disclosure  texto com seta (abre configurações avançadas)
+ *   sobreposto  vidro branco para usar em cima de foto
+ *
+ * `fundo`: 'claro' (padrão, campo #D9DAD7 e cartões brancos) ou 'escuro' (moldura de tinta).
+ */
+import { ICONES, type NomeIcone } from './icones';
+
+type Variante =
+	| 'brilho'
+	| 'ghost'
+	| 'glass'
+	| 'primario'
+	| 'contorno'
+	| 'suave'
+	| 'chip'
+	| 'retangulo'
+	| 'quadrado'
+	| 'menu'
+	| 'app'
+	| 'barra'
+	| 'icone'
+	| 'borda'
+	| 'disclosure'
+	| 'sobreposto';
+
+interface Props {
+	variante?: Variante;
+	fundo?: 'claro' | 'escuro';
+	/** Se vier, renderiza <a>; senão, <button>. */
+	href?: string;
+	/** Nome Phosphor (peso regular). Ver icones.ts. */
+	icone?: NomeIcone;
+	/** Posição do ícone em relação ao rótulo. Padrão: depois. */
+	iconeLado?: 'antes' | 'depois';
+	/** Obrigatório nos botões só de ícone (quadrado, menu, icone). */
+	rotulo?: string;
+	cheio?: boolean;
+	type?: 'button' | 'submit' | 'reset';
+	disabled?: boolean;
+	class?: string;
+}
+
+const {
+	variante = 'primario',
+	fundo = 'claro',
+	href,
+	icone,
+	iconeLado = 'depois',
+	rotulo,
+	cheio = false,
+	type = 'button',
+	disabled = false,
+	class: className,
+	...rest
+} = Astro.props;
+
+const soIcone = variante === 'quadrado' || variante === 'menu' || variante === 'icone';
+// seta que anda 4px no hover só onde a seta faz sentido como "ir adiante"
+const ehSeta = icone === 'arrow-right' || icone === 'arrow-up-right' || icone === 'caret-right';
+const Tag = href ? 'a' : 'button';
+const classes = [
+	'bt',
+	`bt--${variante}`,
+	fundo === 'escuro' && 'bt--escuro',
+	cheio && 'bt--cheio',
+	className,
+];
+const attrs = href
+	? { href, 'aria-disabled': disabled ? 'true' : undefined }
+	: { type, disabled: disabled || undefined };
+---
+
+<Tag class:list={classes} aria-label={soIcone ? rotulo : undefined} {...attrs} {...rest}>
+	{variante === 'brilho' && <span class="bt__glow" aria-hidden="true" />}
+	{variante === 'brilho' ? (
+		<span class="bt__txt">
+			{icone && iconeLado === 'antes' && (
+				<svg class:list={['bt__ic', ehSeta && 'bt__ic--seta']} viewBox="0 0 256 256" aria-hidden="true" focusable="false" set:html={ICONES[icone]} />
+			)}
+			<slot />
+			{icone && iconeLado === 'depois' && (
+				<svg class:list={['bt__ic', ehSeta && 'bt__ic--seta']} viewBox="0 0 256 256" aria-hidden="true" focusable="false" set:html={ICONES[icone]} />
+			)}
+		</span>
+	) : (
+		<>
+			{icone && (iconeLado === 'antes' || soIcone) && (
+				<svg class:list={['bt__ic', ehSeta && 'bt__ic--seta']} viewBox="0 0 256 256" aria-hidden="true" focusable="false" set:html={ICONES[icone]} />
+			)}
+			{!soIcone && <slot />}
+			{icone && iconeLado === 'depois' && !soIcone && (
+				<svg class:list={['bt__ic', ehSeta && 'bt__ic--seta']} viewBox="0 0 256 256" aria-hidden="true" focusable="false" set:html={ICONES[icone]} />
+			)}
+		</>
+	)}
+</Tag>

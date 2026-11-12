@@ -313,14 +313,14 @@ const colunas = [
 		}
 	}
 
-	/* desktop: a dobra tem a altura da janela (--fold-h) e o conteúdo fica centralizado nela.
-	   Medidas em --fu (1px na janela de referência 1340 × 670). */
+	/* desktop: a dobra = caixa de texto + colchão (--half) em cima e embaixo (ver --delta em
+	   tokens.css). Medidas em --fu (1px na janela de referência 1340 × 670). */
 	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
 		.ident {
-			min-height: var(--fold-h);
 			display: grid;
 			align-items: center;
-			padding: calc(28 * var(--fu)) calc(56 * var(--fu)) calc(36 * var(--fu));
+			/* +7u / +8,3u: o texto começa/termina um pouco antes da borda interna do conteúdo */
+			padding: calc(var(--half) + 7 * var(--fu)) calc(56 * var(--fu)) calc(var(--half) + 8.3 * var(--fu));
 		}
 		.ident__inner {
 			width: 100%;

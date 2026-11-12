@@ -94,6 +94,11 @@ const problemas = [
 <style>
 	.dor {
 		padding: clamp(72px, 9vw, 140px) clamp(20px, 4vw, 56px);
+		/* campo do DS (225°) que, nos 260px de baixo, dissolve no campo liso: a faixa clara em volta
+		   da moldura da dobra 3 (que é #d9dad7 lisa) continua daqui sem emenda de cor */
+		background:
+			linear-gradient(0deg, var(--field) 0%, rgba(217, 218, 215, 0) 260px),
+			linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
 	}
 
 	.dor__inner {
@@ -264,8 +269,11 @@ const problemas = [
 	   frase logo abaixo (o espaço dela fica reservado). Tamanhos pela altura da janela. */
 	@media (min-width: 900px) and (min-height: 620px) and (prefers-reduced-motion: no-preference) {
 		:global(.js) .dor {
-			/* respiro entre a dobra 1 e a 2 (e antes da próxima) */
-			padding-block: clamp(80px, 15svh, 170px) clamp(48px, 9svh, 110px);
+			/* colchão do delta (ver --delta em tokens.css), FORA do palco fixo. Em cima: o delta menos o
+			   que a Hero já deixa abaixo do botão (150,4u) e a distância do palco ao título (11,1u).
+			   Embaixo: --half menos a distância do último texto à base do palco (36u). */
+			padding-block: max(0px, calc(var(--delta) * var(--fu) - 150.4 * var(--fu) - 11.1 * var(--fu)))
+				max(0px, calc(var(--half) - 36.5 * var(--fu)));
 		}
 		:global(.js) .dor__pin {
 			position: relative;
@@ -316,11 +324,28 @@ const problemas = [
 			   próximos; a sobra de altura vira respiro antes da frase */
 			justify-content: flex-start;
 		}
-		/* parágrafos + card colados ao título, com um respiro curto */
+		/* parágrafos + retângulo logo abaixo do título. O bloco ocupa toda a sobra entre o título e a
+		   caixa verde (que fica ancorada na base do palco) e o retângulo branco fica CENTRADO entre o
+		   fim do parágrafo e o começo da caixa verde: o mesmo respiro em cima e embaixo (mínimo
+		   de 16u de cada lado). Antes ele ficava colado no parágrafo e a sobra toda caía embaixo. */
 		:global(.js) .dor__mid {
 			margin-top: calc(16 * var(--fu));
-			margin-bottom: calc(10 * var(--fu));
-			gap: calc(16 * var(--fu));
+			margin-bottom: 0;
+			flex: 1 1 auto;
+			min-height: 0;
+			display: grid;
+			grid-template-rows:
+				auto
+				minmax(calc(16 * var(--fu)), 1fr)
+				auto
+				minmax(calc(16 * var(--fu)), 1fr);
+			gap: 0;
+		}
+		:global(.js) .dor__body {
+			grid-row: 1;
+		}
+		:global(.js) .dor__quad {
+			grid-row: 3;
 		}
 
 		/* 1º: o título — o maior e o mais pesado */

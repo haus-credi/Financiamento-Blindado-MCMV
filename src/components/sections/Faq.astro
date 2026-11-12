@@ -4,11 +4,11 @@
  * Copy aprovada, palavra por palavra (7 perguntas). Sem informações novas sobre garantia,
  * certificado, suporte ou prazo.
  *
- * Título positivo, em vez de "Ainda tem alguma dúvida?": "O Treinamento Definitivo do Minha Casa
- * Minha Vida", com uma palavra no acento itálico do DS. Sem eyebrow. Sete perguntas (a do
- * correspondente bancário saiu para preservar o respiro da dobra).
+ * Título positivo, em vez de "Ainda tem alguma dúvida?": "O Treinamento Definitivo", em Instrument
+ * Serif (serifa de display do DS, em pé) com "Definitivo" no acento itálico beringela. Sem eyebrow.
+ * Sete perguntas (a do correspondente bancário saiu para preservar o respiro da dobra).
  *
- * Direção: fundo BRANCO liso (sem degradê, sem raios), layout editorial. Desktop: título à esquerda,
+ * Direção: campo do DS com raios de luz, o mesmo da Oferta (antes era branco liso), layout editorial. Desktop: título à esquerda,
  * perguntas à direita e o botão centralizado sob a lista, logo abaixo da última pergunta; mobile: título, perguntas e botão. Acordeão
  * com divisórias horizontais finas, sem cartões, sombras, ícones decorativos nem caixas coloridas.
  * Só o sinal de mais/menos de cada pergunta (duas hastes de 1,5px) indica expandir e recolher.
@@ -18,10 +18,10 @@
  * navegadores sem esse suporte). A primeira resposta já vem aberta. A resposta desliza ao abrir
  * (::details-content) onde houver suporte; nos demais, abre direto. Respeita prefers-reduced-motion.
  *
- * Desktop: a dobra tem a altura da janela (--fold-h); o bloco fica alinhado pelo topo para não
+ * Desktop: a dobra = caixa de texto + colchão (ver --delta em tokens.css), alinhada pelo topo para não
  * "pular" quando uma resposta abre ou fecha. Medidas em --fu (1px na janela 1340 × 670).
  */
-import CtaButton from '../ui/CtaButton.astro';
+import Botao from '../ui/Botao.astro';
 import { CHECKOUT_URL } from '../../config/site';
 
 const perguntas = [
@@ -57,10 +57,15 @@ const perguntas = [
 ---
 
 <section id="faq" class="faq" aria-labelledby="faq-title">
+	<!-- campo do DS: o mesmo da Oferta (cinza em 225° com raios de luz), para a textura continuar -->
+	<div class="rays" aria-hidden="true">
+		<div class="rays-in"><i class="r1"></i><i class="r3"></i><i class="r4"></i></div>
+	</div>
+
 	<div class="faq__inner">
 		<header class="faq__head">
 			<h2 id="faq-title" class="faq__title rv" style="--i:1">
-				O Treinamento <em class="acc">Definitivo</em> do Minha Casa Minha Vida
+				O Treinamento <em class="acc">Definitivo</em>
 			</h2>
 		</header>
 
@@ -81,8 +86,8 @@ const perguntas = [
 			}
 		</div>
 
-		<div class="faq__cta rv" style="--i:3">
-			<CtaButton href={CHECKOUT_URL} fundo="claro">QUERO ME TORNAR REFERÊNCIA</CtaButton>
+		<div class="faq__cta rv" data-rv-cedo style="--i:0">
+			<Botao variante="brilho" href={CHECKOUT_URL} icone="arrow-right">QUERO ME TORNAR REFERÊNCIA</Botao>
 		</div>
 	</div>
 </section>
@@ -102,13 +107,27 @@ const perguntas = [
 
 <style>
 	.faq {
-		/* fundo branco liso, sem degradê */
-		background: #fff;
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		/* campo do DS (225°, branco → cinza), igual ao da Oferta: as faixas de cima e de baixo
+		   dissolvem no campo liso, sem emenda com a dobra anterior */
+		background:
+			linear-gradient(180deg, var(--field) 0%, rgba(217, 218, 215, 0) 22%),
+			linear-gradient(0deg, var(--field) 0%, rgba(217, 218, 215, 0) 16%),
+			linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
 		padding: clamp(64px, 14vw, 104px) clamp(22px, 5vw, 56px) clamp(72px, 16vw, 120px);
 		/* resposta que desliza onde houver suporte (::details-content) */
 		interpolate-size: allow-keywords;
 	}
+	/* raios de luz do DS (três), só no miolo */
+	.faq :global(.rays) {
+		-webkit-mask-image: linear-gradient(transparent 0%, #000 30%, #000 70%, transparent 100%);
+		mask-image: linear-gradient(transparent 0%, #000 30%, #000 70%, transparent 100%);
+	}
 	.faq__inner {
+		position: relative;
+		z-index: 2;
 		max-width: 1100px;
 		margin: 0 auto;
 		display: grid;
@@ -131,21 +150,39 @@ const perguntas = [
 		justify-content: center;
 		padding-top: clamp(4px, 2vw, 12px);
 	}
+	/* entrada do botão: dispara assim que ele surge (data-rv-cedo) e é mais curta que a dos textos
+	   (0,6s, sem atraso, sobe 16px): ele fecha a dobra logo depois da pergunta 07, sem esperar */
+	:global(.js) .faq__cta.rv {
+		transform: translateY(16px);
+		filter: blur(6px);
+		transition:
+			opacity 0.55s var(--ease-out),
+			transform 0.65s var(--ease-out),
+			filter 0.55s var(--ease-out);
+		transition-delay: 0s;
+	}
+	:global(.js) .faq__cta.rv.is-in {
+		transform: none;
+		filter: none;
+	}
 
 	/* ------------------------------------------------------------------ título */
+	/* título em serifa de display do DS (Instrument Serif, em pé): mais calor e presença que a
+	   grotesca dos outros títulos. A serifa é mais baixa que a Inter, então o corpo sobe 22%.
+	   "Definitivo" segue no itálico beringela do DS. */
 	.faq__title {
 		margin: 0;
-		font-family: var(--f-title);
-		font-weight: 500;
-		font-size: var(--fs-h2);
-		line-height: 1.06;
-		letter-spacing: var(--title-ls);
+		font-family: 'Instrument Serif', Georgia, serif;
+		font-weight: 400;
+		font-size: calc(var(--fs-h2) * 1.22);
+		line-height: 1;
+		letter-spacing: -0.012em;
 		color: var(--tx);
 		text-wrap: balance;
 	}
 	.faq__title .acc {
-		font-size: calc(1em * var(--acc-scale));
-		letter-spacing: -0.01em;
+		font-size: 1em;
+		letter-spacing: 0;
 		padding-right: 0.04em;
 	}
 
@@ -264,7 +301,7 @@ const perguntas = [
 			padding: 0 0.4em 1.4em calc(2em + 0.6em);
 			font-size: clamp(16px, 4.3vw, 17.5px);
 		}
-		.faq__cta :global(a.cta) {
+		.faq__cta :global(a.bt) {
 			width: 100%;
 		}
 	}
@@ -291,13 +328,18 @@ const perguntas = [
 		}
 	}
 
-	/* desktop: a dobra tem a altura da janela (--fold-h); o bloco fica alinhado pelo topo (sem
-	   pular quando uma resposta abre) e o título alinhado com a primeira divisória.
+	/* desktop: a dobra = caixa de texto + colchão em cima (--half) e embaixo (o delta inteiro menos
+	   a distância do texto do rodapé até a borda dele: o rodapé não é dobra, então o colchão
+	   dele vem todo da FAQ). O título continua alinhado com a primeira divisória.
 	   Medidas em --fu (1px na janela de referência 1340 × 670). */
 	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
 		.faq {
-			min-height: var(--fold-h);
-			padding: calc(32 * var(--fu)) calc(48 * var(--fu)) calc(26 * var(--fu));
+			--rodape-acima: calc(27 * var(--fu));
+			/* o bloco encolhe a altura do rodapé (69u): o colchão de baixo era o delta inteiro até o
+			   texto do rodapé; agora é esse valor menos 69u (o delta FAQ → rodapé fica ~131u) */
+			--rodape-h: calc(69 * var(--fu));
+			padding: calc(var(--half) + 11.5 * var(--fu)) calc(48 * var(--fu))
+				calc(var(--half) * 2 - var(--rodape-acima) - 21.6 * var(--fu) - var(--rodape-h));
 		}
 		.faq__inner {
 			max-width: calc(1160 * var(--fu));
@@ -314,13 +356,9 @@ const perguntas = [
 			font-size: calc(var(--fs-body) * 0.92);
 			padding-bottom: calc(16 * var(--fu));
 		}
-		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
-		.faq__cta :global(a.cta) {
-			--h: calc(56 * var(--fu));
-			--disc: calc(40 * var(--fu));
-			gap: calc(20 * var(--fu));
-			padding-left: calc(28 * var(--fu));
-			font-size: calc(14.5 * var(--fu));
+		/* botão "Brilho" um pouco menor que o da oferta (era 56px contra 60px), na escala da composição */
+		.faq__cta {
+			--bt-u: calc(var(--fu) * 0.92);
 		}
 	}
 </style>

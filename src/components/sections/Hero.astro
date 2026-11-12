@@ -12,7 +12,7 @@
  */
 import { Picture } from 'astro:assets';
 import defaultPhoto from '../../assets/hero/dobra-parede-lisa.png';
-import CtaButton from '../ui/CtaButton.astro';
+import Botao from '../ui/Botao.astro';
 import { CHECKOUT_URL } from '../../config/site';
 
 interface Props {
@@ -62,12 +62,12 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 				</h1>
 
 				<p class="hero__lead">
-					Domine as regras do Minha Casa, Minha Vida, esclareça as dúvidas dos seus clientes e conduza cada venda com
+					Domine as regras do Minha Casa, Minha Vida, esclareça as dúvidas dos seus clientes e conduza suas vendas com
 					mais segurança.
 				</p>
 
 				<div class="hero__cta">
-					<CtaButton href={CHECKOUT_URL} class="hero__button">QUERO ME TORNAR REFERÊNCIA</CtaButton>
+					<Botao variante="brilho" fundo="escuro" href={CHECKOUT_URL} icone="arrow-right" class="hero__button">QUERO ME TORNAR REFERÊNCIA</Botao>
 				</div>
 			</div>
 		</div>
@@ -436,13 +436,9 @@ const { photo = defaultPhoto, variant = 'clean' } = Astro.props;
 		.hero__cta {
 			margin-top: calc(var(--H) * 0.093);
 		}
-		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
-		.hero__cta :global(a.cta.hero__button) {
-			--h: calc(60 * var(--u));
-			--disc: calc(44 * var(--u));
-			gap: calc(22 * var(--u));
-			padding-left: calc(30 * var(--u));
-			font-size: calc(14.5 * var(--u));
+		/* botão "Brilho" (62px de altura, rótulo 15px) na mesma escala da composição */
+		.hero__cta {
+			--bt-u: var(--u);
 		}
 	}
 

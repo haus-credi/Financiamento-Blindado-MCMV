@@ -251,11 +251,18 @@ import retrato from '../../assets/sections/audelice-retrato.png';
 	   da Hero); a coluna de texto termina antes do cabelo da especialista. Medidas em --fu. */
 	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
 		.auth {
-			min-height: var(--fold-h);
+			/* A moldura e a fotografia mantêm a altura de sempre (--fold-h menos as faixas de
+			   --frame-gap); o colchão do delta entra FORA da moldura, em campo claro. Hoje o texto
+			   fica a 65u da borda de cima e a 67,8u da de baixo da dobra: --ex-t/--ex-b completam
+			   até --half. */
+			--ex-t: max(0px, calc(var(--half) - 65 * var(--fu)));
+			--ex-b: max(0px, calc(var(--half) - 67.6 * var(--fu)));
+			min-height: calc(var(--fold-h) + var(--ex-t) + var(--ex-b));
 			display: flex;
 			flex-direction: column;
-			/* mesma margem em cima, nos lados e embaixo da moldura */
-			padding-top: var(--frame-gap);
+			/* faixa de --frame-gap em volta da moldura + o colchão em cima e embaixo */
+			padding-top: calc(var(--frame-gap) + var(--ex-t));
+			padding-bottom: calc(var(--frame-gap) + var(--ex-b));
 			/* largura e altura da fotografia dentro da moldura (a proporção 1672 × 941 manda) */
 			--ph: calc(var(--fold-h) - 2 * var(--frame-gap));
 			--pw: calc(var(--ph) * 1.7769);

@@ -20,7 +20,7 @@
  *
  * O botão usa CHECKOUT_URL (src/config/site.ts), ainda pendente: hoje aponta para #oferta.
  */
-import CtaButton from '../ui/CtaButton.astro';
+import Botao from '../ui/Botao.astro';
 import { CHECKOUT_URL } from '../../config/site';
 import iconeSeguro from '@phosphor-icons/core/assets/regular/shield-check.svg?raw';
 import iconeGarantia from '@phosphor-icons/core/assets/regular/seal-check.svg?raw';
@@ -53,7 +53,7 @@ import iconeGarantia from '@phosphor-icons/core/assets/regular/seal-check.svg?ra
 				</p>
 
 				<div class="oferta__cta">
-					<CtaButton href={CHECKOUT_URL} fundo="claro">QUERO FECHAR MAIS VENDAS</CtaButton>
+					<Botao variante="brilho" href={CHECKOUT_URL} icone="arrow-right">QUERO FECHAR MAIS VENDAS</Botao>
 				</div>
 
 				<ul class="oferta__selos">
@@ -297,14 +297,13 @@ import iconeGarantia from '@phosphor-icons/core/assets/regular/seal-check.svg?ra
 		fill: currentColor;
 	}
 
-	/* desktop: a dobra tem a altura da janela (--fold-h); o conteúdo fica centralizado nela, com a
-	   mesma margem em cima e embaixo. Medidas em --fu (1px na janela de referência 1340 × 670). */
+	/* desktop: a dobra = caixa de texto + colchão (--half) em cima e embaixo (ver --delta em
+	   tokens.css). Medidas em --fu (1px na janela de referência 1340 × 670). */
 	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
 		.oferta {
-			min-height: var(--fold-h);
 			display: grid;
 			align-content: center;
-			padding: calc(48 * var(--fu)) calc(56 * var(--fu));
+			padding: calc(var(--half) + 5 * var(--fu)) calc(56 * var(--fu)) calc(var(--half) - 48.8 * var(--fu));
 		}
 		.oferta__inner {
 			width: 100%;
@@ -337,13 +336,9 @@ import iconeGarantia from '@phosphor-icons/core/assets/regular/seal-check.svg?ra
 		.oferta__selos {
 			margin-top: calc(8 * var(--fu));
 		}
-		/* botão do DS (60px, disco 44px, rótulo 14,5px) na mesma escala da composição */
-		.oferta__cta :global(a.cta) {
-			--h: calc(60 * var(--fu));
-			--disc: calc(44 * var(--fu));
-			gap: calc(22 * var(--fu));
-			padding-left: calc(30 * var(--fu));
-			font-size: calc(14.5 * var(--fu));
+		/* botão "Brilho" (62px, rótulo 15px) na mesma escala da composição */
+		.oferta__cta {
+			--bt-u: var(--fu);
 		}
 	}
 </style>

@@ -1,0 +1,562 @@
+/* =====================================================================
+   BOTÕES — família "Auragen" recolorida no padrão Hanzo / verde-floresta
+   Formatos e efeitos vêm do design system Auragen (Shiny CTA, pílulas, botões pequenos,
+   botões de app). Cores, sombras, tipografia e easing são os do nosso DS (tokens.css).
+
+   Mapa de cores Auragen → Financiamento Blindado
+     preto #000 ............ tinta  --v950
+     azul #1d4ed8 .......... verde  --v600  (e --v500 no brilho interno)
+     lilás #8484ff (shine) . verde  --v300  (hover: --v200)
+     branco/5, /10, /20 .... mesma translucidez, mas em tinta sobre o campo claro
+     roxo-50 (chip) ........ verde  --v200  (hover --v300)
+     cinza #606060 (app) ... verde  --v600  (hover --v700)
+
+   Regras de marca mantidas: sem azul, sem laranja, sem vermelho, beringela NUNCA como halo
+   ou luz — aqui ela nem aparece (o botão beringela sólido continua sendo o `tom` do CtaButton).
+
+   Uso: classe base `.bt` + uma variante `.bt--*` + (opcional) `.bt--escuro` quando o botão
+   fica sobre moldura escura. Componente: src/components/ui/Botao.astro.
+   ===================================================================== */
+
+@property --bt-angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+@property --bt-offset {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+@property --bt-shine {
+	syntax: '<color>';
+	initial-value: #8fc7a7; /* = --v300 (var() não é aceito em initial-value) */
+	inherits: false;
+}
+
+/* ---------------------------------------------------------------------
+   Base e tokens por superfície
+   --------------------------------------------------------------------- */
+.bt {
+	/* superfície CLARA (campo #D9DAD7 e cartões brancos) */
+	--bt-fg: var(--ink);
+	--bt-fg-2: var(--tx-body);
+	--bt-line: rgba(var(--ink-rgb), 0.2);
+	--bt-line-h: rgba(var(--ink-rgb), 0.36);
+	--bt-fill: rgba(var(--ink-rgb), 0.05);
+	--bt-fill-h: rgba(var(--ink-rgb), 0.1);
+	--bt-glass: rgba(255, 255, 255, 0.55);
+	--bt-glass-h: rgba(255, 255, 255, 0.8);
+	--bt-glass-ring: rgba(255, 255, 255, 0.85);
+	--bt-prim-bg: var(--ink);
+	--bt-prim-bg-h: var(--v900);
+	--bt-prim-fg: #fff;
+	--bt-focus: var(--v500);
+	/* halo de hover: verde-floresta sobre o campo claro, verde-claro sobre a moldura escura */
+	--bt-glow: rgba(64, 125, 92, 0.55);
+	--bt-glow-ring: rgba(64, 125, 92, 0.28);
+
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 12px 20px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--bt-fg);
+	font: 500 14px/1.2 var(--f-ui);
+	letter-spacing: -0.005em;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	transition:
+		background-color 0.3s var(--ease-hz),
+		color 0.3s var(--ease-hz),
+		box-shadow 0.4s var(--ease-out),
+		border-color 0.3s var(--ease-hz),
+		transform 0.4s var(--ease-out);
+}
+
+/* superfície ESCURA (moldura de tinta): mesma translucidez do Auragen (white/5, /10, /20) */
+.bt--escuro {
+	--bt-fg: #fff;
+	--bt-fg-2: rgba(255, 255, 255, 0.72);
+	--bt-line: rgba(255, 255, 255, 0.2);
+	--bt-line-h: rgba(255, 255, 255, 0.4);
+	--bt-fill: rgba(255, 255, 255, 0.05);
+	--bt-fill-h: rgba(255, 255, 255, 0.1);
+	--bt-glass: rgba(255, 255, 255, 0.05);
+	--bt-glass-h: rgba(255, 255, 255, 0.1);
+	--bt-glass-ring: rgba(255, 255, 255, 0.12);
+	--bt-prim-bg: #fff;
+	--bt-prim-bg-h: #f6f7f5;
+	--bt-prim-fg: var(--ink);
+	--bt-focus: var(--v300);
+	--bt-glow: rgba(143, 199, 167, 0.6);
+	--bt-glow-ring: rgba(143, 199, 167, 0.3);
+}
+
+.bt:focus-visible {
+	outline: 3px solid var(--bt-focus);
+	outline-offset: 4px;
+}
+.bt:active {
+	transform: scale(0.97);
+	transition-duration: 0.15s;
+}
+.bt[disabled],
+.bt[aria-disabled='true'] {
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+/* ícone: Phosphor inline (svg) ou fonte de ícones do DS (<i class="ph …">) */
+.bt__ic {
+	flex: none;
+	width: 1.15em;
+	height: 1.15em;
+	font-size: 1.15em;
+	fill: currentColor;
+	transition: transform 0.45s var(--ease-out);
+}
+i.bt__ic {
+	width: auto;
+	height: auto;
+	line-height: 1;
+}
+
+/* ---------------------------------------------------------------------
+   1. BRILHO — o "Shiny CTA": borda cônica girando, grade de pontos, reflexo e respiro
+   Pílula de tinta com fio de luz verde que dá a volta no contorno (2,5s). Dentro: uma grade
+   de pontos que acompanha a luz, um reflexo giratório (4s) e, no hover, um brilho interno
+   que respira (4,5s). Mesmo contorno em fundo claro e escuro: o preenchimento é sempre tinta.
+   --------------------------------------------------------------------- */
+.bt--brilho {
+	--bt-angle: 0deg;
+	--bt-offset: 0deg;
+	--bt-shine: var(--v300);
+	/* --bt-u: escala do botão, como COMPRIMENTO (1px por padrão). As dobras com altura de janela
+	   (Hero, 7, 8) definem --bt-u: var(--u) ou var(--fu) (também comprimentos, ~1px na janela de
+	   referência) no contêiner e o botão acompanha a composição, igual ao resto da página. */
+	overflow: hidden;
+	isolation: isolate;
+	z-index: 0;
+	max-width: 100%;
+	padding: calc(20 * var(--bt-u, 1px)) calc(40 * var(--bt-u, 1px));
+	border: 2px solid transparent;
+	color: #fff;
+	font: 600 calc(15 * var(--bt-u, 1px)) / 1.2 var(--f-ui);
+	letter-spacing: 0.06em;
+	background:
+		linear-gradient(var(--v950), var(--v950)) padding-box,
+		conic-gradient(
+				from calc(var(--bt-angle) - var(--bt-offset)),
+				transparent 0%,
+				var(--v600) 5%,
+				var(--bt-shine) 15%,
+				var(--v600) 30%,
+				transparent 40%,
+				transparent 100%
+			)
+			border-box;
+	box-shadow:
+		inset 0 0 0 1px var(--v900),
+		var(--sh-btn);
+	transition:
+		--bt-offset 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+		--bt-shine 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+		box-shadow 0.3s,
+		transform 0.4s var(--ease-out);
+}
+/* grade de pontos, visível só perto da luz que gira */
+.bt--brilho::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 0;
+	width: calc(100% - 6px);
+	height: calc(100% - 6px);
+	transform: translate(-50%, -50%);
+	border-radius: inherit;
+	background: radial-gradient(circle at 2px 2px, #fff 0.5px, transparent 0) padding-box;
+	background-size: 4px 4px;
+	background-repeat: space;
+	-webkit-mask-image: conic-gradient(from calc(var(--bt-angle) + 45deg), black, transparent 10% 90%, black);
+	mask-image: conic-gradient(from calc(var(--bt-angle) + 45deg), black, transparent 10% 90%, black);
+	opacity: 0.4;
+	pointer-events: none;
+}
+/* reflexo: faixa verde que gira devagar sob o texto */
+.bt--brilho::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	width: 100%;
+	aspect-ratio: 1;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(-50deg, transparent, var(--v500), transparent);
+	-webkit-mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+	mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+	opacity: 0.6;
+	pointer-events: none;
+}
+.bt--brilho .bt__txt {
+	position: relative;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	gap: calc(10 * var(--bt-u, 1px));
+}
+/* luz interna da pílula inteira (aparece no hover e respira): vem de baixo, como um letreiro aceso */
+.bt--brilho .bt__glow {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	border-radius: 999px;
+	box-shadow:
+		inset 0 -12px 26px -6px rgba(95, 163, 126, 0.85),
+		inset 0 1px 0 rgba(207, 227, 214, 0.18);
+	opacity: 0;
+	transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+	pointer-events: none;
+}
+@media (hover: hover) {
+	.bt--brilho:hover {
+		--bt-shine: var(--v200);
+		--bt-offset: 28deg;
+		transform: translateY(-2px);
+		box-shadow:
+			inset 0 0 0 1px var(--v700),
+			0 0 0 4px rgba(95, 163, 126, 0.16),
+			0 0 38px -2px rgba(95, 163, 126, 0.6),
+			var(--sh-btn);
+	}
+	.bt--brilho:hover .bt__glow {
+		opacity: 1;
+	}
+}
+.bt--brilho:active {
+	transform: translateY(1px);
+}
+.bt--brilho:focus-visible {
+	outline-color: var(--v300);
+}
+@media (prefers-reduced-motion: no-preference) {
+	.bt--brilho {
+		animation: bt-spin 2.5s linear infinite;
+	}
+	.bt--brilho::after {
+		animation: bt-shimmer 4s linear infinite;
+	}
+	.bt--brilho:hover .bt__glow {
+		animation: bt-breathe 2.4s ease-in-out infinite;
+	}
+}
+@keyframes bt-spin {
+	to {
+		--bt-angle: 360deg;
+	}
+}
+@keyframes bt-shimmer {
+	to {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+@keyframes bt-breathe {
+	0%,
+	100% {
+		opacity: 0.7;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+/* ---------------------------------------------------------------------
+   2. PÍLULAS — ghost · glass · primário · contorno · suave
+   Padding do Auragen (12/20, glass 8/16), raio total, texto 14px.
+   --------------------------------------------------------------------- */
+.bt--ghost {
+	border: 1px solid var(--bt-line);
+	-webkit-backdrop-filter: blur(24px);
+	backdrop-filter: blur(24px);
+}
+.bt--glass {
+	padding: 8px 16px;
+	background: var(--bt-glass);
+	box-shadow: 0 0 0 1px var(--bt-glass-ring);
+}
+.bt--primario {
+	background: var(--bt-prim-bg);
+	color: var(--bt-prim-fg);
+	box-shadow: var(--sh-soft);
+}
+.bt--contorno {
+	border: 1px solid var(--bt-line-h);
+}
+.bt--suave {
+	gap: 8px;
+	padding: 12px 16px;
+	background: var(--bt-fill);
+	border: 1px solid var(--bt-line);
+	color: var(--bt-fg);
+}
+
+@media (hover: hover) {
+	.bt--ghost:hover,
+	.bt--contorno:hover {
+		background: var(--bt-fill);
+	}
+	.bt--ghost:hover {
+		border-color: var(--bt-line-h);
+	}
+	.bt--glass:hover {
+		background: var(--bt-glass-h);
+	}
+	.bt--primario:hover {
+		background: var(--bt-prim-bg-h);
+		transform: translateY(-1px);
+		box-shadow:
+			var(--sh-soft),
+			0 18px 30px -12px rgba(var(--ink-rgb), 0.35);
+	}
+	.bt--suave:hover {
+		background: var(--bt-fill-h);
+	}
+	.bt:hover .bt__ic--seta {
+		transform: translateX(4px);
+	}
+}
+
+/* ---------------------------------------------------------------------
+   3. PEQUENOS — chip · retângulo · quadrado (social/ícone) · menu
+   --------------------------------------------------------------------- */
+.bt--chip {
+	padding: 6px 14px;
+	background: var(--v200);
+	color: var(--ink);
+	font-size: 12px;
+}
+.bt--chip:hover {
+	background: var(--v300);
+}
+
+.bt--retangulo {
+	padding: 8px 16px;
+	border-radius: 10px;
+	background: var(--bt-prim-bg);
+	color: var(--bt-prim-fg);
+}
+.bt--retangulo:hover {
+	background: var(--bt-prim-bg-h);
+}
+
+.bt--quadrado {
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border-radius: 10px;
+	background: var(--bt-fill);
+	border: 1px solid var(--bt-line);
+	color: var(--bt-fg-2);
+}
+.bt--quadrado .bt__ic {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+}
+.bt--quadrado:hover {
+	background: var(--bt-fill-h);
+	color: var(--bt-fg);
+}
+
+.bt--menu {
+	padding: 8px;
+	border-radius: 10px;
+	color: var(--bt-fg);
+}
+.bt--menu .bt__ic {
+	width: 24px;
+	height: 24px;
+	font-size: 24px;
+}
+.bt--menu:hover {
+	background: var(--bt-fill);
+}
+
+/* ---------------------------------------------------------------------
+   4. APP — preenchido · barra · ícone · borda · disclosure · sobre imagem
+   Raio de 6px (rounded-md do Auragen), texto 14px, ícones de traço fino.
+   --------------------------------------------------------------------- */
+.bt--app {
+	gap: 8px;
+	padding: 8px 16px;
+	border-radius: 6px;
+	background: var(--v600);
+	color: #fff;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.bt--app:hover {
+	background: var(--v700);
+}
+
+.bt--barra {
+	padding: 6px 12px;
+	border-radius: 6px;
+	color: var(--bt-fg-2);
+}
+.bt--barra:hover {
+	background: var(--bt-fill);
+	color: var(--bt-fg);
+}
+
+.bt--icone {
+	padding: 8px;
+	border-radius: 6px;
+	color: var(--bt-fg-2);
+}
+.bt--icone .bt__ic {
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+}
+.bt--icone:hover {
+	background: var(--bt-fill);
+	color: var(--bt-fg);
+}
+
+.bt--borda {
+	gap: 6px;
+	padding: 6px 10px;
+	border: 1px solid var(--bt-line);
+	border-radius: 6px;
+	color: var(--bt-fg-2);
+	font-size: 12px;
+}
+.bt--borda .bt__ic {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+}
+.bt--borda:hover {
+	background: var(--bt-fill);
+	color: var(--bt-fg);
+}
+
+.bt--disclosure {
+	padding: 0;
+	border-radius: 4px;
+	color: var(--bt-fg-2);
+}
+.bt--disclosure:hover {
+	color: var(--bt-fg);
+}
+.bt--disclosure:hover .bt__ic {
+	transform: translateX(3px);
+}
+
+/* botões sobre fotografia (rgba branco 10% → 20%): sempre claros, qualquer fundo */
+.bt--sobreposto {
+	padding: 8px 12px;
+	border-radius: 6px;
+	background: rgba(255, 255, 255, 0.12);
+	color: #fff;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+.bt--sobreposto:hover {
+	background: rgba(255, 255, 255, 0.24);
+}
+
+/* ---------------------------------------------------------------------
+   HOVER COM BRILHO — todas as variantes, menos o Brilho (que tem a luz própria).
+   Anel fino + halo verde difuso + elevação de 1px. A cor do halo muda com a superfície
+   (--bt-glow). Mais forte que o do Auragen, que só trocava o fundo por white/10.
+   --------------------------------------------------------------------- */
+@media (hover: hover) {
+	.bt--ghost:hover,
+	.bt--glass:hover,
+	.bt--contorno:hover,
+	.bt--suave:hover,
+	.bt--quadrado:hover,
+	.bt--borda:hover,
+	.bt--chip:hover,
+	.bt--retangulo:hover,
+	.bt--app:hover,
+	.bt--sobreposto:hover {
+		transform: translateY(-1px);
+		box-shadow:
+			0 0 0 3px var(--bt-glow-ring),
+			0 6px 26px -4px var(--bt-glow);
+	}
+	/* contornos e vidros ganham também a borda e o fundo mais firmes */
+	.bt--ghost:hover,
+	.bt--contorno:hover,
+	.bt--suave:hover,
+	.bt--quadrado:hover,
+	.bt--borda:hover {
+		border-color: var(--bt-line-h);
+		background: var(--bt-fill-h);
+		color: var(--bt-fg);
+	}
+	.bt--glass:hover {
+		box-shadow:
+			0 0 0 1px var(--bt-glass-ring),
+			0 0 0 4px var(--bt-glow-ring),
+			0 6px 26px -4px var(--bt-glow);
+	}
+	/* primário: halo sobre a sombra suave que ele já tem */
+	.bt--primario:hover {
+		box-shadow:
+			var(--sh-soft),
+			0 0 0 4px var(--bt-glow-ring),
+			0 10px 34px -4px var(--bt-glow);
+	}
+	/* só ícone / barra: fantasmas, o halo seria exagerado — fundo e cor firmes bastam */
+	.bt--barra:hover,
+	.bt--icone:hover,
+	.bt--menu:hover {
+		background: var(--bt-fill-h);
+		box-shadow: 0 0 18px -4px var(--bt-glow);
+	}
+	.bt--disclosure:hover {
+		text-shadow: 0 0 14px var(--bt-glow);
+	}
+}
+
+/* largura total (cartões, mobile) */
+.bt--cheio {
+	display: flex;
+	width: 100%;
+}
+
+/* ---------------------------------------------------------------------
+   Telas estreitas: o brilho perde um pouco de respiro e o rótulo pode quebrar
+   --------------------------------------------------------------------- */
+@media (max-width: 560px) {
+	.bt--brilho {
+		padding: 17px 28px;
+		font-size: clamp(12.5px, 3.6vw, 14px);
+		letter-spacing: 0.04em;
+		white-space: normal;
+		text-align: center;
+	}
+}
+
+/* movimento reduzido: o fio de luz fica parado num ângulo agradável, sem reflexo giratório */
+@media (prefers-reduced-motion: reduce) {
+	.bt--brilho {
+		--bt-angle: 40deg;
+		animation: none;
+	}
+	.bt--brilho::after,
+	.bt--brilho:hover .bt__glow {
+		animation: none;
+	}
+}

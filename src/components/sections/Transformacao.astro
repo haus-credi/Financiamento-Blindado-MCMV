@@ -200,11 +200,10 @@ const beneficios = [
 		}
 	}
 
-	/* desktop: a dobra tem a altura da janela (--fold-h); a moldura a preenche e o conteúdo
-	   fica centralizado nela. Medidas em --fu (1px na janela de referência 1340 × 670). */
+	/* desktop: a dobra = caixa de texto + colchão (--half) em cima e embaixo (ver --delta em
+	   tokens.css); a moldura preenche a dobra. Medidas em --fu (1px na janela de referência 1340 × 670). */
 	@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
 		.transf {
-			min-height: var(--fold-h);
 			display: flex;
 			flex-direction: column;
 			/* mesma margem em cima, nos lados e embaixo da moldura */
@@ -214,7 +213,9 @@ const beneficios = [
 			flex: 1;
 			display: grid;
 			align-items: center;
-			padding: calc(36 * var(--fu)) calc(72 * var(--fu));
+			/* o colchão (--half) já inclui a faixa clara de --frame-gap fora da moldura */
+			padding: calc(var(--half) - var(--frame-gap) - 16 * var(--fu)) calc(72 * var(--fu))
+				calc(var(--half) - var(--frame-gap) - 20.3 * var(--fu));
 		}
 		.transf__inner {
 			width: 100%;

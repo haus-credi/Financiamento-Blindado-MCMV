@@ -122,6 +122,14 @@
     --fs-body: calc(18.1 * var(--fu));
     --fs-item: calc(18.1 * var(--fu));
     --fs-close: calc(30.8 * var(--fu));
+
+    /* DELTA — distância entre o fim do texto de uma dobra e o começo do texto da seguinte.
+       Um número só (px na janela de referência 1340 × 670; escala com --fu). Cada dobra tem a
+       altura da própria caixa de texto + um colchão em cima e embaixo: --half (metade do delta)
+       de cada lado. A caixa de texto não muda de tamanho nem de lugar; só a dobra cresce ou
+       encolhe ao redor dela. Mude --delta para reespaçar a página inteira. */
+    --delta: 200;
+    --half: calc(var(--delta) / 2 * var(--fu));
   }
 }
 
