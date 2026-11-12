@@ -1,0 +1,14 @@
+---
+// Versão B da Hero: mesma composição, outra fotografia (parede lisa à esquerda).
+// Rota de comparação: http://localhost:4321/hero-b — não indexar.
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import photoB from '../assets/hero/dobra-parede-lisa.png';
+---
+
+<Layout title="Versão B — Financiamento Blindado">
+	<meta slot="head" name="robots" content="noindex" />
+	<main id="conteudo">
+		<Hero photo={photoB} variant="clean" />
+	</main>
+</Layout>

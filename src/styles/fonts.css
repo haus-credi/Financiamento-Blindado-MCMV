@@ -1,0 +1,57 @@
+/* Fontes do Design System — os mesmos arquivos do Hanzo original, extraídos de
+   design-system-final/assets/fonts.css (que os embute em data: URI) para woff2
+   servidos e cacheados separadamente. Subconjunto latino: cobre todo o português.
+   Só são baixadas as faces que a página realmente usa. */
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/inter-display-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/inter-display-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter Display";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/inter-display-300.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/inter-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/instrument-serif-italic-400.woff2") format("woff2");
+}
+/* variante de título "asimov" — só baixa se data-title="asimov" */
+@font-face {
+  font-family: "Inter Asimov";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/inter-asimov-500.woff2") format("woff2");
+}
+/* Fallback com métricas ajustadas à Inter: reduz o salto de layout (CLS)
+   enquanto a fonte real carrega. */
+@font-face {
+  font-family: "Inter Display Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22.4%;
+  line-gap-override: 0%;
+}

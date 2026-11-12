@@ -1,0 +1,170 @@
+---
+/**
+ * Botão de compra — receita ".btn.light" do DS para superfícies escuras:
+ * pílula branca com anel translúcido de 8px, sombra longa, seta Phosphor
+ * (a família de ícones do DS) em disco de tinta. Reutilizável nas próximas dobras.
+ */
+interface Props {
+	href: string;
+	class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a class:list={['cta', className]} href={href}>
+	<span class="cta__label"><slot /></span>
+	<span class="cta__disc" aria-hidden="true">
+		<svg class="cta__arrow" viewBox="0 0 256 256" width="18" height="18" focusable="false">
+			<path
+				d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+			></path>
+		</svg>
+		<svg class="cta__arrow cta__arrow--next" viewBox="0 0 256 256" width="18" height="18" focusable="false">
+			<path
+				d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+			></path>
+		</svg>
+	</span>
+</a>
+
+<style>
+	.cta {
+		--h: 60px;
+		--disc: 44px;
+		position: relative;
+		isolation: isolate;
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 22px;
+		min-height: var(--h);
+		padding: 0 calc((var(--h) - var(--disc)) / 2) 0 30px;
+		border-radius: 999px;
+		background: var(--surface);
+		color: var(--ink);
+		text-decoration: none;
+		font: 600 14.5px/1.2 var(--f-ui);
+		letter-spacing: 0.06em;
+		white-space: nowrap;
+		/* anel de 8px sobre tinta (DS: .btn.on-ink-ring) + sombra longa do Hanzo */
+		box-shadow:
+			0 0 0 8px rgba(255, 255, 255, 0.14),
+			0 22px 44px -18px rgba(0, 0, 0, 0.55),
+			var(--sh-btn),
+			inset 0 -4px 10px rgba(0, 0, 0, 0.05);
+		transition:
+			transform 0.45s var(--ease-out),
+			box-shadow 0.45s var(--ease-out),
+			background-color 0.3s var(--ease-hz);
+		-webkit-tap-highlight-color: transparent;
+		overflow: hidden;
+	}
+
+	/* reflexo de luz a 45° — a "varredura" do DS, atravessa o botão uma vez no hover */
+	.cta::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(
+			115deg,
+			transparent 30%,
+			rgba(143, 199, 167, 0.18) 45%,
+			rgba(255, 255, 255, 0) 60%
+		);
+		transform: translateX(-110%);
+		transition: transform 0s;
+	}
+
+	.cta__label {
+		position: relative;
+		padding-block: 6px;
+	}
+
+	.cta__disc {
+		position: relative;
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: var(--disc);
+		height: var(--disc);
+		border-radius: 50%;
+		background: var(--ink);
+		color: #fff;
+		overflow: hidden;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.14),
+			inset 0 -6px 12px rgba(0, 0, 0, 0.35);
+		transition: background-color 0.3s var(--ease-hz);
+	}
+
+	.cta__arrow {
+		grid-area: 1 / 1;
+		fill: currentColor;
+		transition:
+			transform 0.5s var(--ease-out),
+			opacity 0.35s var(--ease-out);
+	}
+	.cta__arrow--next {
+		transform: translateX(-160%);
+		opacity: 0;
+	}
+
+	@media (hover: hover) {
+		.cta:hover {
+			transform: translateY(-2px);
+			background: #f6f7f5;
+			box-shadow:
+				0 0 0 8px rgba(255, 255, 255, 0.22),
+				0 28px 52px -18px rgba(0, 0, 0, 0.6),
+				var(--sh-btn),
+				inset 0 -4px 10px rgba(0, 0, 0, 0.04);
+		}
+		.cta:hover::before {
+			transform: translateX(110%);
+			transition: transform 1.1s var(--ease-out);
+		}
+		.cta:hover .cta__disc {
+			background: var(--v800);
+		}
+		.cta:hover .cta__arrow {
+			transform: translateX(160%);
+			opacity: 0;
+		}
+		.cta:hover .cta__arrow--next {
+			transform: none;
+			opacity: 1;
+		}
+	}
+
+	/* telas estreitas: disco menor, rótulo fluido; abaixo de ~340px o rótulo
+	   pode quebrar em duas linhas em vez de empurrar a seta para fora */
+	@media (max-width: 560px) {
+		.cta {
+			--h: 58px;
+			--disc: 38px;
+			gap: 12px;
+			padding-left: 22px;
+			font-size: clamp(12.5px, 3.6vw, 14px);
+			letter-spacing: 0.035em;
+		}
+		.cta__label {
+			flex: 1;
+			min-width: 0;
+			white-space: normal;
+			text-align: center;
+		}
+	}
+
+	.cta:active {
+		transform: scale(0.97);
+		transition-duration: 0.15s;
+	}
+
+	/* foco acessível: anel verde 300 (9.3:1 sobre a tinta) afastado do botão */
+	.cta:focus-visible {
+		outline: 3px solid var(--v300);
+		outline-offset: 5px;
+	}
+</style>
