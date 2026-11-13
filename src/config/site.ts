@@ -8,9 +8,10 @@ export const CHECKOUT_URL = 'https://pay.hotmart.com/P108345128M?off=i5np8244&bi
 
 export const SITE = {
   name: 'Financiamento Blindado para Corretores',
-  title: 'Financiamento Blindado para Corretores — Venda mais imóveis na planta',
-  description:
-    'Aprenda a esclarecer dúvidas sobre subsídio, FGTS, renda e financiamento para aproveitar melhor suas oportunidades de venda.',
+  title: 'Financiamento Blindado - Minha Casa Minha Vida',
+  description: 'Venda mais imóveis na planta sem travar no financiamento',
   locale: 'pt_BR',
+  /** Imagem de prévia ao compartilhar o link (WhatsApp, Instagram, LinkedIn): 1200 × 630, em /public. */
+  image: '/og.jpg',
   themeColor: '#0e1a13',
 } as const;

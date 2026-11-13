@@ -10,7 +10,7 @@ interface Props {
 	image?: string;
 }
 
-const { title = SITE.title, description = SITE.description, image } = Astro.props;
+const { title = SITE.title, description = SITE.description, image = SITE.image } = Astro.props;
 
 // canonical e og:image exigem URL absoluta: só são emitidos quando `site` está definido em astro.config.mjs
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
@@ -36,7 +36,8 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 		{canonical && <meta property="og:url" content={canonical} />}
 		{imageUrl && <meta property="og:image" content={imageUrl} />}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<!-- habilita os efeitos de movimento; sem JS o conteúdo aparece normalmente -->
 		<script is:inline>document.documentElement.classList.add('js');</script>

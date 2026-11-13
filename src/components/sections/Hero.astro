@@ -12,12 +12,12 @@
  * Animação 100% CSS: o conteúdo é visível mesmo sem JS e com prefers-reduced-motion.
  */
 import { Picture } from 'astro:assets';
-import defaultPhoto from '../../assets/hero/dobra-parede-lisa.png';
+import defaultPhoto from '../../assets/hero/financiamento-blindado-minha-casa-minha-vida.png';
 import Botao from '../ui/Botao.astro';
 import { CHECKOUT_URL } from '../../config/site';
 
 interface Props {
-	/** Fotografia de fundo (1670 × 941). Padrão: dobra-parede-lisa.png (versão B, a principal) */
+	/** Fotografia de fundo (1670 × 941). Padrão: financiamento-blindado-minha-casa-minha-vida.png (versão B, a principal) */
 	photo?: ImageMetadata;
 	/** 'clean' = parede lisa à esquerda: névoa de leitura mais leve */
 	variant?: 'default' | 'clean';
