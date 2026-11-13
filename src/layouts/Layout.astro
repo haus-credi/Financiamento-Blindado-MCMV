@@ -2,7 +2,6 @@
 import '@fontsource/jetbrains-mono/latin-500.css';
 import '../styles/global.css';
 import { SITE } from '../config/site';
-import AvisoCookies from '../components/ui/AvisoCookies.astro';
 
 interface Props {
 	title?: string;
@@ -137,7 +136,6 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 	</head>
 	<body>
 		<slot />
-		<AvisoCookies />
 		<script>
 			import '../scripts/motion.ts';
 			import '../scripts/tracking.ts';
