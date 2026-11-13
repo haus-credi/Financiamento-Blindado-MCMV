@@ -28,6 +28,14 @@ import { EMPRESA } from '../../config/site';
 			<a href="/cookies/">Política de Cookies</a>
 		</nav>
 		<p class="rodape__copy">© 2026 {EMPRESA.nome}. CNPJ: {EMPRESA.cnpj}.</p>
+		<!-- Aviso NOVO (13/11/2026), aguardando aprovação: independência da Caixa e ausência de promessa de resultado.
+		     Mesmo conteúdo dos Termos de Uso, em linguagem curta. -->
+		<p class="rodape__aviso">
+			Treinamento independente, sem vínculo, patrocínio ou aprovação da Caixa Econômica Federal, do Governo Federal ou de
+			qualquer instituição financeira. “Minha Casa, Minha Vida” é citado apenas para identificar o assunto tratado. O conteúdo
+			é educacional e não garante número de vendas nem aprovação de crédito, que depende da análise da instituição
+			financeira. Os resultados dependem da aplicação de cada profissional.
+		</p>
 	</div>
 </footer>
 
@@ -75,6 +83,17 @@ import { EMPRESA } from '../../config/site';
 		font-weight: 500;
 		color: var(--tx);
 	}
+	/* aviso: segunda linha, largura toda, discreto, separado por um filete fino */
+	.rodape__aviso {
+		flex: 0 0 100%;
+		margin: 10px 0 0;
+		padding-top: 14px;
+		border-top: 1px solid rgba(var(--ink-rgb), 0.1);
+		font: 400 12px / 1.6 var(--f-display);
+		letter-spacing: -0.005em;
+		color: var(--tx-2);
+		text-wrap: pretty;
+	}
 	.rodape__links {
 		display: flex;
 		flex-wrap: wrap;
@@ -115,6 +134,9 @@ import { EMPRESA } from '../../config/site';
 		.rodape__copy,
 		.rodape__links {
 			font-size: calc(13.5 * var(--fu));
+		}
+		.rodape__aviso {
+			font-size: calc(12 * var(--fu));
 		}
 	}
 </style>
