@@ -24,17 +24,21 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 <html lang="pt-BR" data-title="hanzo" data-tex="grad" data-accent="serif">
 	<head>
 		{/*
-			Rastreamento (Google Analytics 4 + Pixel da Meta) em DUAS etapas, para não disputar o processador com a foto da Hero:
+			Rastreamento (Google Analytics 4 + Pixel da Meta + Google Tag Manager) em DUAS etapas, para não disputar o processador com a foto da Hero:
 			1) aqui, na hora, só as "filas": gtag() e fbq() já podem ser chamados e guardam os comandos (PageView, ViewContent, clique);
 			2) os arquivos pesados (gtag.js ~180 KB, fbevents.js ~200 KB) só baixam depois que a página abriu (evento load),
 			   a foto principal apareceu (LCP) e passou mais 1 s, ou antes, se a pessoa já começou a mexer na página
 			   (rolar, tocar, teclar). Limite máximo: 8 s.
 			Quando os arquivos chegam, eles processam a fila inteira. Nada se perde, só atrasa. Exceção: quem fecha a página
 			ou clica em comprar antes disso não é contado.
+			Google Tag Manager (GTM-NDV234Z9): ETAPA 1 da migração. O gtm.js baixa junto com os outros, mas o GA4 continua
+			sendo medido direto por este código; as tags do GTM só serão publicadas na etapa 3 (para não duplicar o page_view).
 		*/}
-		<script is:inline define:vars={{ gaId: SITE.gaId, pixelId: SITE.metaPixelId, viewContent }}>
+		<script is:inline define:vars={{ gaId: SITE.gaId, gtmId: SITE.gtmId, pixelId: SITE.metaPixelId, viewContent }}>
 			window.dataLayer = window.dataLayer || [];
-			function gtag() {
+			// Google Tag Manager: mesmo "gtm.start" do código oficial do GTM; o gtm.js em si baixa junto com os outros (abaixo).
+				dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+				function gtag() {
 				dataLayer.push(arguments);
 			}
 			window.gtag = gtag; // usado por src/scripts/tracking.ts (evento de clique no checkout)
@@ -73,8 +77,11 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 						window.removeEventListener(g, carregar);
 					});
 					baixar('https://www.googletagmanager.com/gtag/js?id=' + gaId);
+					baixar('https://www.googletagmanager.com/gtm.js?id=' + gtmId);
 					baixar('https://connect.facebook.net/en_US/fbevents.js');
 				}
+				// Modo de teste do GTM (Tag Assistant / Preview acrescenta gtm_debug ou gtm_preview na URL): carrega já, sem esperar.
+				if (/[?&](gtm_debug|gtm_preview)=/.test(location.search)) carregar();
 				gatilhos.forEach(function (g) {
 					window.addEventListener(g, carregar, { passive: true, once: true });
 				});
