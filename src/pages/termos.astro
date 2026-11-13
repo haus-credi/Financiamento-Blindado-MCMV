@@ -1,0 +1,59 @@
+---
+/**
+ * Termos de Uso — RASCUNHO baseado no que a página oferece: treinamento on-line vendido pela Hotmart,
+ * garantia de 7 dias (art. 49 do Código de Defesa do Consumidor) e conteúdo educacional independente.
+ * Os dados da empresa vêm de EMPRESA (src/config/site.ts). A cláusula de independência (Caixa/Governo
+ * Federal) deve ser confirmada pelo cliente. Recomenda-se revisão jurídica antes de considerar este
+ * texto definitivo.
+ */
+import PaginaLegal from '../components/legal/PaginaLegal.astro';
+import { EMPRESA } from '../config/site';
+---
+
+<PaginaLegal
+	title="Termos de Uso - Financiamento Blindado"
+	description="Condições de uso da página e de compra do treinamento Financiamento Blindado, oferecido pela Haus Credi."
+	titulo="Termos de"
+	destaque="Uso"
+>
+	<h2>1. Aceitação</h2>
+	<p>Ao acessar esta página ou comprar o treinamento, você concorda com estes Termos de Uso e com a <a href="/privacidade/">Política de Privacidade</a> e com a <a href="/cookies/">Política de Cookies</a>. Se não concordar com alguma parte, não utilize a página nem contrate o treinamento.</p>
+
+	<h2>2. Quem oferece o treinamento</h2>
+	<p>O treinamento <strong>Financiamento Blindado - Minha Casa Minha Vida</strong> é oferecido pela <strong>{EMPRESA.nome}</strong>, inscrita no CNPJ <strong>{EMPRESA.cnpj}</strong>, localizada em {EMPRESA.cidade}. É um treinamento on-line, em aulas gravadas, voltado a corretores de imóveis, sobre financiamento imobiliário e as regras do programa Minha Casa, Minha Vida.</p>
+
+	<h2>3. Compra e pagamento</h2>
+	<p>A compra é feita na plataforma <strong>Hotmart</strong>, que processa o pagamento e emite os comprovantes. O preço, o número de parcelas e as formas de pagamento são os exibidos na oferta e no checkout no momento da compra. A transação também está sujeita aos termos e às políticas da Hotmart.</p>
+
+	<h2>4. Garantia de 7 dias</h2>
+	<p>Você pode pedir o cancelamento da compra e o reembolso integral em até <strong>7 dias corridos</strong> a partir da data da compra, conforme o art. 49 do Código de Defesa do Consumidor e a garantia da oferta. O pedido pode ser feito pela Hotmart ou pelo e-mail <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. O reembolso é feito pelo mesmo meio de pagamento, dentro dos prazos da plataforma e da operadora do cartão.</p>
+
+	<h2>5. Natureza do conteúdo e resultados</h2>
+	<p>O treinamento tem caráter <strong>educacional e informativo</strong>. Ele não é consultoria jurídica, financeira ou de crédito, e não substitui a orientação de um profissional habilitado nem a análise de uma instituição financeira.</p>
+	<p>As regras do financiamento imobiliário e dos programas habitacionais mudam com frequência, e a aprovação de crédito depende exclusivamente da análise da instituição financeira. As informações refletem as regras vigentes na data em que cada conteúdo foi publicado ou gravado, e o treinamento é atualizado conforme essas regras mudam. Os resultados dependem de cada profissional, do mercado e da aplicação do conteúdo. <strong>Não garantimos</strong> um número de vendas, aprovações de crédito ou ganhos específicos.</p>
+
+	<h2>6. Independência</h2>
+	<p>O treinamento e esta página são independentes. Não têm vínculo, patrocínio ou aprovação da Caixa Econômica Federal, do Governo Federal ou de qualquer instituição financeira. “Minha Casa, Minha Vida” e os demais nomes citados pertencem aos seus titulares e são usados apenas para identificar o assunto tratado.</p>
+
+	<h2>7. Propriedade intelectual</h2>
+	<p>Os textos, vídeos, imagens, materiais e a marca do treinamento pertencem à {EMPRESA.nome} ou a quem nos licenciou. É proibido copiar, reproduzir, revender, distribuir ou compartilhar o conteúdo sem autorização por escrito.</p>
+
+	<h2>8. Acesso pessoal</h2>
+	<p>O acesso ao treinamento é individual e intransferível. Não compartilhe o seu login com outras pessoas. O uso indevido pode levar à suspensão do acesso, sem prejuízo de outras medidas previstas em lei.</p>
+	<p>Compartilhar login e senha, copiar, gravar, revender ou distribuir as aulas sem autorização viola direitos autorais (Lei nº 9.610/1998), pode configurar crime previsto no art. 184 do Código Penal e gera responsabilidade civil. Nesses casos, podemos suspender o acesso e tomar as medidas cabíveis.</p>
+
+	<h2>9. Limitação de responsabilidade</h2>
+	<p>Dentro dos limites da lei e sem afastar os direitos do consumidor, não nos responsabilizamos por decisões tomadas com base no conteúdo, por falhas ou indisponibilidade de serviços de terceiros (como a Hotmart, provedores de internet ou de hospedagem) nem pelo conteúdo de sites externos para os quais a página tenha links.</p>
+
+	<h2>10. Mudanças nestes termos</h2>
+	<p>Podemos atualizar estes termos. A versão em vigor é sempre a publicada nesta página, com a data da última revisão no topo. Alterações não afetam compras já realizadas, que seguem as condições vigentes na data da compra.</p>
+
+	<h2>11. Lei aplicável e foro</h2>
+	<p>Estes termos são regidos pelas leis do Brasil. Fica eleito o foro da comarca de {EMPRESA.municipio}, estado de São Paulo, ressalvado o direito do consumidor de propor ação no foro do seu domicílio.</p>
+
+	<h2>12. Disposições gerais</h2>
+	<p>Se alguma disposição destes termos for considerada inválida ou inexequível, as demais continuam em vigor, e a disposição inválida será substituída por outra válida, que preserve ao máximo a intenção original.</p>
+
+	<h2>13. Contato</h2>
+	<p>Dúvidas sobre estes termos ou sobre o treinamento: <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>.</p>
+</PaginaLegal>

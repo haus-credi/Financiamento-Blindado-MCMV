@@ -1,0 +1,66 @@
+---
+/**
+ * Política de Cookies — RASCUNHO. Lista o que a página realmente grava no navegador: Google Analytics
+ * (_ga, _ga_<ID>), Pixel da Meta (_fbp, _fbc), a preferência do aviso de cookies (localStorage) e, no
+ * checkout, os cookies da Hotmart. Se novas ferramentas forem instaladas (Google Ads, TikTok, etc.), a
+ * tabela precisa ser atualizada. Recomenda-se revisão jurídica.
+ */
+import PaginaLegal from '../components/legal/PaginaLegal.astro';
+import { EMPRESA } from '../config/site';
+---
+
+<PaginaLegal
+	title="Política de Cookies - Financiamento Blindado"
+	description="Quais cookies a página do Financiamento Blindado usa, para que servem e como desativá-los."
+	titulo="Política de"
+	destaque="Cookies"
+>
+	<p>Esta política explica quais cookies e tecnologias parecidas a página do <strong>Financiamento Blindado - Minha Casa Minha Vida</strong> usa, para que servem e como você pode controlá-los. Ela complementa a <a href="/privacidade/">Política de Privacidade</a>.</p>
+
+	<h2>1. O que são cookies</h2>
+	<p>Cookies são pequenos arquivos de texto que o site guarda no seu navegador quando você o visita. Eles permitem reconhecer o seu aparelho entre uma visita e outra, contar quantas pessoas acessam a página e medir o resultado dos anúncios. Tecnologias parecidas, como o armazenamento local do navegador, têm função semelhante e seguem as mesmas regras aqui.</p>
+
+	<h2>2. Para que servem, por finalidade</h2>
+	<ul>
+		<li><strong>Necessários:</strong> mantêm a página funcionando. Esta página usa apenas um registro simples, que lembra que você já viu o aviso de cookies.</li>
+		<li><strong>Desempenho e estatísticas:</strong> mostram quantas pessoas visitam a página, de onde chegam e em quais botões clicam. Servem para melhorar o conteúdo.</li>
+		<li><strong>Publicidade:</strong> ajudam a medir o resultado dos nossos anúncios e a mostrar anúncios relevantes, limitando repetições.</li>
+	</ul>
+
+	<h2>3. Quais cookies usamos</h2>
+	<div class="tabela">
+		<table>
+			<thead>
+				<tr><th>Nome</th><th>De quem</th><th>Para que serve</th><th>Validade</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>_ga</td><td>Google Analytics</td><td>Identifica o navegador de forma anônima para contar visitantes.</td><td>Até 2 anos</td></tr>
+				<tr><td>_ga_ (e um código)</td><td>Google Analytics</td><td>Guarda o estado da sessão de visita para as estatísticas.</td><td>Até 2 anos</td></tr>
+				<tr><td>_fbp</td><td>Meta (Pixel)</td><td>Identifica o navegador para medir o resultado dos anúncios no Facebook e no Instagram.</td><td>Até 3 meses</td></tr>
+				<tr><td>_fbc</td><td>Meta (Pixel)</td><td>Guarda a informação de que você chegou por um clique em anúncio, para ligar a visita ao anúncio.</td><td>Até 3 meses</td></tr>
+				<tr><td>hc-aviso-cookies</td><td>Esta página (armazenamento local)</td><td>Lembra que você já viu o aviso de cookies, para ele não aparecer de novo.</td><td>Até você limpar os dados do navegador</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<p>As validades são as informadas pelos fornecedores e podem mudar. Os fornecedores também podem gravar outros cookies além dos listados, de acordo com as políticas deles.</p>
+
+	<h2>4. Cookies de terceiros e checkout</h2>
+	<p>Ao clicar em um botão de compra, você sai desta página e vai para o ambiente de pagamento da <strong>Hotmart</strong>. Lá valem os cookies e a política de privacidade da própria Hotmart, que não controlamos.</p>
+
+	<h2>5. Remarketing</h2>
+	<p>O Pixel da Meta permite identificar que um navegador visitou a página e, com isso, podemos mostrar anúncios nossos no Facebook e no Instagram para quem já se interessou. Não usamos, por enquanto, o remarketing do Google Ads.</p>
+
+	<h2>6. Como desativar ou personalizar</h2>
+	<ul>
+		<li><strong>No navegador:</strong> você pode bloquear ou apagar cookies nas configurações (Privacidade e segurança). Isso vale para todos os sites.</li>
+		<li><strong>Google Analytics:</strong> o Google oferece um complemento que desativa a coleta em <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener" target="_blank">tools.google.com/dlpage/gaoptout</a>.</li>
+		<li><strong>Anúncios da Meta:</strong> ajuste as suas preferências de anúncios em <a href="https://www.facebook.com/adpreferences" rel="noopener" target="_blank">facebook.com/adpreferences</a>, ou use as opções de ocultar anúncios que aparecem nos próprios anúncios.</li>
+	</ul>
+	<p>Bloquear os cookies não impede o uso da página. Pode apenas limitar a nossa medição e a sua experiência em outros sites.</p>
+
+	<h2>7. Mudanças nesta política</h2>
+	<p>Se instalarmos novas ferramentas que usem cookies, esta política será atualizada, e a data da revisão fica no topo da página.</p>
+
+	<h2>8. Contato</h2>
+	<p>Dúvidas sobre cookies: <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Veja também a <a href="/privacidade/">Política de Privacidade</a> e os <a href="/termos/">Termos de Uso</a>.</p>
+</PaginaLegal>

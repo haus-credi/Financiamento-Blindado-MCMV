@@ -1,0 +1,204 @@
+---
+/**
+ * Moldura das páginas legais (Termos de Uso e Política de Privacidade).
+ *
+ * Mesmo campo claro, mesmas fontes e o mesmo rodapé da página de vendas, em coluna de leitura única.
+ * Hierarquia de títulos: um <h1> (título da página) e <h2> para cada cláusula. O conteúdo vem no slot;
+ * os estilos de texto são aplicados por .legal__corpo (com :global, porque o slot é de outro arquivo).
+ * Não dispara "Ver conteúdo" no Pixel da Meta: essa conversão é só da página de vendas.
+ */
+import Layout from '../../layouts/Layout.astro';
+import Rodape from '../sections/Rodape.astro';
+import { EMPRESA } from '../../config/site';
+
+interface Props {
+	/** <title> e og:title da página */
+	title: string;
+	/** meta description */
+	description: string;
+	/** início do h1, em tom normal. Ex.: "Política de" */
+	titulo: string;
+	/** fim do h1, no itálico de destaque do DS. Ex.: "Privacidade" */
+	destaque: string;
+}
+
+const { title, description, titulo, destaque } = Astro.props;
+---
+
+<Layout title={title} description={description} viewContent={false}>
+	<div class="legal">
+		<header class="legal__topo">
+			<a class="legal__voltar" href="/">
+				<span aria-hidden="true">←</span> Voltar para a página
+			</a>
+		</header>
+
+		<main class="legal__miolo" id="conteudo">
+			<p class="legal__kicker">
+				<span class="legal__kicker-rule" aria-hidden="true"></span>
+				<span>FINANCIAMENTO BLINDADO</span>
+			</p>
+			<h1 class="legal__titulo">
+				{titulo} <em class="acc">{destaque}</em>
+			</h1>
+			<p class="legal__meta">Última atualização: {EMPRESA.atualizacao}</p>
+
+			<div class="legal__corpo">
+				<slot />
+			</div>
+		</main>
+	</div>
+	<Rodape />
+</Layout>
+
+<style>
+	.legal {
+		background: linear-gradient(225deg, var(--field-hi) 0%, var(--field) 100%);
+		padding: 0 clamp(20px, 5vw, 56px) clamp(64px, 9vw, 120px);
+	}
+	.legal__topo {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: clamp(22px, 4vw, 40px) 0 0;
+	}
+	.legal__voltar {
+		display: inline-flex;
+		gap: 0.5em;
+		font: 400 14px / 1.5 var(--f-display);
+		letter-spacing: -0.005em;
+		color: var(--tx-body);
+		text-decoration: none;
+		transition: color 0.25s var(--ease-hz);
+	}
+	.legal__voltar:hover,
+	.legal__voltar:focus-visible {
+		color: var(--tx);
+	}
+	.legal__miolo {
+		max-width: 760px;
+		margin: 0 auto;
+		padding-top: clamp(40px, 7vw, 88px);
+	}
+	/* mesmo rótulo da Hero: JetBrains Mono em caixa-alta com fio vertical */
+	.legal__kicker {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		margin: 0 0 clamp(18px, 2.4vw, 28px);
+		font: 500 11.5px / 1.55 var(--f-mono);
+		letter-spacing: 0.14em;
+		color: var(--tx-body);
+	}
+	.legal__kicker-rule {
+		width: 2px;
+		height: 18px;
+		background: var(--accent);
+	}
+	.legal__titulo {
+		font-family: var(--f-title);
+		font-weight: var(--title-w);
+		font-size: clamp(2.25rem, 5.4vw, 3.75rem);
+		line-height: 1.04;
+		letter-spacing: var(--title-ls);
+		color: var(--tx);
+		text-wrap: balance;
+	}
+	.legal__titulo :global(.acc) {
+		font-size: calc(1em * var(--acc-scale));
+	}
+	.legal__meta {
+		margin-top: clamp(14px, 2vw, 22px);
+		font: 400 14px / 1.5 var(--f-display);
+		color: var(--tx-2);
+	}
+
+	.legal__corpo {
+		margin-top: clamp(32px, 5vw, 56px);
+		padding-top: clamp(28px, 4vw, 44px);
+		border-top: 1px solid var(--divider);
+	}
+	.legal__corpo :global(h2) {
+		margin: clamp(34px, 4.4vw, 52px) 0 14px;
+		font: 500 clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem) / 1.25 var(--f-display);
+		letter-spacing: -0.03em;
+		color: var(--tx);
+	}
+	.legal__corpo :global(h2:first-child) {
+		margin-top: 0;
+	}
+	.legal__corpo :global(p),
+	.legal__corpo :global(li) {
+		font: 400 1.0625rem / 1.7 var(--f-display);
+		letter-spacing: -0.005em;
+		color: var(--tx-body);
+	}
+	.legal__corpo :global(p) {
+		margin: 0 0 14px;
+	}
+	.legal__corpo :global(ul) {
+		margin: 0 0 14px;
+		padding-left: 1.3em;
+	}
+	.legal__corpo :global(li) {
+		margin: 0 0 8px;
+		padding-left: 0.2em;
+	}
+	.legal__corpo :global(li::marker) {
+		color: rgba(var(--ink-rgb), 0.4);
+	}
+	.legal__corpo :global(strong) {
+		font-weight: 500;
+		color: var(--tx);
+	}
+	.legal__corpo :global(a) {
+		color: var(--tx);
+		text-decoration: underline;
+		text-decoration-color: rgba(var(--ink-rgb), 0.3);
+		text-underline-offset: 3px;
+	}
+	.legal__corpo :global(a:hover),
+	.legal__corpo :global(a:focus-visible) {
+		text-decoration-color: currentColor;
+	}
+
+	/* tabela (Política de Cookies): rola na horizontal no celular, sem estourar a coluna */
+	.legal__corpo :global(.tabela) {
+		margin: 6px 0 20px;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		border-radius: 14px;
+		box-shadow: 0 0 0 1px rgba(var(--ink-rgb), 0.12);
+		background: rgba(255, 255, 255, 0.55);
+	}
+	.legal__corpo :global(table) {
+		width: 100%;
+		min-width: 620px;
+		border-collapse: collapse;
+		font: 400 0.95rem / 1.5 var(--f-display);
+		letter-spacing: -0.005em;
+	}
+	.legal__corpo :global(th),
+	.legal__corpo :global(td) {
+		padding: 12px 16px;
+		text-align: left;
+		vertical-align: top;
+		color: var(--tx-body);
+		border-bottom: 1px solid rgba(var(--ink-rgb), 0.1);
+	}
+	.legal__corpo :global(tr:last-child td) {
+		border-bottom: 0;
+	}
+	.legal__corpo :global(th) {
+		font: 500 11.5px / 1.4 var(--f-mono);
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--tx);
+		background: rgba(var(--ink-rgb), 0.04);
+	}
+	.legal__corpo :global(td:first-child) {
+		font-family: var(--f-mono);
+		font-size: 0.85rem;
+		color: var(--tx);
+		white-space: nowrap;
+	}
+</style>

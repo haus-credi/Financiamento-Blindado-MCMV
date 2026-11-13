@@ -1,4 +1,4 @@
-# Financiamento Blindado para Corretores — página de vendas
+# Financiamento Blindado - Minha Casa Minha Vida — página de vendas
 
 Página de vendas estática feita em [Astro](https://astro.build): 8 dobras + rodapé, sem framework de interface no navegador, só HTML, CSS e um script pequeno de movimento.
 

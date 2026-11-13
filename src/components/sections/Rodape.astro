@@ -5,12 +5,14 @@
  *
  * Texto (escrito por nós, só com o que a página já diz):
  *   · esquerda: "Financiamento Blindado - Minha Casa Minha Vida"
- *   · direita:  "© 2026 Haus Credi. CNPJ: 28.103.229/0001-70." (CNPJ fornecido pelo cliente; dígitos
- *     verificadores conferidos)
- * Sem "todos os direitos reservados", contato, termos ou privacidade: não foram fornecidos.
+ *   · centro:   links para Termos de Uso e Política de Privacidade (páginas /termos e /privacidade)
+ *   · direita:  "© 2026 Haus Credi. CNPJ: ..." (dados em EMPRESA, src/config/site.ts; CNPJ fornecido
+ *     pelo cliente, dígitos verificadores conferidos)
+ * Sem "todos os direitos reservados".
  *
  * Não é uma dobra (não segue a altura da janela). Medidas em --fu no desktop.
  */
+import { EMPRESA } from '../../config/site';
 ---
 
 <footer class="rodape">
@@ -20,7 +22,12 @@
 	</div>
 	<div class="rodape__inner">
 		<p class="rodape__texto"><strong>Financiamento Blindado - Minha Casa Minha Vida</strong></p>
-		<p class="rodape__copy">© 2026 Haus Credi. CNPJ: 28.103.229/0001-70.</p>
+		<nav class="rodape__links" aria-label="Documentos legais">
+			<a href="/termos/">Termos de Uso</a>
+			<a href="/privacidade/">Política de Privacidade</a>
+			<a href="/cookies/">Política de Cookies</a>
+		</nav>
+		<p class="rodape__copy">© 2026 {EMPRESA.nome}. CNPJ: {EMPRESA.cnpj}.</p>
 	</div>
 </footer>
 
@@ -68,6 +75,26 @@
 		font-weight: 500;
 		color: var(--tx);
 	}
+	.rodape__links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 4px 22px;
+		font: 400 13.5px / 1.5 var(--f-display);
+		letter-spacing: -0.005em;
+	}
+	.rodape__links a {
+		color: var(--tx-body);
+		text-decoration: underline;
+		text-decoration-color: rgba(var(--ink-rgb), 0.25);
+		text-underline-offset: 3px;
+		transition: color 0.25s var(--ease-hz), text-decoration-color 0.25s var(--ease-hz);
+	}
+	.rodape__links a:hover,
+	.rodape__links a:focus-visible {
+		color: var(--tx);
+		text-decoration-color: currentColor;
+	}
 
 	/* celular: duas linhas, centralizadas */
 	@media (max-width: 599px) {
@@ -85,7 +112,8 @@
 			max-width: calc(1100 * var(--fu));
 		}
 		.rodape__texto,
-		.rodape__copy {
+		.rodape__copy,
+		.rodape__links {
 			font-size: calc(13.5 * var(--fu));
 		}
 	}

@@ -1,0 +1,93 @@
+---
+/**
+ * Política de Privacidade — RASCUNHO baseado na LGPD (Lei nº 13.709/2018) e no que a página realmente faz:
+ * Google Analytics, Pixel da Meta, hospedagem na Vercel e checkout pela Hotmart. Sem formulários.
+ * Os dados da empresa vêm de EMPRESA (src/config/site.ts). Os detalhes de cookies ficam em /cookies/.
+ * Recomenda-se revisão jurídica antes de considerar este texto definitivo.
+ * PENDENTE: se a Haus Credi enviar e-mails/WhatsApp de marketing a compradores, acrescentar cláusula
+ * de comunicações e descadastro.
+ */
+import PaginaLegal from '../components/legal/PaginaLegal.astro';
+import { EMPRESA } from '../config/site';
+---
+
+<PaginaLegal
+	title="Política de Privacidade - Financiamento Blindado"
+	description="Como a Haus Credi trata dados pessoais e cookies nesta página, conforme a Lei Geral de Proteção de Dados (LGPD)."
+	titulo="Política de"
+	destaque="Privacidade"
+>
+	<p>Esta política explica, de forma direta, quais dados pessoais são tratados quando você visita a página do <strong>Financiamento Blindado - Minha Casa Minha Vida</strong>, para que usamos esses dados e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a “LGPD”).</p>
+
+	<h2>1. Algumas palavras que usamos</h2>
+	<ul>
+		<li><strong>Dado pessoal:</strong> qualquer informação que identifique uma pessoa ou permita identificá-la, como nome, e-mail, CPF, telefone ou endereço IP.</li>
+		<li><strong>Dado pessoal sensível:</strong> dado sobre origem racial ou étnica, religião, opinião política, saúde, vida sexual, dado genético ou biométrico, entre outros listados na LGPD.</li>
+		<li><strong>Titular:</strong> você, a pessoa a quem os dados se referem.</li>
+		<li><strong>Tratamento:</strong> tudo o que se faz com um dado, como coletar, guardar, usar, compartilhar ou eliminar.</li>
+		<li><strong>ANPD:</strong> a Autoridade Nacional de Proteção de Dados, órgão federal que fiscaliza o cumprimento da LGPD.</li>
+	</ul>
+
+	<h2>2. Quem somos</h2>
+	<p>A página é mantida pela <strong>{EMPRESA.nome}</strong>, inscrita no CNPJ <strong>{EMPRESA.cnpj}</strong>, localizada em {EMPRESA.cidade}. Somos a controladora dos dados pessoais tratados neste site.</p>
+	<p>Para qualquer assunto sobre privacidade, fale com a gente em <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Esse é também o canal do encarregado pelo tratamento de dados pessoais.</p>
+
+	<h2>3. Quais dados tratamos</h2>
+	<ul>
+		<li><strong>Dados de navegação</strong>, coletados automaticamente: endereço IP, tipo de navegador e de aparelho, páginas visitadas, tempo de visita, origem do acesso (por exemplo, o anúncio de onde você veio), cliques nos botões da página e identificadores de cookies.</li>
+		<li><strong>Dados de compra.</strong> O cadastro e o pagamento são feitos no ambiente da Hotmart, e não nesta página. Nome, e-mail, telefone, CPF e dados de pagamento que você informar lá são tratados pela Hotmart, conforme a política dela. Podemos receber da plataforma os dados necessários para liberar o seu acesso ao treinamento, prestar suporte e cumprir obrigações legais e fiscais.</li>
+		<li><strong>Dados que você nos enviar.</strong> Se você escrever para o nosso e-mail, trataremos as informações que enviar para poder responder.</li>
+	</ul>
+	<p>Esta página não tem formulário de cadastro, e não pedimos nenhum dado seu para você apenas navegar. <strong>Não coletamos dados pessoais sensíveis</strong> e não usamos dados para fins discriminatórios, ilícitos ou abusivos.</p>
+
+	<h2>4. Para que usamos os dados e em que base legal</h2>
+	<ul>
+		<li><strong>Entender como a página é usada e melhorá-la</strong> (Google Analytics): legítimo interesse (art. 7º, IX, da LGPD).</li>
+		<li><strong>Medir e melhorar os nossos anúncios</strong> (Pixel da Meta): legítimo interesse (art. 7º, IX).</li>
+		<li><strong>Processar a compra, liberar o acesso e prestar suporte:</strong> execução de contrato (art. 7º, V).</li>
+		<li><strong>Prevenir fraude e uso indevido do conteúdo</strong>, como o compartilhamento não autorizado de acessos: legítimo interesse (art. 7º, IX).</li>
+		<li><strong>Cumprir obrigações legais e fiscais:</strong> cumprimento de obrigação legal (art. 7º, II).</li>
+		<li><strong>Defender os nossos direitos</strong>, se necessário, em processos judiciais ou administrativos: exercício regular de direitos (art. 7º, VI).</li>
+	</ul>
+
+	<h2>5. Cookies</h2>
+	<p>Usamos cookies para medir o uso da página (Google Analytics) e o resultado dos nossos anúncios (Pixel da Meta). A lista completa, com o nome de cada cookie, a finalidade e a validade, e as instruções para desativar estão na <a href="/cookies/">Política de Cookies</a>.</p>
+
+	<h2>6. Com quem compartilhamos</h2>
+	<p>Compartilhamos dados apenas na medida do necessário, com: Google (Analytics), Meta (Pixel), Hotmart (compra e pagamento), o serviço de hospedagem do site (Vercel) e autoridades públicas, quando a lei exigir. <strong>Não vendemos</strong> os seus dados pessoais.</p>
+
+	<h2>7. Transferência para outros países</h2>
+	<p>Google, Meta e a hospedagem do site podem tratar dados em servidores fora do Brasil. Essa transferência ocorre com base nas garantias previstas no art. 33 da LGPD, em geral por meio dos mecanismos contratuais e de segurança dos próprios provedores.</p>
+
+	<h2>8. Por quanto tempo guardamos</h2>
+	<p>Os dados de navegação ficam pelo período necessário para as finalidades descritas acima, conforme a configuração de cada ferramenta. Os dados de compra ficam pelos prazos exigidos pela legislação fiscal, consumerista e civil. Depois disso, são eliminados ou anonimizados, ressalvadas as hipóteses em que a lei permite a conservação (art. 16 da LGPD).</p>
+
+	<h2>9. Seus direitos</h2>
+	<p>Nos termos do art. 18 da LGPD, você pode pedir, a qualquer momento:</p>
+	<ul>
+		<li>a confirmação de que tratamos dados seus e o acesso a eles;</li>
+		<li>a correção de dados incompletos, inexatos ou desatualizados;</li>
+		<li>a anonimização, o bloqueio ou a eliminação de dados desnecessários ou tratados em desacordo com a lei;</li>
+		<li>a portabilidade dos dados;</li>
+		<li>informações sobre com quem compartilhamos os seus dados;</li>
+		<li>a revogação de consentimento, quando o tratamento depender dele, e a oposição a tratamentos feitos por legítimo interesse.</li>
+	</ul>
+	<p>Para exercer qualquer desses direitos, escreva para <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Respondemos dentro do prazo previsto em lei. Você também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+	<h2>10. Segurança</h2>
+	<p>Adotamos medidas técnicas e administrativas para proteger os dados, como a entrega do site por conexão segura (HTTPS) e o acesso restrito às informações. Nenhum sistema é totalmente imune a falhas, mas nos comprometemos a agir com rapidez e transparência em caso de incidente.</p>
+
+	<h2>11. Como você pode se proteger</h2>
+	<ul>
+		<li>Use apenas os canais oficiais: esta página e o e-mail <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>.</li>
+		<li>Desconfie de mensagens que pedem pagamento, senha ou dados e chegam por e-mail, SMS, WhatsApp ou redes sociais. Se estiver em dúvida, entre em contato pelo nosso e-mail antes de clicar.</li>
+		<li>Faça a compra somente pelo botão desta página, que leva ao ambiente de pagamento da Hotmart.</li>
+		<li>Mantenha o navegador e o antivírus atualizados e não compartilhe o seu acesso ao treinamento com outras pessoas.</li>
+	</ul>
+
+	<h2>12. Mudanças nesta política</h2>
+	<p>Podemos atualizar esta política quando a página, as ferramentas que usamos ou a lei mudarem. A data da última revisão está no topo do texto. Recomendamos consultá-la de vez em quando.</p>
+
+	<h2>13. Contato</h2>
+	<p>Dúvidas, pedidos ou reclamações sobre privacidade: <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Veja também os <a href="/termos/">Termos de Uso</a> e a <a href="/cookies/">Política de Cookies</a>.</p>
+</PaginaLegal>
