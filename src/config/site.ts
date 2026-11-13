@@ -18,7 +18,7 @@ export const EMPRESA = {
   municipio: 'São Paulo',
   email: 'atendimento@hauscredi.com.br',
   /** Data da última revisão dos textos legais. */
-  atualizacao: '12 de novembro de 2026',
+  atualizacao: '13 de novembro de 2026',
 } as const;
 
 export const SITE = {

@@ -1,93 +1,128 @@
 ---
 /**
- * Política de Privacidade — RASCUNHO baseado na LGPD (Lei nº 13.709/2018) e no que a página realmente faz:
- * Google Analytics, Pixel da Meta, hospedagem na Vercel e checkout pela Hotmart. Sem formulários.
- * Os dados da empresa vêm de EMPRESA (src/config/site.ts). Os detalhes de cookies ficam em /cookies/.
- * Recomenda-se revisão jurídica antes de considerar este texto definitivo.
- * PENDENTE: se a Haus Credi enviar e-mails/WhatsApp de marketing a compradores, acrescentar cláusula
- * de comunicações e descadastro.
+ * Política de Privacidade — texto elaborado pela advogada do grupo, aplicado à Haus Credi (empresa por trás da marca
+ * Financiamento Blindado). Vale para todas as páginas da Haus Credi e para os futuros treinamentos. Só foram trocados o nome da
+ * empresa e o CNPJ, mais as correções aprovadas (lei do CDC, data, infraestrutura, e-mail de contato, menções a grupo econômico).
+ * Recomenda-se a revisão da advogada antes de publicar. Para mudar o texto, edite este arquivo (o conteúdo é HTML simples).
  */
 import PaginaLegal from '../components/legal/PaginaLegal.astro';
-import { EMPRESA } from '../config/site';
 ---
 
 <PaginaLegal
-	title="Política de Privacidade - Financiamento Blindado"
-	description="Como a Haus Credi trata dados pessoais e cookies nesta página, conforme a Lei Geral de Proteção de Dados (LGPD)."
+	title="Política de Privacidade - Haus Credi"
+	description="Como a Haus Credi trata dados pessoais, conforme a Lei Geral de Proteção de Dados (LGPD)."
 	titulo="Política de"
 	destaque="Privacidade"
 >
-	<p>Esta política explica, de forma direta, quais dados pessoais são tratados quando você visita a página do <strong>Financiamento Blindado - Minha Casa Minha Vida</strong>, para que usamos esses dados e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a “LGPD”).</p>
-
-	<h2>1. Algumas palavras que usamos</h2>
+	<p><strong>Haus Credi</strong></p>
+	<p>A Política de Privacidade (“Política”) da empresa HAUS CREDI, inscrita no CNPJ sob o nº 28.103.229/0001-70, doravante denominada simplesmente (“HAUS CREDI”), foi elaborada para reforçar nosso compromisso com a segurança, a privacidade e o tratamento responsável dos Dados Pessoais. Esta Política estabelece de forma clara e transparente as diretrizes para a coleta, o uso, o armazenamento e o tratamento desses dados, em total conformidade com a Constituição Federal de 1988, a Lei Geral de Proteção de Dados – LGPD (Lei nº 13.709/2018) e o Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>
+	<nav class="sumario" aria-label="Sumário">
+		<p class="sumario__rotulo">Sumário</p>
+		<ul>
+			<li><a href="#definicoes">Definições</a></li>
+			<li><a href="#quando-coletamos-seus-dados">Quando coletamos seus dados?</a></li>
+			<li><a href="#dados-pessoais-fornecidos-pelo-titular">Dados pessoais fornecidos pelo Titular</a></li>
+			<li><a href="#finalidade-da-coleta-de-dados">Finalidade da coleta de dados</a></li>
+			<li><a href="#consentimento">Consentimento</a></li>
+			<li><a href="#utilizacao-dos-dados-pessoais-por-terceiros">Utilização dos Dados Pessoais por terceiros</a></li>
+			<li><a href="#direitos-do-titular">Direitos do Titular</a></li>
+			<li><a href="#armazenamento-de-dados">Armazenamento de dados</a></li>
+			<li><a href="#como-e-por-quanto-tempo-seus-dados-serao-armazenados">Como e por quanto tempo seus dados serão armazenados?</a></li>
+			<li><a href="#o-que-fazemos-para-manter-seus-dados-seguros">O que fazemos para manter seus dados seguros</a></li>
+			<li><a href="#recomendacoes-de-seguranca">Recomendações de Segurança</a></li>
+			<li><a href="#alteracao-desta-politica-de-privacidade">Alteração desta Política de Privacidade</a></li>
+			<li><a href="#contato">Contato</a></li>
+		</ul>
+	</nav>
+	<p>Essa Política é para todos os usuários, clientes, ou pessoas que se relacionam com a HAUS CREDI.</p>
+	<h2 id="definicoes">Definições</h2>
+	<p>Antes de ter essa conversa sobre Dados Pessoais, vamos explicar para você alguns termos em conformidade com Lei Geral de Proteção de Dados, nº 13.709/2018.</p>
+	<p>Usuários: Indivíduos que acessam, utilizam ou interagem com nossas plataformas, sites, incluindo clientes, visitantes, colaboradores, parceiros, fornecedores e demais partes interessadas.</p>
+	<p>Dados Pessoais: Qualquer informação relacionada a pessoa natural identificada ou identificável, como por exemplo: nome, CPF, RG, endereço residencial ou comercial, número de telefone fixo ou móvel, endereço de e-mail, informações de geolocalização, entre outros;</p>
+	<p>Dados Pessoais Sensíveis: Dados Pessoais relacionados à origem racial ou étnica, religião, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico;</p>
+	<p>Terceiros: Refere-se a toda e qualquer pessoa física ou jurídica com a qual mantemos ou venhamos a manter relações, incluindo, mas não se limitando a prestadores de serviços, fornecedores, consultores, parceiros, terceiros contratados ou subcontratados.</p>
+	<p>Titular: Pessoa natural a quem se referem os Dados Pessoais que são objeto de tratamento;</p>
+	<p>Tratamento: Qualquer operação ou conjunto de operações efetuadas com Dados Pessoais por meios automatizados ou não automatizados, tais como, mas não limitados a coleta, registro, organização, estruturação, conservação, adaptação, alteração, recuperação, consulta, utilização, divulgação por transmissão, difusão, qualquer outra forma de disponibilização, comparação, interconexão, limitação, eliminação e destruição.</p>
+	<p>ANPD: Autarquia federal, responsável por zelar, implementar e fiscalizar o cumprimento da Lei Geral de Proteção de Dados Pessoais (LGPD) em todo o território nacional.</p>
+	<h2 id="quando-coletamos-seus-dados">Quando coletamos seus dados?</h2>
+	<p>Coletamos seus Dados Pessoais quando você utiliza nossos serviços, adquire nossos produtos ou interage com nossos canais oficiais. Essa coleta ocorre para viabilizar a prestação dos serviços ou produtos contratados e para aprimorar sua experiência de uso.</p>
+	<p>A obtenção dos dados pode ocorrer de duas formas: por meio do fornecimento direto por você, ao preencher formulários, realizar cadastros ou entrar em contato conosco; ou de forma indireta, quando nossos sistemas e equipe os coletam automaticamente durante sua navegação ou interação com nossos canais.</p>
+	<h3 id="dados-pessoais-fornecidos-pelo-titular">Dados pessoais fornecidos pelo Titular</h3>
+	<p>Nome, e-mail, CPF, e outras informações semelhantes, que são fornecidas quando você entra em contato com nossos canais oficiais, chats, site, plataformas digitais, utiliza ou adquiri nosso infoproduto.</p>
+	<h2 id="finalidade-da-coleta-de-dados">Finalidade da coleta de dados</h2>
+	<p>A HAUS CREDI utiliza seus Dados Pessoais exclusivamente para fins legítimos, lícitos e compatíveis com as suas atividades, em conformidade com a legislação vigente, especialmente a Lei Geral de Proteção de Dados Pessoais (LGPD), e com base nos princípios da transparência, finalidade, necessidade e adequação.</p>
+	<p>Dessa forma, os Dados Pessoais são tratados para as seguintes finalidades:</p>
 	<ul>
-		<li><strong>Dado pessoal:</strong> qualquer informação que identifique uma pessoa ou permita identificá-la, como nome, e-mail, CPF, telefone ou endereço IP.</li>
-		<li><strong>Dado pessoal sensível:</strong> dado sobre origem racial ou étnica, religião, opinião política, saúde, vida sexual, dado genético ou biométrico, entre outros listados na LGPD.</li>
-		<li><strong>Titular:</strong> você, a pessoa a quem os dados se referem.</li>
-		<li><strong>Tratamento:</strong> tudo o que se faz com um dado, como coletar, guardar, usar, compartilhar ou eliminar.</li>
-		<li><strong>ANPD:</strong> a Autoridade Nacional de Proteção de Dados, órgão federal que fiscaliza o cumprimento da LGPD.</li>
+		<li>Fornecer os serviços contratados e prestar suporte ao usuário, quando solicitado;</li>
+		<li>Processar transações e enviar comunicações relacionadas, como confirmações, notificações e atualizações;</li>
+		<li>Prevenir atividades ilícitas ou não autorizadas, incluindo o combate à fraude e à pirataria;</li>
+		<li>Personalizar, avaliar e aprimorar nossos serviços, produtos, conteúdos a navegação no site;</li>
+		<li>Enviar comunicações de marketing, atualizações de serviços e ofertas promocionais, respeitando suas preferências de contato;</li>
+		<li>Oferecer produtos e serviços adequados ao seu perfil, por canais próprios ou externos;</li>
+		<li>Aumentar seu nível de satisfação e proporcionar uma melhor experiência com a HAUS CREDI;</li>
+		<li>Cumprir com obrigações legais e regulatórias aplicáveis.</li>
 	</ul>
-
-	<h2>2. Quem somos</h2>
-	<p>A página é mantida pela <strong>{EMPRESA.nome}</strong>, inscrita no CNPJ <strong>{EMPRESA.cnpj}</strong>, localizada em {EMPRESA.cidade}. Somos a controladora dos dados pessoais tratados neste site.</p>
-	<p>Para qualquer assunto sobre privacidade, fale com a gente em <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Esse é também o canal do encarregado pelo tratamento de dados pessoais.</p>
-
-	<h2>3. Quais dados tratamos</h2>
+	<p>Repudiamos e não autorizamos o tratamento de dados para fins discriminatórios ilícitos ou abusivos.</p>
+	<p>Promovemos em toda a organização a cultura da privacidade, confidencialidade e proteção de dados, adotando processos, controles e políticas internas que asseguram o cumprimento das normas legais e das boas práticas relacionadas à proteção de Dados Pessoais.</p>
+	<h2 id="consentimento">Consentimento</h2>
+	<p>O tratamento dos seus Dados Pessoais pela HAUS CREDI poderá ocorrer com base no seu consentimento, que é a manifestação livre, informada e inequívoca pela qual você autoriza o uso de seus dados para finalidades específicas.</p>
+	<p>Ao utilizar os serviços da HAUS CREDI e fornecer seus Dados Pessoais, você declara estar ciente e de acordo com os termos desta Política de Privacidade, demonstrando seu consentimento e reconhecendo o compromisso da HAUS CREDI com a transparência, a boa-fé e o cumprimento da legislação aplicável, especialmente a Lei Geral de Proteção de Dados Pessoais (LGPD).</p>
+	<h2 id="utilizacao-dos-dados-pessoais-por-terceiros">Utilização dos Dados Pessoais por terceiros</h2>
+	<p>Seus Dados Pessoais poderão ser compartilhados com terceiros apenas quando necessário para viabilizar a comercialização, manutenção ou execução de produtos e serviços contratados por você.</p>
+	<p>A HAUS CREDI não compartilha seus Dados Pessoais com prestadores de serviços que não estejam diretamente relacionados à sua atividade empresarial. Em nenhuma hipótese autorizamos o uso dos seus dados por terceiros para fins distintos daqueles previamente contratados ou consentidos por você.</p>
+	<p>O compartilhamento, quando necessário, é realizado de forma limitada, restrita aos dados essenciais para a execução da atividade pretendida, e sempre com a adoção de medidas técnicas e administrativas adequadas à proteção das informações, observando as boas práticas de segurança e privacidade.</p>
+	<p>Também poderemos compartilhar seus Dados Pessoais com:</p>
 	<ul>
-		<li><strong>Dados de navegação</strong>, coletados automaticamente: endereço IP, tipo de navegador e de aparelho, páginas visitadas, tempo de visita, origem do acesso (por exemplo, o anúncio de onde você veio), cliques nos botões da página e identificadores de cookies.</li>
-		<li><strong>Dados de compra.</strong> O cadastro e o pagamento são feitos no ambiente da Hotmart, e não nesta página. Nome, e-mail, telefone, CPF e dados de pagamento que você informar lá são tratados pela Hotmart, conforme a política dela. Podemos receber da plataforma os dados necessários para liberar o seu acesso ao treinamento, prestar suporte e cumprir obrigações legais e fiscais.</li>
-		<li><strong>Dados que você nos enviar.</strong> Se você escrever para o nosso e-mail, trataremos as informações que enviar para poder responder.</li>
+		<li>Órgãos reguladores, fiscalizadores, autoridades governamentais ou judiciais, e empresas de auditoria, quando necessário para o cumprimento de obrigações legais ou regulatórias, ou em resposta a determinações legais e solicitações oficiais.</li>
 	</ul>
-	<p>Esta página não tem formulário de cadastro, e não pedimos nenhum dado seu para você apenas navegar. <strong>Não coletamos dados pessoais sensíveis</strong> e não usamos dados para fins discriminatórios, ilícitos ou abusivos.</p>
-
-	<h2>4. Para que usamos os dados e em que base legal</h2>
+	<p>Reforçamos nosso compromisso com a proteção de seus dados, adotando controles rigorosos no relacionamento com qualquer terceiro que venha a ter acesso às suas informações, assegurando o cumprimento da legislação vigente, especialmente a Lei Geral de Proteção de Dados Pessoais (LGPD).</p>
+	<h2 id="direitos-do-titular">Direitos do Titular</h2>
+	<p>A HAUS CREDI respeita e assegura o pleno exercício dos direitos dos titulares dos Dados Pessoais. Dessa forma, você, enquanto titular dos dados, poderá exercer os seguintes direitos, a qualquer tempo e mediante requisição:</p>
 	<ul>
-		<li><strong>Entender como a página é usada e melhorá-la</strong> (Google Analytics): legítimo interesse (art. 7º, IX, da LGPD).</li>
-		<li><strong>Medir e melhorar os nossos anúncios</strong> (Pixel da Meta): legítimo interesse (art. 7º, IX).</li>
-		<li><strong>Processar a compra, liberar o acesso e prestar suporte:</strong> execução de contrato (art. 7º, V).</li>
-		<li><strong>Prevenir fraude e uso indevido do conteúdo</strong>, como o compartilhamento não autorizado de acessos: legítimo interesse (art. 7º, IX).</li>
-		<li><strong>Cumprir obrigações legais e fiscais:</strong> cumprimento de obrigação legal (art. 7º, II).</li>
-		<li><strong>Defender os nossos direitos</strong>, se necessário, em processos judiciais ou administrativos: exercício regular de direitos (art. 7º, VI).</li>
+		<li>Acesso aos seus Dados Pessoais;</li>
+		<li>Correção de Dados Pessoais incompletos, inexatos ou desatualizados;</li>
+		<li>Eliminação dos Dados Pessoais mediante solicitação;</li>
+		<li>Informações sobre compartilhamento com Terceiros;</li>
+		<li>Anonimização, Bloqueio ou Eliminação de dados desnecessários ou sem fundamento legal para tratamento;</li>
+		<li>Revogação do consentimento do titular (nos casos em que o tratamento se dá mediante o consentimento).</li>
 	</ul>
-
-	<h2>5. Cookies</h2>
-	<p>Usamos cookies para medir o uso da página (Google Analytics) e o resultado dos nossos anúncios (Pixel da Meta). A lista completa, com o nome de cada cookie, a finalidade e a validade, e as instruções para desativar estão na <a href="/cookies/">Política de Cookies</a>.</p>
-
-	<h2>6. Com quem compartilhamos</h2>
-	<p>Compartilhamos dados apenas na medida do necessário, com: Google (Analytics), Meta (Pixel), Hotmart (compra e pagamento), o serviço de hospedagem do site (Vercel) e autoridades públicas, quando a lei exigir. <strong>Não vendemos</strong> os seus dados pessoais.</p>
-
-	<h2>7. Transferência para outros países</h2>
-	<p>Google, Meta e a hospedagem do site podem tratar dados em servidores fora do Brasil. Essa transferência ocorre com base nas garantias previstas no art. 33 da LGPD, em geral por meio dos mecanismos contratuais e de segurança dos próprios provedores.</p>
-
-	<h2>8. Por quanto tempo guardamos</h2>
-	<p>Os dados de navegação ficam pelo período necessário para as finalidades descritas acima, conforme a configuração de cada ferramenta. Os dados de compra ficam pelos prazos exigidos pela legislação fiscal, consumerista e civil. Depois disso, são eliminados ou anonimizados, ressalvadas as hipóteses em que a lei permite a conservação (art. 16 da LGPD).</p>
-
-	<h2>9. Seus direitos</h2>
-	<p>Nos termos do art. 18 da LGPD, você pode pedir, a qualquer momento:</p>
+	<p>Para exercer qualquer um desses direitos, você poderá entrar em contato conosco por meio dos canais oficiais da HAUS CREDI indicados nesta Política de Privacidade. A solicitação será analisada com base nos critérios legais e respondida dentro dos prazos estabelecidos pela LGPD.</p>
+	<h2 id="armazenamento-de-dados">Armazenamento de dados</h2>
+	<p>Os Dados Pessoais tratados pela HAUS CREDI são armazenados e processados com o uso de medidas técnicas e organizacionais de segurança, que incluem controles físicos, eletrônicos e administrativos adequados para proteger suas informações contra acessos não autorizados, vazamentos, perdas, alterações ou qualquer forma de tratamento inadequado ou ilícito.</p>
+	<p>O armazenamento dos Dados Pessoais pode ocorrer tanto em servidores localizados no Brasil quanto no exterior. Em caso de armazenamento ou tratamento internacional de dados, garantimos que serão adotadas todas as medidas exigidas pela Lei Geral de Proteção de Dados Pessoais (LGPD), assegurando que o país de destino proporcione grau de proteção de dados pessoais adequado ou que sejam implementadas salvaguardas contratuais e organizacionais compatíveis com os padrões legais brasileiros.</p>
+	<h3 id="como-e-por-quanto-tempo-seus-dados-serao-armazenados">Como e por quanto tempo seus dados serão armazenados?</h3>
+	<p>Seus Dados Pessoais serão armazenados pelo tempo necessário ao cumprimento das finalidades para as quais foram coletados, respeitando sempre os princípios da finalidade, necessidade e adequação.</p>
+	<p>De modo geral, seus dados serão mantidos enquanto a relação contratual entre você e a HAUS CREDI perdurar. Findado o período de armazenamento dos Dados Pessoais, estes serão excluídos de nossas bases de dados ou anonimizados, ressalvadas as hipóteses legalmente previstas no artigo 16, Lei Geral de Proteção de Dados.</p>
+	<p>O compromisso da HAUS CREDI com a privacidade de seus usuários se reflete na adoção de medidas técnicas e organizacionais capazes de garantir a integridade, confidencialidade e segurança das informações armazenadas.</p>
+	<h2 id="o-que-fazemos-para-manter-seus-dados-seguros">O que fazemos para manter seus dados seguros</h2>
+	<p>Para proteger seus Dados Pessoais, adotamos um conjunto de medidas físicas, eletrônicas e administrativas orientadas à prevenção de incidentes e à preservação da sua privacidade.</p>
+	<p>Essas medidas são definidas considerando:</p>
 	<ul>
-		<li>a confirmação de que tratamos dados seus e o acesso a eles;</li>
-		<li>a correção de dados incompletos, inexatos ou desatualizados;</li>
-		<li>a anonimização, o bloqueio ou a eliminação de dados desnecessários ou tratados em desacordo com a lei;</li>
-		<li>a portabilidade dos dados;</li>
-		<li>informações sobre com quem compartilhamos os seus dados;</li>
-		<li>a revogação de consentimento, quando o tratamento depender dele, e a oposição a tratamentos feitos por legítimo interesse.</li>
+		<li>A natureza dos dados tratados;</li>
+		<li>O contexto e a finalidade de sua coleta;</li>
+		<li>Os riscos envolvidos e o potencial impacto sobre os direitos dos titulares.</li>
 	</ul>
-	<p>Para exercer qualquer desses direitos, escreva para <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Respondemos dentro do prazo previsto em lei. Você também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD).</p>
-
-	<h2>10. Segurança</h2>
-	<p>Adotamos medidas técnicas e administrativas para proteger os dados, como a entrega do site por conexão segura (HTTPS) e o acesso restrito às informações. Nenhum sistema é totalmente imune a falhas, mas nos comprometemos a agir com rapidez e transparência em caso de incidente.</p>
-
-	<h2>11. Como você pode se proteger</h2>
+	<p>Entre as práticas adotadas, destacamos:</p>
 	<ul>
-		<li>Use apenas os canais oficiais: esta página e o e-mail <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>.</li>
-		<li>Desconfie de mensagens que pedem pagamento, senha ou dados e chegam por e-mail, SMS, WhatsApp ou redes sociais. Se estiver em dúvida, entre em contato pelo nosso e-mail antes de clicar.</li>
-		<li>Faça a compra somente pelo botão desta página, que leva ao ambiente de pagamento da Hotmart.</li>
-		<li>Mantenha o navegador e o antivírus atualizados e não compartilhe o seu acesso ao treinamento com outras pessoas.</li>
+		<li>Acesso restrito e controlado: somente pessoas autorizadas e capacitadas têm acesso aos Dados Pessoais;</li>
+		<li>Armazenamento seguro: os dados são armazenados em ambientes seguros, com controle de acesso e monitoramento;</li>
+		<li>Infraestrutura especializada: contamos com a infraestrutura da Vercel (site) e da Hotmart (pagamento e aulas no Hotmart Club) para garantir confiabilidade e segurança da estrutura de dados.</li>
 	</ul>
-
-	<h2>12. Mudanças nesta política</h2>
-	<p>Podemos atualizar esta política quando a página, as ferramentas que usamos ou a lei mudarem. A data da última revisão está no topo do texto. Recomendamos consultá-la de vez em quando.</p>
-
-	<h2>13. Contato</h2>
-	<p>Dúvidas, pedidos ou reclamações sobre privacidade: <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. Veja também os <a href="/termos/">Termos de Uso</a> e a <a href="/cookies/">Política de Cookies</a>.</p>
+	<p>Apesar de todos os nossos esforços, é importante reconhecer que nenhuma plataforma digital é completamente imune a riscos. Podem ocorrer incidentes motivados por terceiros mal-intencionados (como ataques cibernéticos) ou por ações involuntárias dos próprios usuários. Nesses casos, a HAUS CREDI se compromete a agir com transparência, diligência e responsabilidade, adotando todas as providências cabíveis para mitigar os impactos.</p>
+	<h2 id="recomendacoes-de-seguranca">Recomendações de Segurança</h2>
+	<p>Para que possamos garantir o sigilo e proteção dos seus Dados Pessoais, é importante que você também tome os seguintes cuidados:</p>
+	<ul>
+		<li>Utilize exclusivamente os canais oficiais disponibilizados pela HAUS CREDI;</li>
+		<li>Verifique sempre a origem das mensagens recebidas. Não acesse nosso site por meio de links enviados por e-mail, SMS, WhatsApp, Telegram ou outros meios, caso não tenha certeza de sua legitimidade. Em situações de dúvida ou suspeita, entre em contato conosco por meio dos nossos canais oficiais;</li>
+		<li>Mantenha seu navegador e sistema de antivírus sempre atualizados, contribuindo para uma navegação mais segura;</li>
+		<li>Atualize seus Dados Pessoais sempre que houver alguma alteração, através dos nossos canais oficiais;</li>
+		<li>Fique atento às informações constantes nesta Política de Privacidade.</li>
+	</ul>
+	<p>Caso seja nosso cliente, recomendamos também a leitura atenta dos contratos firmados com a HAUS CREDI.</p>
+	<h2 id="alteracao-desta-politica-de-privacidade">Alteração desta Política de Privacidade</h2>
+	<p>A atual versão da Política de Privacidade foi formulada e atualizada pela última vez em: 13/11/2026.</p>
+	<p>Reservamos o direito de modificar essa Política de Privacidade a qualquer tempo, principalmente em função da adequação a eventuais alterações feitas em nosso site ou em âmbito legislativo.</p>
+	<p>Eventuais alterações entrarão em vigor a partir da publicação em nosso site, então recomendamos que a revise com frequência. Ao utilizar nossos serviços e fornecer seus Dados Pessoais, após tais modificações, você as consente.</p>
+	<h2 id="contato">Contato</h2>
+	<p>Caso você tenha dúvidas, solicitações ou deseje exercer qualquer um dos direitos previstos na Lei Geral de Proteção de Dados Pessoais (LGPD), poderá entrar em contato através dos nossos canais oficiais, pelo e-mail <a href="mailto:atendimento@hauscredi.com.br">atendimento@hauscredi.com.br</a>.</p>
 </PaginaLegal>

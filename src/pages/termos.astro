@@ -1,59 +1,116 @@
 ---
 /**
- * Termos de Uso — RASCUNHO baseado no que a página oferece: treinamento on-line vendido pela Hotmart,
- * garantia de 7 dias (art. 49 do Código de Defesa do Consumidor) e conteúdo educacional independente.
- * Os dados da empresa vêm de EMPRESA (src/config/site.ts). A cláusula de independência (Caixa/Governo
- * Federal) deve ser confirmada pelo cliente. Recomenda-se revisão jurídica antes de considerar este
- * texto definitivo.
+ * Termos de Uso — texto elaborado pela advogada do grupo, aplicado à Haus Credi (empresa por trás da marca
+ * Financiamento Blindado). Vale para todas as páginas da Haus Credi e para os futuros treinamentos. Só foram trocados o nome da
+ * empresa e o CNPJ, mais as correções aprovadas (lei do CDC, data, infraestrutura, e-mail de contato, menções a grupo econômico).
+ * Recomenda-se a revisão da advogada antes de publicar. Para mudar o texto, edite este arquivo (o conteúdo é HTML simples).
  */
 import PaginaLegal from '../components/legal/PaginaLegal.astro';
-import { EMPRESA } from '../config/site';
 ---
 
 <PaginaLegal
-	title="Termos de Uso - Financiamento Blindado"
-	description="Condições de uso da página e de compra do treinamento Financiamento Blindado, oferecido pela Haus Credi."
+	title="Termos de Uso - Haus Credi"
+	description="Condições de uso dos sites e dos treinamentos oferecidos pela Haus Credi, empresa por trás da marca Financiamento Blindado."
 	titulo="Termos de"
 	destaque="Uso"
 >
-	<h2>1. Aceitação</h2>
-	<p>Ao acessar esta página ou comprar o treinamento, você concorda com estes Termos de Uso e com a <a href="/privacidade/">Política de Privacidade</a> e com a <a href="/cookies/">Política de Cookies</a>. Se não concordar com alguma parte, não utilize a página nem contrate o treinamento.</p>
-
-	<h2>2. Quem oferece o treinamento</h2>
-	<p>O treinamento <strong>Financiamento Blindado - Minha Casa Minha Vida</strong> é oferecido pela <strong>{EMPRESA.nome}</strong>, inscrita no CNPJ <strong>{EMPRESA.cnpj}</strong>, localizada em {EMPRESA.cidade}. É um treinamento on-line, em aulas gravadas, voltado a corretores de imóveis, sobre financiamento imobiliário e as regras do programa Minha Casa, Minha Vida.</p>
-
-	<h2>3. Compra e pagamento</h2>
-	<p>A compra é feita na plataforma <strong>Hotmart</strong>, que processa o pagamento e emite os comprovantes. O preço, o número de parcelas e as formas de pagamento são os exibidos na oferta e no checkout no momento da compra. A transação também está sujeita aos termos e às políticas da Hotmart.</p>
-
-	<h2>4. Garantia de 7 dias</h2>
-	<p>Você pode pedir o cancelamento da compra e o reembolso integral em até <strong>7 dias corridos</strong> a partir da data da compra, conforme o art. 49 do Código de Defesa do Consumidor e a garantia da oferta. O pedido pode ser feito pela Hotmart ou pelo e-mail <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>. O reembolso é feito pelo mesmo meio de pagamento, dentro dos prazos da plataforma e da operadora do cartão.</p>
-
-	<h2>5. Natureza do conteúdo e resultados</h2>
-	<p>O treinamento tem caráter <strong>educacional e informativo</strong>. Ele não é consultoria jurídica, financeira ou de crédito, e não substitui a orientação de um profissional habilitado nem a análise de uma instituição financeira.</p>
-	<p>As regras do financiamento imobiliário e dos programas habitacionais mudam com frequência, e a aprovação de crédito depende exclusivamente da análise da instituição financeira. As informações refletem as regras vigentes na data em que cada conteúdo foi publicado ou gravado, e o treinamento é atualizado conforme essas regras mudam. Os resultados dependem de cada profissional, do mercado e da aplicação do conteúdo. <strong>Não garantimos</strong> um número de vendas, aprovações de crédito ou ganhos específicos.</p>
-
-	<h2>6. Independência</h2>
-	<p>O treinamento e esta página são independentes. Não têm vínculo, patrocínio ou aprovação da Caixa Econômica Federal, do Governo Federal ou de qualquer instituição financeira. “Minha Casa, Minha Vida” e os demais nomes citados pertencem aos seus titulares e são usados apenas para identificar o assunto tratado.</p>
-
-	<h2>7. Propriedade intelectual</h2>
-	<p>Os textos, vídeos, imagens, materiais e a marca do treinamento pertencem à {EMPRESA.nome} ou a quem nos licenciou. É proibido copiar, reproduzir, revender, distribuir ou compartilhar o conteúdo sem autorização por escrito.</p>
-
-	<h2>8. Acesso pessoal</h2>
-	<p>O acesso ao treinamento é individual e intransferível. Não compartilhe o seu login com outras pessoas. O uso indevido pode levar à suspensão do acesso, sem prejuízo de outras medidas previstas em lei.</p>
-	<p>Compartilhar login e senha, copiar, gravar, revender ou distribuir as aulas sem autorização viola direitos autorais (Lei nº 9.610/1998), pode configurar crime previsto no art. 184 do Código Penal e gera responsabilidade civil. Nesses casos, podemos suspender o acesso e tomar as medidas cabíveis.</p>
-
-	<h2>9. Limitação de responsabilidade</h2>
-	<p>Dentro dos limites da lei e sem afastar os direitos do consumidor, não nos responsabilizamos por decisões tomadas com base no conteúdo, por falhas ou indisponibilidade de serviços de terceiros (como a Hotmart, provedores de internet ou de hospedagem) nem pelo conteúdo de sites externos para os quais a página tenha links.</p>
-
-	<h2>10. Mudanças nestes termos</h2>
-	<p>Podemos atualizar estes termos. A versão em vigor é sempre a publicada nesta página, com a data da última revisão no topo. Alterações não afetam compras já realizadas, que seguem as condições vigentes na data da compra.</p>
-
-	<h2>11. Lei aplicável e foro</h2>
-	<p>Estes termos são regidos pelas leis do Brasil. Fica eleito o foro da comarca de {EMPRESA.municipio}, estado de São Paulo, ressalvado o direito do consumidor de propor ação no foro do seu domicílio.</p>
-
-	<h2>12. Disposições gerais</h2>
-	<p>Se alguma disposição destes termos for considerada inválida ou inexequível, as demais continuam em vigor, e a disposição inválida será substituída por outra válida, que preserve ao máximo a intenção original.</p>
-
-	<h2>13. Contato</h2>
-	<p>Dúvidas sobre estes termos ou sobre o treinamento: <a href={`mailto:${EMPRESA.email}`}>{EMPRESA.email}</a>.</p>
+	<p><strong>Haus Credi</strong></p>
+	<p>Estes Termos de serviços regulam o uso deste site disponibilizado por HAUS CREDI, empresa inscrita no CNPJ sob o nº 28.103.229/0001-70, doravante denominada simplesmente (“HAUS CREDI”).</p>
+	<nav class="sumario" aria-label="Sumário">
+		<p class="sumario__rotulo">Sumário</p>
+		<ul>
+			<li><a href="#introducao">Introdução</a></li>
+			<li><a href="#condicoes-gerais-de-acesso-e-uso-do-site">CONDIÇÕES GERAIS DE ACESSO E USO DO SITE:</a></li>
+			<li><a href="#condicoes-para-utilizar-este-site-e-todos-os-recursos-aqui-disponiveis">CONDIÇÕES PARA UTILIZAR ESTE SITE E TODOS OS RECURSOS AQUI DISPONÍVEIS</a></li>
+			<li><a href="#lei-geral-de-protecao-de-dados">LEI GERAL DE PROTEÇÃO DE DADOS</a></li>
+			<li><a href="#direitos-da-propriedade-intelectual-e-direitos-autorais">DIREITOS DA PROPRIEDADE INTELECTUAL E DIREITOS AUTORAIS</a></li>
+			<li><a href="#direito-de-uso-de-imagem">DIREITO DE USO DE IMAGEM</a></li>
+			<li><a href="#aspectos-gerais">ASPECTOS GERAIS</a></li>
+			<li><a href="#legislacao-e-foro">LEGISLAÇÃO E FORO</a></li>
+		</ul>
+	</nav>
+	<p>IMPORTANTE: A HAUS CREDI, na qualidade de proprietário deste site, poderá alterar este Termo, a qualquer momento, sem aviso prévio. Da mesma forma, a HAUS CREDI manterá este Termo atualizado e, dessa forma, é de inteira responsabilidade do Usuário verificar as atualizações toda vez que elas forem publicadas, devendo aceitá-las ao continuar a acessar e usar os serviços e informações disponibilizados neste site. Se não concordar com o presente Termo, não utilize ou acesse o site.</p>
+	<h2 id="introducao">Introdução</h2>
+	<p>Ao acessar ou utilizar o site pela primeira vez, o Usuário declara ter lido, compreendido e aceito integralmente os presentes Termos de Uso (“Termos”), comprometendo-se a cumpri-los integralmente.</p>
+	<p>É fundamental que o Usuário revise atentamente estes Termos a cada novo acesso ao site, pois eles poderão ser modificados periodicamente, visando o aprimoramento da experiência e a adequação às normas vigentes.</p>
+	<p>A HAUS CREDI poderá disponibilizar ao Usuário contratante diferentes produtos e/ou serviços, conforme especificado no contrato individual de contratação, sendo eles, a título exemplificativo e não exaustivo:</p>
+	<ul>
+		<li>Livros ou audiolivros disponibilizados em formato digital (“Livros”);</li>
+		<li>Serviços educacionais e/ou produtos de conteúdos voltados ao ensino e aprendizagem, disponibilizados por meio da modalidade de educação a distância (“Serviços Educacionais”).</li>
+	</ul>
+	<p>A utilização dos produtos contratados é destinada exclusivamente ao uso pessoal e intransferível do Usuário, sendo expressamente vedada qualquer forma de uso comercial, redistribuição, compartilhamento com terceiros ou qualquer outra finalidade diversa daquela originalmente prevista, sem a devida autorização expressa da HAUS CREDI.</p>
+	<h2 id="condicoes-gerais-de-acesso-e-uso-do-site">CONDIÇÕES GERAIS DE ACESSO E USO DO SITE:</h2>
+	<p>Para acessar a este site ou alguns dos recursos que ele oferece, será requerido que você (considerado neste Termo: “Usuário”) forneça alguns detalhes para inscrição e/ou outras informações.</p>
+	<p>É condição de uso deste site que toda informação que você forneça seja correta, atualizada, completa e verdadeira. Caso a HAUS CREDI entenda que a informação fornecida não é correta, atualizada, completa ou verdadeira, a HAUS CREDI possui o direito de recusar o seu acesso a este site ou qualquer um de seus serviços e, ainda, também poderá cancelar ou suspender seu acesso a qualquer momento sem notificação prévia.</p>
+	<p>A HAUS CREDI poderá encerrar este termo, o conteúdo, e os serviços prestados em relação ao Usuário, deixando de oferecer ou negar acesso ao site, a qualquer momento e por qualquer motivo, sem necessidade de notificação ou comunicação prévia ou posterior.</p>
+	<h2 id="condicoes-para-utilizar-este-site-e-todos-os-recursos-aqui-disponiveis">CONDIÇÕES PARA UTILIZAR ESTE SITE E TODOS OS RECURSOS AQUI DISPONÍVEIS</h2>
+	<p>O Usuário deverá obedecer às regras descritas abaixo, sempre que utilizar este site, e os recursos que ele oferece:</p>
+	<ul>
+		<li>O Usuário é responsável pela veracidade dos dados inseridos e/ou fornecidos.</li>
+		<li>Só utilize e acesse o site em seu nome. Para proteger seus dados e evitar solicitações não autorizadas, não compartilhe seus dados e/ou não deixe ninguém acessar o site em seu nome e com seus dados.</li>
+		<li>O Usuário só pode utilizar este site para os propósitos aqui expressamente permitidos, e dentro dos critérios exigidos em lei.</li>
+		<li>É vedado ao Usuário, sem consentimento prévio e por escrito da HAUS CREDI:
+			<ol type="I">
+				<li>associar sua marca ou identidade visual à HAUS CREDI;</li>
+				<li>realizar frames ou criar hyperlinks para este site;</li>
+				<li>utilizá-lo para fins comerciais ou outros não autorizados expressamente por escrito pela HAUS CREDI.</li>
+			</ol>
+		</li>
+	</ul>
+	<p>Para efeitos desse Termo, “associar a marca da” significa expor nome, logo, marca comercial ou outros meios de atribuição ou identificação em fonte de maneira que dê ao terceiro a impressão de que tal fonte tem o direito de expor, publicar ou distribuir este site ou o conteúdo disponibilizado pelo Usuário. O Usuário concorda em cooperar para cessar qualquer associação, frame ou hyperlink não autorizados.</p>
+	<ul>
+		<li>Deve respeitar os padrões éticos e legais de conduta, abstendo-se de:
+			<ol type="I">
+				<li>Invadir a privacidade de terceiros;</li>
+				<li>Compartilhar seu acesso com outros;</li>
+				<li>Praticar atos que comprometam a segurança da plataforma;</li>
+				<li>Destruir dados ou programas;</li>
+				<li>Usar informações de outros usuários para fins comerciais;</li>
+				<li>Enviar mensagens ofensivas, obscenas ou contrárias aos bons costumes.</li>
+			</ol>
+		</li>
+		<li>As informações disponibilizadas no site são de caráter geral e podem não abranger todos os temas de interesse do Usuário.</li>
+		<li>O site pode conter hyperlinks para páginas externas, não mantidas pela HAUS CREDI. O acesso a tais hyperlinks é de responsabilidade exclusiva do Usuário, não havendo garantia quanto à exatidão ou confiabilidade do conteúdo de terceiros. A conclusão de qualquer hyperlink para um site de terceiro não necessariamente implica endosso da HAUS CREDI a este site.</li>
+		<li>O conteúdo aqui oferecido é sem garantias de qualquer tipo, expressas ou implícitas. A HAUS CREDI não garante que as funções ou conteúdos aqui disponibilizados seja contínuo, livre de erros ou falhas, e mesmo que tais erros ou falhas serão corrigidos, ou que este site estão livres de vírus ou outros componentes destrutivos. Não garantimos resultados do uso do conteúdo em termos de precisão, confiabilidade ou outros. O conteúdo pode incluir imprecisões técnicas ou erros tipográficos, de forma que a HAUS CREDI pode fazer mudanças ou melhorias a qualquer momento. O Usuário, de forma exclusiva e individual, assume o custo de qualquer serviço, reparo ou correção necessários no caso de qualquer perda ou dano consequente do uso deste site, ou seu conteúdo.</li>
+		<li>Toda informação neste site, seja de natureza histórica ou prospectiva, é válida somente para a data em que foi publicada no site, de forma que não nos comprometemos com nenhuma obrigação de atualizar tal informação depois que é publicada ou remover tal informação deste site caso ela não seja (mais) precisa ou completa.</li>
+	</ul>
+	<h2 id="lei-geral-de-protecao-de-dados">LEI GERAL DE PROTEÇÃO DE DADOS</h2>
+	<p>Sua privacidade é muito importante para nós e, por isso utilizamos as melhores práticas recomendadas de mercado para manter seguros todos os Dados Pessoais inseridos pelo Usuário. No entanto, a HAUS CREDI se exime de responsabilidade pelos danos e prejuízos de toda natureza que possam decorrer do acesso indevido às informações por terceiros não autorizados, quando resultantes de falhas atribuíveis exclusivamente ao próprio Usuário ou a eventos fora de nosso controle razoável — incluindo, mas não se limitando, a ataques ilícitos realizados por hackers.</p>
+	<p>Com o objetivo de demostrar o compromisso com a proteção de dados, disponibilizamos em nosso site a Política de Privacidade, contendo todas as informações pertinentes a coleta, uso, o armazenamento e o tratamento de Dados Pessoais dos nossos Usuários, conforme previsto na Lei Geral de Proteção de Dados (Lei nº 13.709/2018).</p>
+	<h2 id="direitos-da-propriedade-intelectual-e-direitos-autorais">DIREITOS DA PROPRIEDADE INTELECTUAL E DIREITOS AUTORAIS</h2>
+	<p>Todo o material constante do site, sobretudo suas marcas, nome empresarial, nome de domínio, software, bancos de dados, assim como os conteúdos divulgados (material fotográfico e videográfico), são protegidos pela legislação brasileira aplicável e vigente, e pertencem, exclusivamente, a HAUS CREDI, possuindo todos os direitos autorais sobre seus materiais, devidamente protegidos pela lei nº 9.610/98.</p>
+	<p>Os direitos de propriedade industrial, autoral ou intelectual, incluindo-se neste conceito os métodos, base de dados, programas, suscetíveis ou não de exploração econômica, são de propriedade exclusiva da HAUS CREDI, conforme disposto na Lei nº 9.609/98.</p>
+	<p>Assim, o Usuário fica expressamente proibido de publicar, enviar, apresentar ou fazer conexão a esse site qualquer material que:</p>
+	<ul>
+		<li>Não tenha o direito de postar, incluindo material de propriedade de terceiros;</li>
+		<li>Defenda atividade ilegal ou discuta a intenção de fazer algo ilegal;</li>
+		<li>Seja vulgar, obsceno ou pornográfico;</li>
+		<li>Não diga respeito diretamente a este site;</li>
+		<li>Possa ameaçar ou insultar outros, difamar, caluniar, invadir privacidade, perseguir, ser obsceno, pornográfico, racista, homofóbico, assedie ou ofenda qualquer pessoa;</li>
+		<li>Busca explorar ou prejudicar crianças expondo-as a conteúdo inapropriado;</li>
+		<li>Infrinja qualquer propriedade intelectual ou outro direito de pessoa ou entidade, incluindo violações de direitos autorais, marca registrada ou direitos de publicidade;</li>
+		<li>Personifique ou deturpe sua conexão com qualquer entidade ou pessoa; ou ainda manipula títulos ou identificadores para encobrir a origem do conteúdo;</li>
+		<li>Promova qualquer empreendimento comercial (ex: oferecer produtos ou serviços em promoção) ou que engaje de qualquer forma em uma atividade comercial (ex: realizar sorteios ou concursos, expor banners patrocinados e/ou solicitar bens e serviços) exceto se expressamente autorizado neste site;</li>
+		<li>Solicitar fundos, divulgações ou patrocinadores;</li>
+		<li>Inclua programas com vírus, worms e/ou Cavalos de Tróia ou qualquer outro código, arquivo ou programa de computador destinado a interromper, destruir ou limitar a funcionalidade de qualquer software ou hardware de computador ou telecomunicações;</li>
+		<li>Conseguem acompanhar ou mesmo agir de modo a afetar a habilidade de outras pessoas de se engajar em atividades em tempo real neste site;</li>
+		<li>Inclua arquivos em formato MP3;</li>
+		<li>Promova notícias falsas (fake news);</li>
+		<li>Desobedeça a qualquer política ou regra estabelecida de tempos em tempos para o uso desse site ou qualquer rede conectada a ele; ou,</li>
+		<li>Contenha hiperlinks para sites que contenham conteúdo que se enquadrem nas descrições acima.</li>
+	</ul>
+	<p>O Usuário declara-se ciente de que a prática de violar direito de autor é crime tipificado no art. 184 do Código Penal, o qual impõe pena de até 4 (quatro) anos de reclusão e multa. Fica esclarecido que o compartilhamento de senhas entre usuários também configura ato de violação de direito de autor e subsume-se a tipificação penal de pirataria.</p>
+	<p>Assim, a HAUS CREDI deixa claro que os Usuários que violarem os direitos de autor serão denunciados aos órgãos policiais competentes para a persecução criminal, bem como, buscará a satisfação de seus direitos no âmbito da esfera cível. Fica, também, o Usuário ciente de que a HAUS CREDI poderá fazer uso de ferramentas, e serviços de empresas especializadas, no combate à pirataria para rastrear e identificar atividades desta natureza.</p>
+	<h2 id="direito-de-uso-de-imagem">DIREITO DE USO DE IMAGEM</h2>
+	<p>Por este termo o Usuário garante a HAUS CREDI o direito e licença royalty-free, perpétuo, irrevocável, a HAUS CREDI a utilizar, de maneira gratuita, seu nome, imagem, voz e demais conteúdos, observações, sugestões, ideias, comentários, arquivos ou materiais que venha a submeter, publicar ou compartilhar por meio da plataforma (“Conteúdos Compartilhados”), em qualquer mídia, formato ou tecnologia, já existente ou que venha a ser desenvolvida, no Brasil e no exterior.</p>
+	<p>Essa autorização inclui, mas não se limita, ao direito de uso, reprodução, modificação, adaptação, publicação, tradução, criação de obras derivadas, distribuição, exibição e divulgação dos Conteúdos Compartilhados para fins institucionais, comerciais, publicitários ou educacionais da HAUS CREDI, sem que disso decorra qualquer obrigação de remuneração, indenização ou reconhecimento futuro.</p>
+	<p>O Usuário reconhece que os Conteúdos Compartilhados não possuem caráter confidencial e declara que a HAUS CREDI poderá utilizá-los livremente em suas atividades institucionais, comerciais ou publicitárias, sem que isso gere qualquer obrigação de pagamento de royalties, compensações ou quaisquer outras formas de remuneração. O Usuário também reconhece que a HAUS CREDI não poderá ser responsabilizada por eventual semelhança entre os Conteúdos Compartilhados e materiais, produtos, serviços ou projetos desenvolvidos ou utilizados futuramente.</p>
+	<p>A presente autorização é firmada em caráter irrevogável, irretratável, tendo sido outorgada de livre e espontânea vontade, sendo realizada de forma totalmente gratuita, sem qualquer ônus sobre o direito à imagem, voz, som, nome, de forma que o Usuário concorda em não receber qualquer tipo de remuneração, bem como declara, para todos os fins de direito, não irá reclamar a qualquer tempo e a qualquer título acerca do direitos aqui outorgados, isentando, integralmente, a HAUS CREDI de qualquer responsabilidade advinda dessa utilização incluindo, mas não se limitando, a reclamações de terceiros, quer de natureza civil, administrativa ou penal.</p>
+	<p>O tratamento de Dados Pessoais eventualmente contidos nos Conteúdos Compartilhados será realizado conforme os termos da Política de Privacidade da HAUS CREDI, disponível neste site.</p>
+	<h2 id="aspectos-gerais">ASPECTOS GERAIS</h2>
+	<p>Se qualquer previsão do presente Termo for tida como inválida ou inexecutável em conformidade com a lei aplicável, o dispositivo inválido ou inexequível será considerado substituído por um dispositivo válido e exequível que se equipare da melhor maneira possível à intenção do dispositivo original, e todos os termos e condições restantes continuarão produzindo seus efeitos.</p>
+	<p>Por meio do aceite ao presente Termo, o Usuário reconhece que, em qualquer hipótese, é o único responsável pela utilização do site, isentando a HAUS CREDI de qualquer responsabilidade por danos e prejuízos decorrentes do uso indevido do site e conteúdo correlato.</p>
+	<p>A HAUS CREDI não se responsabiliza pela exatidão das informações, pontualidade, comportamento dos Usuários e eventuais danos de qualquer natureza que estes venham causar a si ou à terceiros.</p>
+	<h2 id="legislacao-e-foro">LEGISLAÇÃO E FORO</h2>
+	<p>Todos os itens deste Termo estão regidos pelas leis vigentes na República Federativa do Brasil. Para todos os assuntos referentes à sua interpretação e cumprimento, as partes se submeterão ao Foro da Comarca de São Paulo/SP.</p>
 </PaginaLegal>

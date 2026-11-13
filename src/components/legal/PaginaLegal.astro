@@ -126,6 +126,51 @@ const { title, description, titulo, destaque } = Astro.props;
 	.legal__corpo :global(h2:first-child) {
 		margin-top: 0;
 	}
+	/* subtítulo dentro de uma cláusula (ex.: Necessários, Desempenho nos Cookies) */
+	.legal__corpo :global(h3) {
+		margin: clamp(22px, 3vw, 30px) 0 10px;
+		font: 500 clamp(1.05rem, 1rem + 0.3vw, 1.2rem) / 1.3 var(--f-display);
+		letter-spacing: -0.02em;
+		color: var(--tx);
+	}
+	/* sumário com links para as cláusulas */
+	.legal__corpo :global(.sumario) {
+		margin: 8px 0 28px;
+		padding: 20px 24px 12px;
+		border-radius: 14px;
+		box-shadow: 0 0 0 1px rgba(var(--ink-rgb), 0.12);
+		background: rgba(255, 255, 255, 0.55);
+	}
+	.legal__corpo :global(.sumario__rotulo) {
+		margin: 0 0 10px;
+		font: 500 11.5px / 1.4 var(--f-mono);
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--tx);
+	}
+	.legal__corpo :global(.sumario ul) {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.legal__corpo :global(.sumario li) {
+		margin: 0 0 8px;
+		padding: 0;
+		font-size: 1rem;
+		line-height: 1.5;
+	}
+	.legal__corpo :global(.sumario a) {
+		text-decoration-color: transparent;
+	}
+	.legal__corpo :global(.sumario a:hover),
+	.legal__corpo :global(.sumario a:focus-visible) {
+		text-decoration-color: currentColor;
+	}
+	/* a rolagem por âncora não esconde o título atrás da borda */
+	.legal__corpo :global(h2[id]),
+	.legal__corpo :global(h3[id]) {
+		scroll-margin-top: 24px;
+	}
 	.legal__corpo :global(p),
 	.legal__corpo :global(li) {
 		font: 400 1.0625rem / 1.7 var(--f-display);
@@ -135,9 +180,13 @@ const { title, description, titulo, destaque } = Astro.props;
 	.legal__corpo :global(p) {
 		margin: 0 0 14px;
 	}
-	.legal__corpo :global(ul) {
+	.legal__corpo :global(ul),
+	.legal__corpo :global(ol) {
 		margin: 0 0 14px;
 		padding-left: 1.3em;
+	}
+	.legal__corpo :global(li > ol) {
+		margin: 8px 0 0;
 	}
 	.legal__corpo :global(li) {
 		margin: 0 0 8px;
