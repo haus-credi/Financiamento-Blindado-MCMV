@@ -26,9 +26,12 @@ export const SITE = {
   title: 'Financiamento Blindado - Minha Casa Minha Vida',
   description: 'Venda mais imóveis na planta sem travar no financiamento',
   locale: 'pt_BR',
-  /** ID de medição do Google Analytics 4 (fluxo de dados "Financiamento Blindado - Minha Casa Minha Vida"). */
+  /**
+   * ID de medição do Google Analytics 4 (fluxo de dados "Financiamento Blindado - Minha Casa Minha Vida").
+   * Referência: o site NÃO usa este valor no código. Quem mede o GA4 é a tag do Google dentro do contêiner GTM (digitar este ID lá).
+   */
   gaId: 'G-GVZVLJ364M',
-  /** Contêiner do Google Tag Manager. Etapa 1 da migração: instalado e carregando, mas o GA4 ainda roda direto no código. */
+  /** Contêiner do Google Tag Manager: carrega o GA4 (tag do Google com o gaId acima). O Pixel da Meta continua direto no código. */
   gtmId: 'GTM-NDV234Z9',
   /** Pixel da Meta (Gerenciador de Eventos > conjunto de dados "Financiamento Blindado - Minha Casa Minha Vida"). */
   metaPixelId: '1901474004550492',

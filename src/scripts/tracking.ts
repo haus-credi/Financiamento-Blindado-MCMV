@@ -6,7 +6,8 @@
  *  - Pixel da Meta: evento PERSONALIZADO "CliqueCheckout" (fbq 'trackCustom'). O "InitiateCheckout" e o "Purchase"
  *    padrão ficam por conta da Hotmart (Pixel + API de Conversões dela); o site não dispara mais "InitiateCheckout",
  *    para o mesmo comprador não ser contado duas vezes;
- *  - Google Analytics 4: evento padrão "begin_checkout" (inalterado).
+ *  - Google Analytics 4, via Google Tag Manager: o site só empurra { event: 'begin_checkout' } no dataLayer. A tag de evento do GA4
+ *    (nome "begin_checkout") precisa existir no contêiner, com gatilho "Evento personalizado" = begin_checkout.
  * As duas ferramentas ficam em fila no <head> e baixam depois do load (src/layouts/Layout.astro); se alguma estiver bloqueada
  * (bloqueador de anúncios), o clique segue normalmente — só o aviso não é enviado.
  */
@@ -15,7 +16,7 @@ import { CHECKOUT_URL } from '../config/site';
 declare global {
 	interface Window {
 		fbq?: (...args: unknown[]) => void;
-		gtag?: (...args: unknown[]) => void;
+		dataLayer?: Record<string, unknown>[];
 	}
 }
 
@@ -27,7 +28,7 @@ document.addEventListener('click', (event) => {
 
 	try {
 		window.fbq?.('trackCustom', 'CliqueCheckout');
-		window.gtag?.('event', 'begin_checkout');
+		(window.dataLayer ??= []).push({ event: 'begin_checkout' });
 	} catch {
 		// o rastreamento nunca pode impedir a navegação para o checkout
 	}
