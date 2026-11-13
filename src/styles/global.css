@@ -34,7 +34,7 @@ body::after {
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  background: url("/textures/noise.png") repeat;
+  background: url("/textures/noise.webp") repeat;
   opacity: 0.04;
 }
 
