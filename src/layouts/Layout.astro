@@ -24,8 +24,9 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 		{/*
 			Rastreamento (Google Analytics 4 + Pixel da Meta) em DUAS etapas, para não disputar o processador com a foto da Hero:
 			1) aqui, na hora, só as "filas": gtag() e fbq() já podem ser chamados e guardam os comandos (PageView, ViewContent, clique);
-			2) os arquivos pesados (gtag.js ~180 KB, fbevents.js ~200 KB) só baixam depois que a página terminou de abrir
-			   (evento load + um respiro), ou antes, se a pessoa já começou a mexer na página (rolar, tocar, teclar).
+			2) os arquivos pesados (gtag.js ~180 KB, fbevents.js ~200 KB) só baixam depois que a página abriu (evento load),
+			   a foto principal apareceu (LCP) e passou mais 1 s, ou antes, se a pessoa já começou a mexer na página
+			   (rolar, tocar, teclar). Limite máximo: 8 s.
 			Quando os arquivos chegam, eles processam a fila inteira. Nada se perde, só atrasa. Exceção: quem fecha a página
 			ou clica em comprar antes disso não é contado.
 		*/}
@@ -75,11 +76,34 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 				gatilhos.forEach(function (g) {
 					window.addEventListener(g, carregar, { passive: true, once: true });
 				});
-				function depoisDoLoad() {
-					setTimeout(carregar, 1200);
+				// Começa só quando a página abriu (load) E a foto principal já apareceu (LCP), mais um respiro de 1 s.
+				// Assim os scripts nunca entram na conta do LCP, por mais lento que seja o aparelho.
+				var paginaAbriu = false;
+				var fotoApareceu = true;
+				function talvez() {
+					if (paginaAbriu && fotoApareceu) setTimeout(carregar, 1000);
 				}
-				if (document.readyState === 'complete') depoisDoLoad();
-				else window.addEventListener('load', depoisDoLoad);
+				try {
+					if (window.PerformanceObserver && PerformanceObserver.supportedEntryTypes.indexOf('largest-contentful-paint') > -1) {
+						fotoApareceu = false;
+						new PerformanceObserver(function (lista) {
+							if (lista.getEntries().length) {
+								fotoApareceu = true;
+								talvez();
+							}
+						}).observe({ type: 'largest-contentful-paint', buffered: true });
+					}
+				} catch (e) {
+					fotoApareceu = true;
+				}
+				function aoAbrir() {
+					paginaAbriu = true;
+					talvez();
+				}
+				if (document.readyState === 'complete') aoAbrir();
+				else window.addEventListener('load', aoAbrir);
+				// rede de segurança: se o navegador nunca avisar o LCP (aba em segundo plano, por exemplo)
+				setTimeout(carregar, 8000);
 			})();
 		</script>
 		<meta charset="utf-8" />
