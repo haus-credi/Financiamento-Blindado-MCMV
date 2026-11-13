@@ -5,7 +5,7 @@
  * no documento avisa as duas ferramentas quando o visitante clica em qualquer um deles:
  *  - Pixel da Meta: evento padrão "InitiateCheckout" (Iniciar finalização da compra);
  *  - Google Analytics 4: evento padrão "begin_checkout".
- * As duas ferramentas são carregadas no <head> (src/layouts/Layout.astro); se alguma estiver bloqueada
+ * As duas ferramentas ficam em fila no <head> e baixam depois do load (src/layouts/Layout.astro); se alguma estiver bloqueada
  * (bloqueador de anúncios), o clique segue normalmente — só o aviso não é enviado.
  */
 import { CHECKOUT_URL } from '../config/site';

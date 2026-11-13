@@ -21,20 +21,25 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 <!-- Variantes oficiais do DS: data-title="hanzo|asimov" · data-tex="grad|flat" · data-accent="serif|sans" -->
 <html lang="pt-BR" data-title="hanzo" data-tex="grad" data-accent="serif">
 	<head>
-		{/* Google Analytics 4 (gtag.js): logo após <head>, como o Google pede. Uma única tag do Google por página. */}
-		<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`}></script>
-		<script is:inline define:vars={{ gaId: SITE.gaId }}>
+		{/*
+			Rastreamento (Google Analytics 4 + Pixel da Meta) em DUAS etapas, para não disputar o processador com a foto da Hero:
+			1) aqui, na hora, só as "filas": gtag() e fbq() já podem ser chamados e guardam os comandos (PageView, ViewContent, clique);
+			2) os arquivos pesados (gtag.js ~180 KB, fbevents.js ~200 KB) só baixam depois que a página terminou de abrir
+			   (evento load + um respiro), ou antes, se a pessoa já começou a mexer na página (rolar, tocar, teclar).
+			Quando os arquivos chegam, eles processam a fila inteira. Nada se perde, só atrasa. Exceção: quem fecha a página
+			ou clica em comprar antes disso não é contado.
+		*/}
+		<script is:inline define:vars={{ gaId: SITE.gaId, pixelId: SITE.metaPixelId }}>
 			window.dataLayer = window.dataLayer || [];
 			function gtag() {
 				dataLayer.push(arguments);
 			}
+			window.gtag = gtag; // usado por src/scripts/tracking.ts (evento de clique no checkout)
 			gtag('js', new Date());
 			gtag('config', gaId);
-			window.gtag = gtag; // usado por src/scripts/tracking.ts (evento de clique no checkout)
-		</script>
-		{/* Pixel da Meta: PageView e ViewContent ao abrir; InitiateCheckout no clique do botão (src/scripts/tracking.ts). */}
-		<script is:inline define:vars={{ pixelId: SITE.metaPixelId }}>
-			!(function (f, b, e, v, n, t, s) {
+
+			// fila do Pixel (igual ao código oficial da Meta, sem a parte que baixa o arquivo)
+			!(function (f, n) {
 				if (f.fbq) return;
 				n = f.fbq = function () {
 					n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
@@ -44,15 +49,38 @@ const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefin
 				n.loaded = !0;
 				n.version = '2.0';
 				n.queue = [];
-				t = b.createElement(e);
-				t.async = !0;
-				t.src = v;
-				s = b.getElementsByTagName(e)[0];
-				s.parentNode.insertBefore(t, s);
-			})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+			})(window);
 			fbq('init', pixelId);
 			fbq('track', 'PageView');
 			fbq('track', 'ViewContent');
+
+			(function () {
+				var iniciado = false;
+				var gatilhos = ['pointerdown', 'touchstart', 'keydown', 'scroll'];
+				function baixar(url) {
+					var s = document.createElement('script');
+					s.async = true;
+					s.src = url;
+					document.head.appendChild(s);
+				}
+				function carregar() {
+					if (iniciado) return;
+					iniciado = true;
+					gatilhos.forEach(function (g) {
+						window.removeEventListener(g, carregar);
+					});
+					baixar('https://www.googletagmanager.com/gtag/js?id=' + gaId);
+					baixar('https://connect.facebook.net/en_US/fbevents.js');
+				}
+				gatilhos.forEach(function (g) {
+					window.addEventListener(g, carregar, { passive: true, once: true });
+				});
+				function depoisDoLoad() {
+					setTimeout(carregar, 1200);
+				}
+				if (document.readyState === 'complete') depoisDoLoad();
+				else window.addEventListener('load', depoisDoLoad);
+			})();
 		</script>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
