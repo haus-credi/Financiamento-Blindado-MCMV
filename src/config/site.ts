@@ -13,6 +13,8 @@ export const SITE = {
   locale: 'pt_BR',
   /** ID de medição do Google Analytics 4 (fluxo de dados "Financiamento Blindado - Minha Casa Minha Vida"). */
   gaId: 'G-GVZVLJ364M',
+  /** Pixel da Meta (Gerenciador de Eventos > conjunto de dados "Financiamento Blindado - Minha Casa Minha Vida"). */
+  metaPixelId: '1901474004550492',
   /** Imagem de prévia ao compartilhar o link (WhatsApp, Instagram, LinkedIn): 1200 × 630, em /public. */
   image: '/og.jpg',
   themeColor: '#0e1a13',
